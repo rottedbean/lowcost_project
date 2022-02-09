@@ -1,0 +1,14 @@
+#wrap
+    #header
+        #header_inner
+            #rogo
+                
+            #search_bar
+    #nav
+        #nav_inner
+            -var item_list = ['카테고리', '카드 DB', '덱짜기', '공지사항', '마이페이지']
+            each index in item_list 
+                .nav_box
+                    li= index
+        
+        block content
