@@ -13,7 +13,7 @@ body, #warp, #container {
 /*바깥*/
 #wrap {
   width:100%;
-  height:1200px;
+  height:auto;
   background-color: greenyellow;
 }
 
@@ -84,7 +84,60 @@ body, #warp, #container {
   line-height:60px;
 }
 
-.nav_box:hover li {
+.nav_box:hover>li {
   border-bottom:3px solid blue;
 }
 
+/*카테고리*/
+
+#category {
+  position:absolute;
+  width:600px;
+  height:330px;
+}
+
+.cate_box {
+  width:194px;
+  height:100%;
+  border:3px solid black;
+  display:none;
+  position:absolute;
+}
+#fir_category {
+  position:absolute;
+}
+/*카테고리 박스*/
+#sec_category {
+  display:none;
+  position:absolute;
+  left:194px;
+  top:0px;
+}
+#thr_category {
+  display:none;
+  position:absolute;
+  left:194px;
+}
+
+/*카테고리 마우스 오버
+.nav_box:hover #fir_category {
+  display:block;
+}
+#fir_category:hover #sec_category {
+  display:block;
+  
+}
+#sec_category:hover #thr_category {
+  display:block;
+  
+}
+
+카테고리 내부 리스트*/
+.cate_box_li {
+  display:block;
+  width:100%;
+  height:10px;
+  font-family:'Pretendard-Regular';
+  font-size:9pt;
+  line-height:10px;
+}

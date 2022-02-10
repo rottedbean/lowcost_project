@@ -6,9 +6,21 @@
             #search_bar
     #nav
         #nav_inner
-            -var item_list = ['카테고리', '카드 DB', '덱짜기', '공지사항', '마이페이지']
+            .nav_box
+                li#cate_hover= '카테고리'
+                #category
+                    #fir_category.cate_box
+                        script.
+                            $("#cate_hover").mouseover(function(){$("#fir_category").css("display", "block");})
+                            $("#fir_category").mouseleave(function(){$("#fir_category").css("display", "none");})
+
+                        #sec_category.cate_box
+                            #thr_category.cate_box 
+
+                            
+            -var item_list = ['카드 DB', '덱짜기', '공지사항', '마이페이지']
             each index in item_list 
                 .nav_box
                     li= index
-        
-        block content
+    
+
