@@ -2,25 +2,31 @@
     #header
         #header_inner
             #rogo
-                
+                a(href="#")
+                    img(src="images/rogo.png" width="200px" height="150px")
             #search_bar
+                input(type="text" name="title" spellcheck="false")
+                ul#recent_search
+                    li#recent_title.recent_history= "최근 검색 목록    |    "
+                    li.recent_history= "블랙매지션"
+                    li.recent_history= "푸른 눈의 백룡"
+                    
+                    
     #nav
         #nav_inner
-            .nav_box
-                li#cate_hover= '카테고리'
-                #category
-                    #fir_category.cate_box
-                        script.
-                            $("#cate_hover").mouseover(function(){$("#fir_category").css("display", "block");})
-                            $("#fir_category").mouseleave(function(){$("#fir_category").css("display", "none");})
-
-                        #sec_category.cate_box
-                            #thr_category.cate_box 
-
-                            
-            -var item_list = ['카드 DB', '덱짜기', '공지사항', '마이페이지']
+            -var item_list = ['카테고리', '카드 DB', '덱짜기', '공지사항', '마이페이지']
             each index in item_list 
                 .nav_box
                     li= index
-    
+        #category
+            #fir_category.cate_box
+                li.cate_box_li= "안녕"
+                li.cate_box_li= "안녕"
+            #sec_category.cate_box 
+                li.cate_box_li= "안녕"
+                li.cate_box_li= "안녕"
+            #thr_category.cate_box
+                li.cate_box_li= "안녕"
+                li.cate_box_li= "안녕"
+        
 
