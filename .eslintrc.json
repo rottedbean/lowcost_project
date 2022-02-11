@@ -1,0 +1,19 @@
+{
+    "env": {
+        "browser": true,
+        "commonjs": true,
+        "es2021": true
+    },
+    "plugins": ["prettier"],
+    "extends": [
+        "eslint:recommended", "plugin:prettier/recommended",
+        "google"
+    ],
+    "parserOptions": {
+        "ecmaVersion": "latest"
+    },
+    "rules": {
+        "linebreak-style": ["error", "windows"],
+        "prettier/prettier": "error"
+    }
+}
