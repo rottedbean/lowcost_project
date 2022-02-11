@@ -3,5 +3,9 @@ html
   head
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
+    script(src="http://code.jquery.com/jquery-3.6.0.js")
+    script(src="/scripts/front.js")
   body
-    include header.pug
+    include header.pug        
+    block content
+    include footer.pug
