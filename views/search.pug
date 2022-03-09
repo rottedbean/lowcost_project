@@ -1,5 +1,22 @@
 extends layout
 
 block content
-    #search_option 
-    #search_result
+    #search_content
+        #search_option
+            #option_title
+                p#option_title_text= "검색 옵션"
+            #option_contents
+                form
+                    label(for="sort")#option_sort= "정렬"
+                        select(id="sort" name="sort")
+                            option(value="pop")= "인기순"
+                            option(value="low_co")="낮은 가격순"
+                            option(value="high_co")="높은 가격순"
+                label.search_option_list
+                    input(type="checkbox" name="option[]" value="01" checked)
+                    p.option_text="재고 없음 표시"
+                label.search_option_list
+                    input(type="checkbox" name="option[]" value="02")
+                    p.option_text="중고 상품 포함"
+        #search_line
+        #search_result

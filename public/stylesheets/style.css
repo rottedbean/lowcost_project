@@ -11,6 +11,9 @@ body, ul, div, li, footer, p, a, #warp, #container {
 }
 
 /*바깥*/
+body {
+  font-family: 'Pretendard-Regular';
+}
 #wrap {
   width:100%;
   height:auto;
@@ -24,14 +27,14 @@ body, ul, div, li, footer, p, a, #warp, #container {
 /*헤더*/
 #header {
   width:100%;
-  height:200px;
+  height:150px;
   z-index:1;
 }
 #header_inner {
   position:relative;
   width:960px;
-  left:460px;
   height:100%;
+  left:460px;
 }
 
 /*로고*/
@@ -39,47 +42,47 @@ body, ul, div, li, footer, p, a, #warp, #container {
   float:left;
   width:200px;
   height:150px;
-  margin-top:25px;
   margin-left:75px;
 }
-
+#logo img {
+  margin-top:15px;
+  margin-left:20px;
+}
 /*검색창*/
 #search_bar {
   float:left;
   width:600px;
   height:150px;
-  margin-top:25px;
 }
 #search_bar>input {
   outline-style: none; 
-  margin-top:30px;
-  margin-left:50px;
-  padding-left:15px;
   width:445px;
   height:50px;
+  margin:33px 0px 0px 50px;
+  padding-left: 10px;
   border:6px solid skyblue;
   font-family:'Pretendard-Regular';
   font-size:16pt;
 }
 #search_image {
   display:inline-block;
-  position:relative;
-  left:20px;
-  top:15px;
+  margin:43px 0px 0px 15px;
+
 }
 #recent_search {
+  display:block;
   width:auto;
   height:20px;
-  margin-top:20px;
-  margin-left:50px;
+  margin:20px 0px 0px 50px;
 }
-.recent_history {
+
+.recent_history { /*검색 목록에 추가할 클래스*/
   width:auto;
   height:100%;
   display:inline-block;
   margin-right:20px;
   font-family:'Pretendard-Regular';
-}
+} 
 
 /*네비게이션*/
 #nav {
@@ -191,17 +194,73 @@ body, ul, div, li, footer, p, a, #warp, #container {
 }
 
 /*검색 페이지*/
+/*검색 옵션*/
+#search_content {
+  position:relative;
+  left:435px;
+  height:auto;
+  width:1052px;
+  display:flex;
+}
 #search_option {
   height:600px;
   width:200px;
-  background-color: coral;
-  display:inline-block;
+  float:left;
 }
+#option_title {
+  height:70px;
+  width:100%;
+}
+#option_title_text {
+  position:relative;
+  top:20px;
+  left:20px;
+  font-family:'Pretendard-Regular';
+  font-size:17pt;
+  font-weight:900;
+}
+#option_contents {
+  height:calc(100% - 70px);
+  width:100%;
+}
+#option_sort {
+  margin-left:20px;
+  font-family:'Pretendard-Regular';
+  font-size:13pt;
+  font-weight:300;
+}
+select {
+  margin-left:40px;
+  margin-bottom:10px;
+  font-family: inherit;
+  text-align: center;
+  border: 2px solid black;
+  outline-style: none; 
+}
+input {
+  float:left;
+  margin-left:20px;
+  margin-right:10px;
+}
+.search_option_list {
+  display:block;
+  margin-top:5px;
+}
+
+#search_line {
+  float:left;
+  border:1px solid black;
+  background-color: black;
+  height:inherit;
+  width:0px;
+}
+
+/*검색 결과*/
 #search_result {
-  height:auto;
   width:850px;
+  height:auto;
   background-color: crimson;
-  
+  display:inline-block;
 }
 
 /*푸터*/
