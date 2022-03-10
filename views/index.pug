@@ -1,19 +1,42 @@
 extends layout
+include mixins
 
 block content
-    #fir_content.content_box
+    .content_box
         .inner_cont_box
-            #fir_cont_title.cont_title
+            .cont_title
                 p.cont_title_text= "최근 본 상품"
                 .cont_title_line
-            #fir_cont.main_cont
-    #sec_content.content_box
+            .main_cont
+                +card_main("#", "images/temp_card_img.png", "마력무효화 가면", "10,000원", true, true)
+                +card_main("#", "images/temp_card_img.png", "파이어월드래곤다크플루이드-네오템피스트", "10,000원", false, true)
+                +card_main("#", "images/temp_card_img.png", "홀리몰리", "10,000원", true, false)
+                +card_main("#", "images/temp_card_img.png", "과카몰리", "10,000원", false, false)
+                +card_main("#", "images/temp_card_img.png", "과카몰리", "10,000원", false, false)
+                +card_main("#", "images/temp_card_img.png", "과카몰리", "10,000원", false, false)
+
+    .content_box
         .inner_cont_box
-            #fir_cont_title.cont_title
+            .cont_title
                 p.cont_title_text= "인기 상품"
                 .cont_title_line
-    #thr_content.content_box
+            .main_cont
+                +card_main("#", "images/temp_card_img.png", "마력무효화 가면", "10,000원", true, true)
+                +card_main("#", "images/temp_card_img.png", "파이어월드래곤다크플루이드-네오템피스트", "10,000원", false, true)
+                +card_main("#", "images/temp_card_img.png", "홀리몰리", "10,000원", true, false)
+                +card_main("#", "images/temp_card_img.png", "과카몰리", "10,000원", false, false)
+                +card_main("#", "images/temp_card_img.png", "과카몰리", "10,000원", false, false)
+                +card_main("#", "images/temp_card_img.png", "과카몰리", "10,000원", false, false)
+
+    .content_box
         .inner_cont_box
-            #fir_cont_title.cont_title
+            .cont_title
                 p.cont_title_text= "스테디 셀러"
                 .cont_title_line
+            .main_cont
+                +card_main("#", "images/temp_card_img.png", "마력무효화 가면", "10,000원", true, true)
+                +card_main("#", "images/temp_card_img.png", "파이어월드래곤다크플루이드-네오템피스트", "10,000원", false, true)
+                +card_main("#", "images/temp_card_img.png", "홀리몰리", "10,000원", true, false)
+                +card_main("#", "images/temp_card_img.png", "과카몰리", "10,000원", false, false)
+                +card_main("#", "images/temp_card_img.png", "과카몰리", "10,000원", false, false)
+                +card_main("#", "images/temp_card_img.png", "과카몰리", "10,000원", false, false)

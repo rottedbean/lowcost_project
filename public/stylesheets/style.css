@@ -18,12 +18,107 @@ body {
   width:100%;
   height:auto;
 }
-#basket_off {
+
+
+/*장바구니*/
+#curtain {
+  background-color: rgba(255,255,255,0);
+  width:100vw;
+  height:100vh;
   position:fixed;
-  top:800px;
   z-index: 1;
+  transition:0.5s;
+  pointer-events : none;
 }
 
+#basket {
+  position:fixed;
+  width:100vw;
+  height:1500px;
+  z-index: 2;
+  top:750px;
+  transition:0.5s;
+  background-color:white;
+  border:1px solid #0089DD
+}
+#basket_button {
+  display:block;
+  width:152px;
+  height:27px;
+  position:relative;
+  bottom:26px;
+  left:100px;
+  text-align: center;
+  background: url("../images/basket_button.png");
+}
+#basket_button>img {
+  margin-top:3px;
+}
+
+#basket_inner{
+  width:calc(100vw - 100px);
+  height:calc(100vh - 452px);
+  margin:23px 0px 0px 50px;
+}
+#basket_cards {
+  width:calc(100% - 330px);
+  height:100%;
+  background-color: honeydew;
+  display:inline-block;
+  border:1px solid #0089DD;
+  overflow-y: auto;
+}
+#basket_cards>a {
+  margin-top:10px;
+}
+.basket_card_slot {
+  float:left;
+  width:120px;
+  height:200px;
+  margin-left:10px;
+  text-align: center;
+  text-decoration: none;
+  color:black;
+}
+.basket_card_slot:hover {
+  background-color: #999999;
+}
+.basket_card_slot:active {
+  color:red;
+}
+.basket_card_name {
+  font-size: 10pt;
+}
+.basket_card_price {
+  font-size: 11pt;
+  font-weight: 700;
+}
+#basket_recipt {
+  width:300px;
+  height:100%;
+  background-color: indianred;
+  margin-left:26px;
+  display:inline-block;
+  border:1px solid #0089DD;
+}
+#basket_list {
+  width:100%;
+  height:calc(100% - 210px);
+  background-color: thistle;
+}
+#basket_total {
+  width:100%;
+  height:180px;
+  margin-top:30px;
+  background-color: navajowhite;
+}
+
+/*목록*/
+#basket_list_title {
+  display:block;
+  font-size: 15pt;
+  font-weight: 700;
+}
 /*헤더*/
 #header {
   width:100%;
@@ -60,7 +155,7 @@ body {
   height:50px;
   margin:33px 0px 0px 50px;
   padding-left: 10px;
-  border:6px solid skyblue;
+  border:6px solid #7FB2FF;
   font-family:'Pretendard-Regular';
   font-size:16pt;
 }
@@ -104,9 +199,9 @@ body {
   text-align:center;
 }
 .nav_box>li {
-  display:inline-block;
   width:140px;
-  height:58px;
+  height:57px;
+  margin-left:25px;
   list-style:none;
   font-family:'Pretendard-Regular';
   text-align:center;
@@ -114,7 +209,7 @@ body {
   line-height:60px;
 }
 .nav_box:hover>li {
-  border-bottom:3px solid blue;
+  border-bottom:3px solid #7FB2FF;
 }
 
 /*카테고리*/
@@ -177,7 +272,7 @@ body {
 .cont_title_text {
   font-family:'Pretendard-Regular';
   text-align: center;
-  width:200px;
+  width:180px;
   height:100%;
   display:inline-block;
   line-height:48pt;
@@ -187,10 +282,50 @@ body {
 .cont_title_line {
   display:inline-block;
   position:relative;
-  bottom:5px;
+  top:5px;
   height:0px;
-  width:700px;
+  width:750px;
   border:1px solid black;
+}
+
+/*메인페이지 카드*/
+.card_slot {
+  float:left;
+  width:130px;
+  height:300px;
+  margin-left:25px;
+  text-align: center;
+  text-decoration: none;
+  color:black;
+}
+.card_slot:hover {
+  background-color: #999999;
+}
+.card_slot:active {
+  color:red;
+}
+.card_img {
+  margin-top:20px;
+}
+.card_name {
+  display:block;
+  height:30px;
+  margin-top:5px;
+  font-size: 12pt;
+}
+.card_price {
+  margin-top:25px;
+  font-size: 15pt;
+  font-weight: 700;
+}
+.icon_slot {
+  width:100%;
+  margin-top:8px;
+  height:25px;
+  text-align:center;
+}
+.icon_slot img {
+  display:inline-block;
 }
 
 /*검색 페이지*/

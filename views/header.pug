@@ -1,4 +1,6 @@
+include mixins
 #wrap
+    #curtain
     #header
         #header_inner
             a(href="#")#logo
@@ -28,6 +30,39 @@
             #thr_category.cate_box
                 li.cate_box_li= "안녕"
                 li.cate_box_li= "안녕"
-    //- img(src="images/basket.png")#basket_off
+    #basket
+        a(a href='javascript:void(0);' onclick="basket();")#basket_button
+            img(src="images/option_up.png" width="32px" height="18px")#basket_button_img
+        #basket_inner
+            #basket_cards
+                +card_basket("#", "images/temp_card_img.png", "과카몰리", "10,000원")
+                +card_basket("#", "images/temp_card_img.png", "파이어월드래곤다크플루이드-네오템피스트", "10,000원")
+                +card_basket("#", "images/temp_card_img.png", "파이어월드래곤다크플루이드-네오템피스트", "10,000원")
+                +card_basket("#", "images/temp_card_img.png", "파이어월드래곤다크플루이드-네오템피스트", "10,000원")
+                +card_basket("#", "images/temp_card_img.png", "파이어월드래곤다크플루이드-네오템피스트", "10,000원")
+                +card_basket("#", "images/temp_card_img.png", "파이어월드래곤다크플루이드-네오템피스트", "10,000원")
+                +card_basket("#", "images/temp_card_img.png", "파이어월드래곤다크플루이드-네오템피스트", "10,000원")
+                +card_basket("#", "images/temp_card_img.png", "파이어월드래곤다크플루이드-네오템피스트", "10,000원")
+                +card_basket("#", "images/temp_card_img.png", "파이어월드래곤다크플루이드-네오템피스트", "10,000원")
+                +card_basket("#", "images/temp_card_img.png", "파이어월드래곤다크플루이드-네오템피스트", "10,000원")
+                +card_basket("#", "images/temp_card_img.png", "파이어월드래곤다크플루이드-네오템피스트", "10,000원")
+                +card_basket("#", "images/temp_card_img.png", "파이어월드래곤다크플루이드-네오템피스트", "10,000원")
+                +card_basket("#", "images/temp_card_img.png", "파이어월드래곤다크플루이드-네오템피스트", "10,000원")
+                +card_basket("#", "images/temp_card_img.png", "파이어월드래곤다크플루이드-네오템피스트", "10,000원")
+                +card_basket("#", "images/temp_card_img.png", "파이어월드래곤다크플루이드-네오템피스트", "10,000원")
+                +card_basket("#", "images/temp_card_img.png", "파이어월드래곤다크플루이드-네오템피스트", "10,000원")
+                +card_basket("#", "images/temp_card_img.png", "파이어월드래곤다크플루이드-네오템피스트", "10,000원")
+                +card_basket("#", "images/temp_card_img.png", "파이어월드래곤다크플루이드-네오템피스트", "10,000원")
+                +card_basket("#", "images/temp_card_img.png", "파이어월드래곤다크플루이드-네오템피스트", "10,000원")
+                +card_basket("#", "images/temp_card_img.png", "파이어월드래곤다크플루이드-네오템피스트", "10,000원")
+                +card_basket("#", "images/temp_card_img.png", "파이어월드래곤다크플루이드-네오템피스트", "10,000원")
+                +card_basket("#", "images/temp_card_img.png", "파이어월드래곤다크플루이드-네오템피스트", "10,000원")
+                +card_basket("#", "images/temp_card_img.png", "파이어월드래곤다크플루이드-네오템피스트", "10,000원")
+            #basket_recipt
+                #basket_list  
+                    p#basket_list_title= "목록"
+                    .basket_line
+                    
+                #basket_total
 
 
