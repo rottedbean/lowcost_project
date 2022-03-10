@@ -1,7 +1,7 @@
 var is_basket = false;
 function basket(){
     if (is_basket){
-        $('#basket').css('top', '800px');
+        $('#basket').css('top', '820px');
         $('#curtain').css('background-color', 'rgba(255,255,255,0)');
         $('#basket_button_img').attr("src","images/option_up.png")
         is_basket = false;
