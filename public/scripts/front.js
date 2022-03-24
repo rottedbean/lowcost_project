@@ -25,13 +25,13 @@ function add_basket(link, img_link, name, price){
     basket_num += 1;
 }
 function remove_basket(i){
-    for (var x = i; x < basket_num - 1; x++){
+    for (var x = i; x <= basket_num - 1; x++){
         $(".basket_card_slot:eq(" + x + ") a").attr("href", $(".basket_card_slot:eq(" + (x + 1) + ")").attr("href"));
         $(".basket_card_slot:eq(" + x + ") img").attr("src", $(".basket_card_slot:eq(" + (x + 1) + ") img").attr("src"));
         $(".basket_card_slot:eq(" + x + ") .basket_card_name").html($(".basket_card_slot:eq(" + (x + 1) + ") .basket_card_name").html());
         $(".basket_card_slot:eq(" + x + ") .basket_card_price").html($(".basket_card_slot:eq(" + (x + 1) + ") .basket_card_price").html());
     }
-    $(".basket_card_slot:eq(" + (basket_num - 1) + ")").css("display", "none");
+    $(".basket_card_slot:eq(" + (basket_num) + ")").css("display", "none");
     basket_num -= 1;
 }
 
