@@ -10,8 +10,10 @@ mixin card_main(link, img_link, name, price, pop, stock)
                 img(src="images/icon_no_stock.png" width="50" height="25" )
     //- 추후 스크립트 짤때 구조체로 변경
 
-mixin card_basket(link, img_link, name, price)
+mixin card_basket(link, img_link, name, price, i)
     a.basket_card_slot(href=link)
         img(src=img_link width="80px" height="116px").card_img
         .basket_card_name= name
         .basket_card_price= price
+        .basket_remove_button(href='javascript:void(0);' onclick='remove_basket('+i+')')
+        
