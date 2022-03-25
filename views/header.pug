@@ -3,65 +3,50 @@ include mixins
     #curtain
     #header
         #header_inner
-            a(href="#")#logo
+            a(href='javascript:void(0);' onclick='add_basket("#", "images/temp_card_img.png", "홀리몰리", "10,000원");')#logo
                 img(src="images/logo.png" width="160px" height="120px")
             #search_bar
                 input(type="text" name="title" spellcheck="false")
-                a(href="#")#search_image
+                a(href='javascript:void(0);' onclick="remove_basket();")#search_image
                     img(src="images/search.png")
                 ul#recent_search
                     li#recent_title.recent_history= "최근 검색 목록    |    "
                     li.recent_history= "블랙매지션"
                     li.recent_history= "푸른 눈의 백룡"
-                    
     #nav
         #nav_inner
             -var item_list = ['카테고리', '카드 DB', '덱짜기', '공지사항', '마이페이지']
             each index in item_list 
                 .nav_box
                     li= index
-        #category
-            #fir_category.cate_box
-                li.cate_box_li= "안녕"
-                li.cate_box_li= "안녕"
-            #sec_category.cate_box 
-                li.cate_box_li= "안녕"
-                li.cate_box_li= "안녕"
-            #thr_category.cate_box
-                li.cate_box_li= "안녕"
-                li.cate_box_li= "안녕"
-    #basket
-        a(a href='javascript:void(0);' onclick="basket();")#basket_button
-            img(src="images/option_up.png" width="32px" height="18px")#basket_button_img
-        #basket_inner
-            #basket_cards
-                +card_basket("#", "images/temp_card_img.png", "과카몰리", "10,000원")
-                +card_basket("#", "images/temp_card_img.png", "파이어월드래곤다크플루이드-네오템피스트", "10,000원")
-                +card_basket("#", "images/temp_card_img.png", "파이어월드래곤다크플루이드-네오템피스트", "10,000원")
-                +card_basket("#", "images/temp_card_img.png", "파이어월드래곤다크플루이드-네오템피스트", "10,000원")
-                +card_basket("#", "images/temp_card_img.png", "파이어월드래곤다크플루이드-네오템피스트", "10,000원")
-                +card_basket("#", "images/temp_card_img.png", "파이어월드래곤다크플루이드-네오템피스트", "10,000원")
-                +card_basket("#", "images/temp_card_img.png", "파이어월드래곤다크플루이드-네오템피스트", "10,000원")
-                +card_basket("#", "images/temp_card_img.png", "파이어월드래곤다크플루이드-네오템피스트", "10,000원")
-                +card_basket("#", "images/temp_card_img.png", "파이어월드래곤다크플루이드-네오템피스트", "10,000원")
-                +card_basket("#", "images/temp_card_img.png", "파이어월드래곤다크플루이드-네오템피스트", "10,000원")
-                +card_basket("#", "images/temp_card_img.png", "파이어월드래곤다크플루이드-네오템피스트", "10,000원")
-                +card_basket("#", "images/temp_card_img.png", "파이어월드래곤다크플루이드-네오템피스트", "10,000원")
-                +card_basket("#", "images/temp_card_img.png", "파이어월드래곤다크플루이드-네오템피스트", "10,000원")
-                +card_basket("#", "images/temp_card_img.png", "파이어월드래곤다크플루이드-네오템피스트", "10,000원")
-                +card_basket("#", "images/temp_card_img.png", "파이어월드래곤다크플루이드-네오템피스트", "10,000원")
-                +card_basket("#", "images/temp_card_img.png", "파이어월드래곤다크플루이드-네오템피스트", "10,000원")
-                +card_basket("#", "images/temp_card_img.png", "파이어월드래곤다크플루이드-네오템피스트", "10,000원")
-                +card_basket("#", "images/temp_card_img.png", "파이어월드래곤다크플루이드-네오템피스트", "10,000원")
-                +card_basket("#", "images/temp_card_img.png", "파이어월드래곤다크플루이드-네오템피스트", "10,000원")
-                +card_basket("#", "images/temp_card_img.png", "파이어월드래곤다크플루이드-네오템피스트", "10,000원")
-                +card_basket("#", "images/temp_card_img.png", "파이어월드래곤다크플루이드-네오템피스트", "10,000원")
-                +card_basket("#", "images/temp_card_img.png", "파이어월드래곤다크플루이드-네오템피스트", "10,000원")
-                +card_basket("#", "images/temp_card_img.png", "파이어월드래곤다크플루이드-네오템피스트", "10,000원")
-            #basket_recipt
-                #basket_list  
-                    .basket_line
-                    
-                #basket_total
-
-
+            #category
+                #fir_category.cate_box
+                    li.cate_box_li= "안녕"
+                    li.cate_box_li= "안녕"
+                    li.cate_box_li= "안녕"
+                    li.cate_box_li= "안녕"
+                    li.cate_box_li= "안녕"
+                    li.cate_box_li= "안녕"
+                    li.cate_box_li= "안녕"
+                    li.cate_box_li= "안녕"
+                    li.cate_box_li= "안녕"
+                #sec_category.cate_box
+                    li.cate_box_li= "안녕"
+                    li.cate_box_li= "안녕"
+                    li.cate_box_li= "안녕"
+                    li.cate_box_li= "안녕"
+                    li.cate_box_li= "안녕"
+                    li.cate_box_li= "안녕"
+                    li.cate_box_li= "안녕"
+                    li.cate_box_li= "안녕"
+                    li.cate_box_li= "안녕"
+                #thr_category.cate_box
+                    li.cate_box_li= "안녕"
+                    li.cate_box_li= "안녕"
+                    li.cate_box_li= "안녕"
+                    li.cate_box_li= "안녕"
+                    li.cate_box_li= "안녕"
+                    li.cate_box_li= "안녕"
+                    li.cate_box_li= "안녕"
+                    li.cate_box_li= "안녕"
+                    li.cate_box_li= "안녕"
