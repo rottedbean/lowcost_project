@@ -1,15 +1,15 @@
 include mixins
 #wrap
-    #curtain
+    #curtain(href='javascript:void(0);' onclick='basket();')
     #header
         #header_inner
-            a(href='javascript:void(0);' onclick='add_basket("#", "images/temp_card_img.png", "홀리몰리", "10,000원");')#logo
+            a(href='javascript:void(0);' onclick='add_basket("#", "#", "홀리몰리", "10,000원", 1);')#logo
                 img(src="" width="160px" height="120px")
                 //- 이미지 링크 복구하기
             #search_bar
                 input(type="text" name="title" spellcheck="false")
                 a(href='javascript:void(0);' onclick="remove_basket();")#search_image
-                    img(src="")
+                    img(src="/images/search.png")
                     //- 이미지 링크 복구하기
                 ul#recent_search
                     li#recent_title.recent_history= "최근 검색 목록    |    "

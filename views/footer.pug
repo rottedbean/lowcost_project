@@ -1,20 +1,25 @@
 footer
     p.footer_text= "도비마켓"
 #basket
-        a(href='javascript:void(0);' onclick="basket();")#basket_button
-            img(src="images/option_up.png" width="32px" height="18px")#basket_button_img
-        #basket_inner
-            #basket_cards
-                - for (var i = 0; i <= 100; i++)
-                    +card_basket("#", "images/temp_card_img.png", "과카몰리", i, i)
+    a(href='javascript:void(0);' onclick="basket();")#basket_button
+        img(src="images/option_up.png" width="32px" height="18px")#basket_button_img
+    #basket_inner
+        #basket_cards
+            - for (var i = 0; i <= 100; i++)
+                +card_basket("#", "#", "과카몰리", i, i)
+                //- 이미지 링크 복구하기
 
-            #basket_recipt
-                #basket_list
-                    p#receipt_title= "목록"
-                    .basket_line
-                    .receipt_list
-                        - for (var i = 0; i <= 100; i++)
-                            +card_list("과카몰리", 3, 1000)
+        #basket_recipt
+            #basket_list
+                p#receipt_title= "목록"
+                .basket_line
+                .receipt_list
+                    - for (var i = 0; i <= 100; i++)
+                        +card_list("홀리몰리", 3, 1000)
 
-
-                #basket_total
+            #basket_total
+                p#receipt_total_title= "합계"
+                .basket_line
+                #receipt_total_slot
+                    p#receipt_total_count= "총 0개"
+                    p#receipt_total_sum= "₩ 0"
