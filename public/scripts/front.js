@@ -1,8 +1,6 @@
 var is_basket = false;
 var receipt = {
-    index_list : new Array(),
-    name_list : new Array(),
-    count : new Array(),
+    //idx, name, count 순
     sum : 0
 };
 
@@ -31,8 +29,16 @@ function add_basket(link, img_link, name, price, idx){
     $(".basket_card_slot:eq(" + basket_num + ") .basket_card_name").html(name);
     $(".basket_card_slot:eq(" + basket_num + ") .basket_card_price").html(price);
     //영수증
-    if (idx in receipt.index_list){
-        
+    //idx가 리스트 안에 있을 때
+    if (receipt.index_list.includes(idx)){
+        console.log("!");
+        console.log(receipt.index_list);
+    }
+    //idx가 리스트 안에 없을 때
+    else {
+        console.log('?');
+        receipt.index_list.push(idx)
+        console.log(receipt.index_list);
     }
     basket_num += 1;
     
@@ -71,8 +77,8 @@ function test(){
     var name = $("#name").val()
     var link = $("#link").val()
     var price = $("#price").val()
-    var index = $("#index").val()
-
+    var idx = $("#index").val()
+    add_basket(link, "#", name, price, idx)
 }
 
 function reset(){
