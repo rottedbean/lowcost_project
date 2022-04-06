@@ -4,18 +4,20 @@ include mixins
     #header
         #header_inner
             a(href='javascript:void(0);' onclick='add_basket("#", "images/temp_card_img.png", "홀리몰리", "10,000원");')#logo
-                img(src="images/logo.png" width="160px" height="120px")
+                img(src="" width="160px" height="120px")
+                //- 이미지 링크 복구하기
             #search_bar
                 input(type="text" name="title" spellcheck="false")
                 a(href='javascript:void(0);' onclick="remove_basket();")#search_image
-                    img(src="images/search.png")
+                    img(src="")
+                    //- 이미지 링크 복구하기
                 ul#recent_search
                     li#recent_title.recent_history= "최근 검색 목록    |    "
-                    li.recent_history= "블랙매지션"
-                    li.recent_history= "푸른 눈의 백룡"
+                    li.recent_history= "!"
+                    li.recent_history= "!"
     #nav
         #nav_inner
-            -var item_list = ['카테고리', '카드 DB', '덱짜기', '공지사항', '마이페이지']
+            -var item_list = ['카테고리', 'DB', '덱', '공지사항', '마이페이지']
             each index in item_list 
                 .nav_box
                     li= index

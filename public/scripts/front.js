@@ -1,4 +1,11 @@
 var is_basket = false;
+var receipt = {
+    index_list : new Array(),
+    name_list : new Array(),
+    count : new Array(),
+    sum : 0
+};
+
 //장바구니
 function basket(){
     if (is_basket){
@@ -15,14 +22,20 @@ function basket(){
     }
 };
 //장바구니 추가 및 제거하기
-var basket_num = 5;
-function add_basket(link, img_link, name, price){
+var basket_num = 0;
+function add_basket(link, img_link, name, price, idx){
+    //장바구니
     $(".basket_card_slot:eq(" + basket_num + ")").css("display", "block");
     $(".basket_card_slot:eq(" + basket_num + ")").attr("href", link);
     $(".basket_card_slot:eq(" + basket_num + ") img").attr("src", img_link);
     $(".basket_card_slot:eq(" + basket_num + ") .basket_card_name").html(name);
     $(".basket_card_slot:eq(" + basket_num + ") .basket_card_price").html(price);
+    //영수증
+    if (idx in receipt.index_list){
+        
+    }
     basket_num += 1;
+    
 }
 function remove_basket(i){
     for (var x = i; x <= basket_num - 1; x++){
@@ -53,3 +66,17 @@ $(function(){
         $(this).addClass("cate_box_li_selected");
     });
 })
+
+function test(){
+    var name = $("#name").val()
+    var link = $("#link").val()
+    var price = $("#price").val()
+    var index = $("#index").val()
+
+}
+
+function reset(){
+    $(".basket_card_slot").css("display", "none");
+    $(".receipt_list_one").css("display", "none");
+    basket_num = 0;
+}
