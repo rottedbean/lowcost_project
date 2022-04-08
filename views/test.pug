@@ -1,0 +1,15 @@
+extends layout
+include mixins
+
+block content
+    .test
+        p= "이름" 
+        input#name(type="text" name="name")
+        p= "링크"
+        input#link(type="text" name="link")
+        p= "가격"
+        input#price(type="text" name="price")
+        p= "인덱스"
+        input#index(type="text" name="idx")
+    button.test_button(href='javascript:void(0);' onclick='test();')= "submit"
+    button.test_button(href='javascript:void(0);' onclick='reset();')= "reset"

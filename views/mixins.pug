@@ -1,6 +1,7 @@
 mixin card_main(link, img_link, name, price, pop, stock)
     a.card_slot(href=link)
-        img(src=img_link width="100px" height="144px").card_img
+        img(src="" width="100px" height="144px").card_img
+        //- 이미지 링크 복구하기
         .card_name= name
         .card_price= price
         .icon_slot
@@ -12,8 +13,17 @@ mixin card_main(link, img_link, name, price, pop, stock)
 
 mixin card_basket(link, img_link, name, price, i)
     a.basket_card_slot(href=link)
-        img(src=img_link width="80px" height="116px").card_img
+        img(src="" width="80px" height="116px").card_img 
+        //- 이미지 링크 복구하기
         .basket_card_name= name
         .basket_card_price= price
         .basket_remove_button(href='javascript:void(0);' onclick='remove_basket('+i+')')
         
+mixin card_list(name, count, price)
+    .receipt_list_one
+        .receipt_list_slot1
+            p.receipt_list_name= name
+            p.receipt_list_price= `개당 ${price}`
+        .receipt_list_slot2
+            p.receipt_list_calc= `${price} x ${count} ea`
+            p.receipt_list_total= `₩ ${price * count}`

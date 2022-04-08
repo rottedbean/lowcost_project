@@ -19,7 +19,6 @@ body {
   height:auto;
 }
 
-
 /*장바구니*/
 #curtain {
   background-color: rgba(255,255,255,0);
@@ -81,24 +80,6 @@ body {
   text-decoration: none;
   color:black;
 }
-.basket_card_slot:nth-child(1){
-  display:block;
-}
-.basket_card_slot:nth-child(2){
-  display:block;
-}
-.basket_card_slot:nth-child(3){
-  display:block;
-}
-.basket_card_slot:nth-child(4){
-  display:block;
-}
-.basket_card_slot:nth-child(5){
-  display:block;
-}
-.basket_card_slot:nth-child(6){
-  display:block;
-}
 .basket_card_slot:hover {
   background-color: #999999;
 }
@@ -115,20 +96,20 @@ body {
 #basket_recipt {
   width:300px;
   height:100%;
-  background-color: indianred;
   margin-left:26px;
-  border:1px solid #0089DD;
 }
 #basket_list {
   width:100%;
-  height:calc(100% - 210px);
-  background-color: thistle;
+  height:calc(100% - 150px);
+  background-color: rgb(230, 230, 230);
+  border:1px solid #0089DD;
 }
 #basket_total {
   width:100%;
-  height:180px;
+  height:120px;
   margin-top:30px;
-  background-color: navajowhite;
+  background-color: rgb(230, 230, 230);
+  border:1px solid #0089DD;
 }
 .basket_card_slot:hover .basket_remove_button{
   display:block;
@@ -140,7 +121,6 @@ body {
   left:99px;
   width:18px;
   height:18px;
-  background-color: tomato;
 }
 .basket_remove_button:after{
   content:"\00d7";
@@ -148,6 +128,92 @@ body {
   line-height:1px;
 }
 
+/*장바구니 리스트*/
+#receipt_title{
+  margin:5px 0px;
+  text-align: center;
+  height:40px;
+  font-size:20pt;
+  line-height: 40px;
+}
+.basket_line{
+  width:85%;
+  margin-left:15pt;
+  border: 1px solid black;
+  height:0pt;
+}
+.receipt_list{
+  overflow-y: auto;
+  width:calc(100% - 46px);
+  height:calc(100% - 40px);
+  margin:0px 20px;
+}
+
+.receipt_list_one{
+  padding-top:10px;
+  width:100%;
+  height:45px;
+  display:none;
+}
+.receipt_list_slot1{
+  width:60%;
+  height:100%;
+}
+.receipt_list_slot2{
+  width:40%;
+  height:100%;
+}
+
+.receipt_list_name{
+  font-size:14pt;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow:hidden;
+  text-overflow: ellipsis;
+}
+.receipt_list_price{
+  font-size:10pt;
+  margin-top:8px;
+}
+.receipt_list_calc{
+  font-size:10pt;
+  float:right;
+}
+.receipt_list_total{
+  font-size:14pt;
+  margin-top:8px;
+  font-weight: 700;
+  float:right;
+}
+#receipt_total_title{
+  margin:5px 0px;
+  text-align: center;
+  height:35px;
+  font-size:18pt;
+  line-height: 35px;
+}
+
+#receipt_total_slot{
+  display:flex;
+  width:calc(100% - 46px);
+  height:calc(100% - 60px);
+  margin:10px 23px;
+}
+#receipt_total_count{
+  width:40%;
+  height:auto;
+  margin-top:20px;
+  font-size:15pt;
+  font-weight:700;
+}
+#receipt_total_sum{
+  width:60%;
+  height:auto;
+  font-size:20pt;
+  margin-top:15px;
+  text-align: right;
+  font-weight:700;
+}
 
 /*목록*/
 #basket_list_title {
@@ -468,4 +534,15 @@ footer {
   font-family:'Pretendard-Regular';
   text-align: center;
   font-size:18pt;
+}
+
+/*테스트 페이지*/
+.test {
+  width:100%;
+  display:flex;
+  margin: 50px 0px;
+  text-align: center;
+}
+.test_button {
+  text-align: center;
 }
