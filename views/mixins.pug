@@ -27,3 +27,15 @@ mixin card_list(name, count, price)
         .receipt_list_slot2
             p.receipt_list_calc= `${price} x ${count} ea`
             p.receipt_list_total= `₩ ${price * count}`
+
+mixin search_list(name, img_link, count, price, link)
+    a.search_list_box(href=link)
+        .search_list_img
+            img(src=img_link width="70px" height="102px")
+        .search_list_slot1 
+            p.search_list_name= name
+            p.search_list_count= count
+        .search_list_slot2
+            p.search_list_lowest= "최저가"
+            p.search_list_price= price
+    .search_list_line

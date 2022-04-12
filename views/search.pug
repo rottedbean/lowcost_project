@@ -1,3 +1,8 @@
+//- 옵션에 정렬 개수 만들기
+//- 페이지 개수 만들기
+//- 옵션 변경할 때마다 페이지 정렬하는 기능
+//- 페이지 10개 넘어가면 어떡해? 슈ㅠ발탱
+
 extends layout
 
 block content
@@ -12,11 +17,19 @@ block content
                             option(value="pop")= "인기순"
                             option(value="low_co")="낮은 가격순"
                             option(value="high_co")="높은 가격순"
-                label.search_option_list
-                    input(type="checkbox" name="option[]" value="01" checked)
-                    p.option_text="재고 없음 표시"
-                label.search_option_list
-                    input(type="checkbox" name="option[]" value="02")
-                    p.option_text="중고 상품 포함"
+                    label.search_option_list
+                        input(type="checkbox" name="option[]" value="01" checked)
+                        p.option_text="재고 없음 표시"
+                    label.search_option_list
+                        input(type="checkbox" name="option[]" value="02")
+                        p.option_text="중고 상품 포함"
         #search_line
         #search_result
+            .search_list_line
+            - for (var i = 0; i <= 10; i++)
+                +search_list("김치", "#", "김치를 듬뿍 담아버린 김치", 2500, "#")
+            #search_list_page 
+                p.search_list_page_line= "|"
+                -for (var i = 1; i <= 10; i++)
+                    a.search_list_page_link(href="#")= i
+                    p.search_list_page_line= "|"
