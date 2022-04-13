@@ -1,9 +1,4 @@
-//- 페이지 개수 만들기
-//- 옵션 변경할 때마다 페이지 정렬하는 기능
-//- 페이지 10개 넘어가면 어떡해? 슈ㅠ발탱
-
 extends layout_search
-
 
 block content
     #search_content
@@ -33,11 +28,11 @@ block content
         #search_line
         #search_result
             .search_list_line
-            - for (var i = 0; i <= 10; i++)
+            - for (var i = 0; i <= 30; i++)
                 +search_list("김치", "#", "김치를 듬뿍 담아버린 김치", 2500, "#")
             #search_list_page
                 #search_list_page_center
                     p.search_list_page_line= "|"
-                    -for (var i = 1; i <= 10; i++)
+                    -for (var i = 1; i <= 15; i++)
                         a.search_list_page_link(href="#")= i
                         p.search_list_page_line= "|"

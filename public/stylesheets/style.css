@@ -22,7 +22,7 @@ body {
 /*장바구니*/
 #curtain {
   background-color: rgba(255,255,255,0);
-  width:100vw;
+  width:100%;
   height:100vh;
   position:fixed;
   z-index: 2;
@@ -32,7 +32,7 @@ body {
 
 #basket {
   position:fixed;
-  width:100vw;
+  width:100%;
   height:1500px;
   z-index: 3;
   top:820px;
@@ -461,8 +461,10 @@ body {
   display:flex;
 }
 #search_option {
+  position:relative;
   height:600px;
   width:200px;
+  top:0;
   float:left;
 }
 #option_title {
@@ -489,7 +491,7 @@ body {
   font-weight:300;
 }
 .option_select select{
-  width:100px;
+  width:80px;
 }
 select {
   margin-left:40px;
@@ -531,7 +533,7 @@ input {
   height:160px;
   width:100%;
   /* background-color: #7FB2FF; */
-  display:flex;
+  display:none;
   text-decoration: none;
   color:black;
 }
@@ -567,19 +569,24 @@ input {
 }
 .search_list_lowest {
   font-size:18pt;
+  width:80px;
   color:orange;
   margin-top:100px;
+  margin-left:20px;
 }
 .search_list_price {
   font-size:18pt;
   font-weight:700;
   margin-top:100px;
   margin-left:30px;
+  width:60px;
+  text-align: right;
 }
 .search_list_line {
   height:0px;
   width:100%;
   border:1px solid black;
+  display:none;
 }
 #search_list_page {
   width:100%;
@@ -595,7 +602,17 @@ input {
 }
 .search_list_page_link {
   margin:0px 5px;
+  text-decoration: none;
+  display:none;
 }
+.search_list_page_line {
+  display:none;
+}
+.search_now_page{
+  color:black;
+  font-weight:700;
+}
+
 
 /*푸터*/
 footer {
