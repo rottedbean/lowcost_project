@@ -1,9 +1,9 @@
-//- 옵션에 정렬 개수 만들기
 //- 페이지 개수 만들기
 //- 옵션 변경할 때마다 페이지 정렬하는 기능
 //- 페이지 10개 넘어가면 어떡해? 슈ㅠ발탱
 
-extends layout
+extends layout_search
+
 
 block content
     #search_content
@@ -12,24 +12,32 @@ block content
                 p#option_title_text= "검색 옵션"
             #option_contents
                 form
-                    label(for="sort")#option_sort= "정렬"
+                    label(for="sort")#option_sort.option_select= "정렬"
                         select(id="sort" name="sort")
-                            option(value="pop")= "인기순"
-                            option(value="low_co")="낮은 가격순"
-                            option(value="high_co")="높은 가격순"
+                            option(value="1")= "인기순"
+                            option(value="2")="낮은 가격순"
+                            option(value="3")="높은 가격순"
+                    label(for="list_count")#option_count.option_select= "목록"
+                        select(id="list_count" name="list_count")
+                            option(value="10")= "10개"
+                            option(value="15")= "15개"
+                            option(value="20")= "20개"
+                            option(value="25")= "25개"
+                            option(value="30")= "30개"
                     label.search_option_list
-                        input(type="checkbox" name="option[]" value="01" checked)
+                        input(type="checkbox" name="option" value="01" checked)
                         p.option_text="재고 없음 표시"
                     label.search_option_list
-                        input(type="checkbox" name="option[]" value="02")
+                        input(type="checkbox" name="option" value="02")
                         p.option_text="중고 상품 포함"
         #search_line
         #search_result
             .search_list_line
             - for (var i = 0; i <= 10; i++)
                 +search_list("김치", "#", "김치를 듬뿍 담아버린 김치", 2500, "#")
-            #search_list_page 
-                p.search_list_page_line= "|"
-                -for (var i = 1; i <= 10; i++)
-                    a.search_list_page_link(href="#")= i
+            #search_list_page
+                #search_list_page_center
                     p.search_list_page_line= "|"
+                    -for (var i = 1; i <= 10; i++)
+                        a.search_list_page_link(href="#")= i
+                        p.search_list_page_line= "|"

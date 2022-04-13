@@ -481,11 +481,15 @@ body {
   height:calc(100% - 70px);
   width:100%;
 }
-#option_sort {
+
+.option_select {
   margin-left:20px;
   font-family:'Pretendard-Regular';
   font-size:13pt;
   font-weight:300;
+}
+.option_select select{
+  width:100px;
 }
 select {
   margin-left:40px;
@@ -579,9 +583,15 @@ input {
 }
 #search_list_page {
   width:100%;
-  height:20px;
+  height:30px;
+  
+}
+#search_list_page_center{
+  margin-top:15px;
   display:flex;
+  justify-content: center;
   text-align: center;
+  
 }
 .search_list_page_link {
   margin:0px 5px;

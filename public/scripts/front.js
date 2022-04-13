@@ -1,3 +1,4 @@
+// 장바구니용 글로벌 변수
 var is_basket = false;
 var receipt = {
     index_list : new Array(),
@@ -7,6 +8,7 @@ var receipt = {
     total : 0,
     sum : 0
 };
+
 // 드롭다운 메뉴
 $(function(){
     $("#sec_category").mouseover(function(){
