@@ -18,7 +18,9 @@
     "morgan": "~1.9.1",
     "mysql": "^2.18.1",
     "node-cron": "^3.0.0",
-    "pug": "^3.0.2"
+    "pm2": "^5.2.0",
+    "pug": "^3.0.2",
+    "sanitize-html": "^2.7.0"
   },
   "devDependencies": {
     "eslint": "^8.8.0",
