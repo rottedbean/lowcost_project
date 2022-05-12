@@ -1,0 +1,21 @@
+extends layout
+include mixins
+
+block content
+    #content_box
+        #main_content_box
+            #main_detail_box
+                img(src="" width="300px" height="435px")#main_detail_image
+                #main_detail_text
+                    #main_detail_text_name.main_content_box
+                        p.name_name="카드 이름"
+                        p#card_detail_name="card name"
+                    #main_detail_text_info.main_content_box
+                        p.name_name="카드 정보"
+                        p#card_detail_info.card_detail_box_text="card info"
+                    #main_detail_text_price.main_content_box
+                        p.name_name="카드 가격"
+                        p#card_detail_price.card_detail_box_text="card price"
+            #main_same_name
+                p#main_same_name_title="같은 이름 카드"
+                
