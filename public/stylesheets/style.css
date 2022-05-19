@@ -679,13 +679,6 @@ footer {
   margin:0px 30px;
   word-break:break-all;
 }
-/*
-#main_detail_text_info{
-
-}
-#main_detail_text_price{
-
-}*/
 .main_content_box {
   display:block;
   text-align: left;
@@ -713,8 +706,10 @@ footer {
 #main_same_name{
   margin:50px 0px;
   width:calc(100% - 100px);
-  height:200px;
+  height:auto;
   border:1px solid black;
+  justify-content: center;
+  padding-bottom:40px;
 }
 #main_same_name_title {
   font-weight: 700;
@@ -726,6 +721,34 @@ footer {
   bottom:14px;
   left:14px;
 }
+
+/*같은 이름 카드*/
+#same_name_box {
+  display:flex;
+  flex-wrap: wrap;
+  height:calc(100% - 29px);
+  width:100%;
+  
+}
+.same_name_card {
+  height:auto;
+  width:142px;
+  margin:30px 0px 0px 25px;
+  padding:10px 0px;
+  text-decoration: none;
+  color:black;
+  display:none;
+}
+.same_name_card:hover{
+  background-color: #999999;
+}
+#same_name_card_name {
+  font-size: 14pt;
+  font-weight:700;
+  word-break: break-all;
+
+}
+
 /*테스트 페이지*/
 .test {
   width:100%;

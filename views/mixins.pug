@@ -39,3 +39,13 @@ mixin search_list(name, img_link, count, price, link)
             p.search_list_lowest= "최저가"
             p.search_list_price= price
     .search_list_line
+
+mixin same_name(link, name, img_link, code, stock)
+    a.same_name_card(href=link)
+        img(src=img_link width="90px" height="120px")#same_name_card_img
+        p#same_name_card_name= name
+        p#same_name_card_code= code
+        if stock
+            p#same_name_card_stock= "true"
+        else 
+            p#same_name_card_stock= "false"
