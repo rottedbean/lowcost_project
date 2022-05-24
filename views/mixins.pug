@@ -8,41 +8,38 @@ mixin card_main()
             img(src="images/icon_no_stock.png" width="50" height="25" )#img2
     //- 추후 스크립트 짤때 구조체로 변경
 
-mixin card_basket(link, img_link, name, price, i)
-    a.basket_card_slot(href=link)
+mixin card_basket(i)
+    a.basket_card_slot(href='#')
         img(src="" width="80px" height="116px").card_img 
         //- 이미지 링크 복구하기
-        .basket_card_name= name
-        .basket_card_price= price
+        .basket_card_name
+        .basket_card_price
         .basket_remove_button(href='javascript:void(0);' onclick='remove_basket('+i+')')
         
-mixin card_list(name, count, price)
+mixin card_list()
     .receipt_list_one
         .receipt_list_slot1
-            p.receipt_list_name= name
-            p.receipt_list_price= `개당 ${price}`
+            p.receipt_list_name
+            p.receipt_list_price= `개당 `
         .receipt_list_slot2
-            p.receipt_list_calc= `${price} x ${count} ea`
-            p.receipt_list_total= `₩ ${price * count}`
+            p.receipt_list_calc= ` ea`
+            p.receipt_list_total= `₩ `
 
-mixin search_list(name, img_link, count, price, link)
-    a.search_list_box(href=link)
+mixin search_list()
+    a.search_list_box(href="#")
         .search_list_img
-            img(src=img_link width="70px" height="102px")
+            img(src="" width="70px" height="102px")
         .search_list_slot1 
-            p.search_list_name= name
-            p.search_list_count= count
+            p.search_list_name
+            p.search_list_count
         .search_list_slot2
             p.search_list_lowest= "최저가"
-            p.search_list_price= price
+            p.search_list_pric
     .search_list_line
 
-mixin same_name(link, name, img_link, code, stock)
-    a.same_name_card(href=link)
-        img(src=img_link width="90px" height="120px")#same_name_card_img
-        p#same_name_card_name= name
-        p#same_name_card_code= code
-        if stock
-            p#same_name_card_stock= "true"
-        else 
-            p#same_name_card_stock= "false"
+mixin same_name()
+    a.same_name_card(href='#')
+        img(src='' width="90px" height="120px")#same_name_card_img
+        p#same_name_card_name
+        p#same_name_card_code
+        p#same_name_card_stock= "true"

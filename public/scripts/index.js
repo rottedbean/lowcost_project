@@ -6,13 +6,14 @@
 
 
 window.onload = function(){
-    localStorage.setItem("name", JSON.stringify([123, 456, 789]));
-    setCategory(1, 1);
+    //localStorage.setItem("name", JSON.stringify([123, 456, 789]));
+    initCategory();
     // 로컬 스토리지 로드를 통한 최근 검색 목록
     // 로컬스토리지 'name'가 비어있을 경우
     if(localStorage.getItem('name') == null){
         $("#main_cont_1").css("display", "block");
         $("#main_cont_2").css("display", "none");
+        console.log("!");
     }
     // 로컬 스토리지 'name'가 있을 경우
     else{

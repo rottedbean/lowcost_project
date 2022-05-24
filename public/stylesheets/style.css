@@ -597,6 +597,21 @@ input {
   width:60px;
   text-align: right;
 }
+#current_search{
+  height:50px;
+  width:100%;
+  padding:10px 30px;
+}
+#current_search_result {
+  font-size:25pt;
+  font-weight: 700;
+  display:inline-block;
+}
+#current_search_text {
+  font-size:20pt;
+  margin-left:20px;
+  display:inline-block;
+}
 .search_list_line {
   height:0px;
   width:100%;

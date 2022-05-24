@@ -9,6 +9,7 @@ var receipt = {
     sum : 0
 };
 var page2 = 0;
+var category = [];
 
 // 드롭다운 메뉴
 $(function(){
@@ -31,9 +32,8 @@ $(function(){
     });
 });
 
-//카테고리 불러오기
-function setCategory(a, b){
-    var category = callCategory();
+function initCategory(){
+    category = callCategory()
     for (var i = 0; i < 10; i++){
         var dir = "#category1 li:eq(" + i + ")";
         if (i < category[0].length){
@@ -41,14 +41,27 @@ function setCategory(a, b){
         }
         else{
             $(dir).css("display", "none");
-        }
+        };
     }
+    for (var i = 0; i < 10; i++){
+        var dir = "#category2 li:eq(" + i + ")";
+        if (i < category[1][0].length){
+            $(dir).html(category[1][0][i]);
+        }
+        else{
+            $(dir).css("display", "none");
+        };
+    }
+}
 
+//카테고리 불러오기
+function setCategory(a, b){
     if (a != -1){
         for (var i = 0; i < 10; i++){
             var dir = "#category2 li:eq(" + i + ")";
             if (i < category[1][a].length){
                 $(dir).html(category[1][a][i]);
+                $(dir).css("display", "block");
             }
             else{
                 $(dir).css("display", "none");
@@ -59,8 +72,10 @@ function setCategory(a, b){
     if (b != -1){
         for (var i = 0; i < 10; i++){
             var dir = "#category3 li:eq(" + i + ")";
+            console.log(category[2][page2][b].length);
             if (i < category[2][page2][b].length){
                 $(dir).html(category[2][page2][b][i]);
+                $(dir).css("display", "block");
             }
             else{
                 $(dir).css("display", "none");
@@ -185,34 +200,41 @@ function addComma(value){
     return temp; 
 }
 
-
+// 카테고리 임시 배정
 function callCategory(){
-    return [
-        ["가", "나", "다"],
-        [
-            ["가", "갸", "거", "겨"],
-            ["나", "냐", "너"],
-            ["다", "댜", "더", "뎌", "도"]
-        ],
-        [
-            [
-                ["각", "간", "갇", "갈", "감"],
-                ["갹", "갼", "갿", "걀"],
-                ["걱", "건", "걷", "걸", "검", "겁"],
-                ["격", "견", "겯", "결", "겸"]
-            ],
-            [
-                ["낙", "난", "낟", "날"],
-                ["냑", "냔"],
-                ["넉", "넌", "넏", "널", "넘"]
-            ],
-            [
-                ["다1"],
-                ["다2"],
-                ["다3"],
-                ["다4"],
-                ["다5"]
-            ]
-        ]
-    ]
+    return {
+        0 : ["ㄱ", "ㄴ", "ㄷ"],
+        1 : {
+            0 : ["가", "갸", "거", "겨"],
+            1 : ["나", "냐", "너"],
+            2 : ["다", "댜", "더", "뎌", "도"]
+        },
+        2 : {
+            0 : {
+                0 : ["각", "간", "갇", "갈", "감"],
+                1 : ["갹", "갼", "갿", "걀"],
+                2 : ["걱", "건", "걷", "걸", "검", "겁"],
+                3 : ["격", "견", "겯", "결", "겸"]
+            },
+            1 : {
+                0 : ["낙", "난", "낟", "날"],
+                1 : ["냑", "냔"],
+                2 : ["넉", "넌", "넏", "널", "넘"]
+            },
+            2 : {
+                0 : ["다1"],
+                1 : ["다2"],
+                2 : ["다3"],
+                3 : ["다4"],
+                4 : ["다5"]
+            }
+        } 
+    }
+}
+
+// 서치 함수
+function searchFunc(){
+    var value = $("input[name=title]").val();
+    var url = "/search?value=";
+    location.href = url + encodeURI(value, "utf-8");
 }
