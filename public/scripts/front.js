@@ -8,44 +8,84 @@ var receipt = {
     total : 0,
     sum : 0
 };
+var page2 = 0;
 
 // 드롭다운 메뉴
 $(function(){
-    $("#sec_category").mouseover(function(){
+    $("#category2").mouseover(function(){
         $("#category").css("width", "582px");
     });
-    $("#fir_category > .cate_box_li").mouseover(function(){
-        $("#fir_category > .cate_box_li").removeClass("cate_box_li_selected");
+    $("#category1 > .cate_box_li").mouseover(function(){
+        $("#category1 > .cate_box_li").removeClass("cate_box_li_selected");
         $(this).addClass("cate_box_li_selected");
-        $("#sec_category > .cate_box_li").removeClass("cate_box_li_selected");
+        $("#category2 > .cate_box_li").removeClass("cate_box_li_selected");
     });
-    $("#sec_category > .cate_box_li").mouseover(function(){
-        $("#sec_category > .cate_box_li").removeClass("cate_box_li_selected");
+    $("#category2 > .cate_box_li").mouseover(function(){
+        $("#category2 > .cate_box_li").removeClass("cate_box_li_selected");
         $(this).addClass("cate_box_li_selected");
-        $("#thr_category > .cate_box_li").removeClass("cate_box_li_selected");
+        $("#category3 > .cate_box_li").removeClass("cate_box_li_selected");
     });
-    $("#thr_category > .cate_box_li").mouseover(function(){
-        $("#thr_category > .cate_box_li").removeClass("cate_box_li_selected");
+    $("#category3 > .cate_box_li").mouseover(function(){
+        $("#category3 > .cate_box_li").removeClass("cate_box_li_selected");
         $(this).addClass("cate_box_li_selected");
     });
 });
 
-//장바구니
+//카테고리 불러오기
+function setCategory(a, b){
+    var category = callCategory();
+    for (var i = 0; i < 10; i++){
+        var dir = "#category1 li:eq(" + i + ")";
+        if (i < category[0].length){
+            $(dir).html(category[0][i]);
+        }
+        else{
+            $(dir).css("display", "none");
+        }
+    }
+
+    if (a != -1){
+        for (var i = 0; i < 10; i++){
+            var dir = "#category2 li:eq(" + i + ")";
+            if (i < category[1][a].length){
+                $(dir).html(category[1][a][i]);
+            }
+            else{
+                $(dir).css("display", "none");
+            }
+        }
+        page2 = a;
+    }
+    if (b != -1){
+        for (var i = 0; i < 10; i++){
+            var dir = "#category3 li:eq(" + i + ")";
+            if (i < category[2][page2][b].length){
+                $(dir).html(category[2][page2][b][i]);
+            }
+            else{
+                $(dir).css("display", "none");
+            }
+        }
+    }
+}
+
+//장바구니 열고 닫기
 function basket(){
     if (is_basket){
         $('#basket').css('top', '820px');
         $('#curtain').css('background-color', 'rgba(255,255,255,0)');
         $('#basket_button_img').attr("src","images/option_up.png")
-        //$('#curtain').css('pointer-events', 'none');
         is_basket = false;
     }
     else {
         $('#basket').css('top', '350px');
         $('#curtain').css('background-color', 'rgba(100,100,100,0.5)');
         $('#basket_button_img').attr("src","images/option_down.png")
-        //$('#curtain').css('pointer-events', 'auto');
         is_basket = true;
     }
+};
+function basket_add(){
+    console.log("!");
 };
 //장바구니 추가
 var basket_num = 0;
@@ -143,4 +183,36 @@ function addComma(value){
     temp = String(value)
     temp = temp.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     return temp; 
+}
+
+
+function callCategory(){
+    return [
+        ["가", "나", "다"],
+        [
+            ["가", "갸", "거", "겨"],
+            ["나", "냐", "너"],
+            ["다", "댜", "더", "뎌", "도"]
+        ],
+        [
+            [
+                ["각", "간", "갇", "갈", "감"],
+                ["갹", "갼", "갿", "걀"],
+                ["걱", "건", "걷", "걸", "검", "겁"],
+                ["격", "견", "겯", "결", "겸"]
+            ],
+            [
+                ["낙", "난", "낟", "날"],
+                ["냑", "냔"],
+                ["넉", "넌", "넏", "널", "넘"]
+            ],
+            [
+                ["다1"],
+                ["다2"],
+                ["다3"],
+                ["다4"],
+                ["다5"]
+            ]
+        ]
+    ]
 }

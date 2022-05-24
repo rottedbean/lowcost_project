@@ -4,6 +4,7 @@
 
 var mainCard = {
     name : "엑조디아",
+    idx : 100,
     info : {},
     price : {},
     img : "#"
@@ -48,3 +49,14 @@ function same_card(){
         $(".same_name_card:eq(" + i + ") #same_name_card_stock").text(cardList.stock[i]);
     }
 }
+
+// 장바구니 추가 버튼 띄우기
+$(function(){
+    $("#main_detail_image").mouseover(function(){
+        $("#basket_add_button").css("display", "block");
+    });
+    $("#main_detail_image").mouseleave(function(){
+        $("#basket_add_button").css("display", "none");
+    });
+});
+
