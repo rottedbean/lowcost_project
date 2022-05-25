@@ -256,7 +256,7 @@ body {
   width:445px;
   height:50px;
   margin:33px 0px 0px 50px;
-  padding-left: 10px;
+  padding-left: 14px;
   border:6px solid #7FB2FF;
   font-family:'Pretendard-Regular';
   font-size:16pt;
@@ -539,7 +539,6 @@ input {
   width:850px;
   height:auto;
   padding:10px 20px;
-  /* background-color: crimson; */
   display:inline-block;
   overflow-y: auto;
   overflow-x:hidden;
@@ -547,22 +546,22 @@ input {
 .search_list_box {
   height:160px;
   width:100%;
-  /* background-color: #7FB2FF; */
   display:none;
   text-decoration: none;
   color:black;
+}
+.search_list_box:hover {
+  background-color: lightgray;
 }
 .search_list_img {
   width:150px;
   height:100%;
   text-align: center;
-  /* background-color: beige; */
 }
 .search_list_img img{
   margin-top:24px;
 }
 .search_list_slot1{
-  /* background-color: yellowgreen; */
   width:500px;
   height:100%;
 }
@@ -577,7 +576,6 @@ input {
   color:gray;
 }
 .search_list_slot2{
-  /* background-color: darkorchid; */
   width:220px;
   height:100%;
   display:flex;
@@ -600,18 +598,20 @@ input {
 #current_search{
   height:50px;
   width:100%;
-  padding:10px 30px;
+  padding:20px 20px;
 }
 #current_search_result {
   font-size:25pt;
   font-weight: 700;
   display:inline-block;
 }
+
 #current_search_text {
-  font-size:20pt;
+  font-size:18pt;
   margin-left:20px;
   display:inline-block;
 }
+
 .search_list_line {
   height:0px;
   width:100%;
@@ -676,7 +676,6 @@ footer {
 #main_content_box{
   width: 960px;
   height: auto;
-  /*background-color:#999999;*/
   display: flex;
   flex-flow: wrap;
   justify-content: center;

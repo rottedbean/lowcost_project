@@ -14,21 +14,22 @@ var randomString = [
     "군자가 예절이 없으면 역적이 되고, 소인이 예절이 없으면 도적이 된다 -명심보감-"
 ]
 // 검색페이지용 글로벌 변수
-var searchOption = [1, 1, 10, 1];
+var searchOption = [1, 0, 10, 1];
 var searchListChk = [true, false];
 var list = new Array();
 
 // 페이지 흐름
 window.onload = function(){
+    // 카테고리 초기화
+    initCategory();
     // 파라미터에서 검색어 가져오기
     value = getPara();
     $('input[name=title]').val(value);
-    $("#current_search_result").html(value);
+    $("#current_search_result").html("' " + value + " '");
     // 검색어를 통해 해당 인덱스 DB에서 호출
     var idxList = callSearchResult(value);
     idxConv(idxList);
-    console.log(list.length);
-    searchOption[0] = 3;
+    $('#current_search_text').html(`${addComma(list.length)}개의 검색결과`);
     searchListReset();
 };
 
@@ -54,34 +55,34 @@ function callSearchResult(value){
     }
     if (value == "김치"){
         return [1, 2, 3, 4, 5, 6, 6, 6, 6, 6, 
-            6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 
-            6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 
-            6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 
-            6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 
-            6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 
-            6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 
-            6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 
-            6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 
-            6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 
-            6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 
-            6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 
-            6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 
-            6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 
-            6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 
-            6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 
-            6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 
-            6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 
-            6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 
-            6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 
-            6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 
-            6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 
-            6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 
-            6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 
-            6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 
-            6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 
-            6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 
-            6, 6, 6, 6, 6, 6, 6, 6, 6 
-        ];
+            1, 2, 3, 4, 5, 6, 6, 6, 6, 6, 
+            1, 2, 3, 4, 5, 6, 6, 6, 6, 6, 
+            1, 2, 3, 4, 5, 6, 6, 6, 6, 6, 
+            1, 2, 3, 4, 5, 6, 6, 6, 6, 6, 
+            1, 2, 3, 4, 5, 6, 6, 6, 6, 6, 
+            1, 2, 3, 4, 5, 6, 6, 6, 6, 6, 
+            1, 2, 3, 4, 5, 6, 6, 6, 6, 6, 
+            1, 2, 3, 4, 5, 6, 6, 6, 6, 6, 
+            1, 2, 3, 4, 5, 6, 6, 6, 6, 6, 
+            1, 2, 3, 4, 5, 6, 6, 6, 6, 6, 
+            1, 2, 3, 4, 5, 6, 6, 6, 6, 6, 
+            1, 2, 3, 4, 5, 6, 6, 6, 6, 6, 
+            1, 2, 3, 4, 5, 6, 6, 6, 6, 6, 
+            1, 2, 3, 4, 5, 6, 6, 6, 6, 6, 
+            1, 2, 3, 4, 5, 6, 6, 6, 6, 6, 
+            1, 2, 3, 4, 5, 6, 6, 6, 6, 6, 
+            1, 2, 3, 4, 5, 6, 6, 6, 6, 6, 
+            1, 2, 3, 4, 5, 6, 6, 6, 6, 6, 
+            1, 2, 3, 4, 5, 6, 6, 6, 6, 6, 
+            1, 2, 3, 4, 5, 6, 6, 6, 6, 6, 
+            1, 2, 3, 4, 5, 6, 6, 6, 6, 6, 
+            1, 2, 3, 4, 5, 6, 6, 6, 6, 6, 
+            1, 2, 3, 4, 5, 6, 6, 6, 6, 6, 
+            1, 2, 3, 4, 5, 6, 6, 6, 6, 6, 
+            1, 2, 3, 4, 5, 6, 6, 6, 6, 6, 
+            1, 2, 3, 4, 5, 6, 6, 6, 6, 6, 
+            1, 2, 3, 4, 5, 6, 6, 6, 6, 6, 
+            1, 2, 3, 4, 5, 6, 6, 6, 6, 6];
     }
     else{
         return [];
@@ -95,8 +96,11 @@ function searchListReset(){
     if (list.length != 0){
         $(".search_list_line:eq(0)").css("display", "block");
     }
+    else{
+        $(".search_list_line:eq(0)").css("display", "none");
+    }
     // 페이지 개수 계산
-    var pageNum = Math.floor(list.length / searchOption[2]) + 1;
+    var pageNum = Math.floor((list.length - 1) / searchOption[2]) + 1;
     var pageLeng = 0;
     var pageStart = (searchOption[0] - 1) * 10;
     var min = 0;
@@ -109,9 +113,9 @@ function searchListReset(){
     }
     // 한 페이지 안에는 안되는데 10페이지 안에는 쌉가능
     else if(pageNum <= 10){
-        min = ((searchOption[1] - 1) * searchOption[2]);
-        if (pageNum == searchOption[1]){
-            leng = list.length - (searchOption[2] * (searchOption[1] - 1));
+        min = (searchOption[1] * searchOption[2]);
+        if (pageNum == (searchOption[1] + 1)){
+            leng = list.length - (searchOption[2] * searchOption[1]);
         }
         else{
             leng = searchOption[2];
@@ -124,7 +128,7 @@ function searchListReset(){
         var pageLayerNum = Math.floor(pageNum / 10) + 1;
         // 페이지 레이어가 1이면? 왼쪽 못감 ㅎㅎ
         if (searchOption[0] == 1){
-            min = ((searchOption[1] - 1) * searchOption[2]);
+            min = (searchOption[1] * searchOption[2]);
             leng = searchOption[2];
             pageLeng = 10;
             $("#right_arrow").css("display", "block");
@@ -132,9 +136,9 @@ function searchListReset(){
         }
         // 페이지 레이어가 마지막이면? 오른쪽 못감 ㅎㅎ
         else if(searchOption[0] == pageLayerNum){
-            min = ((searchOption[0] - 1) * (10 * searchOption[2])) + ((searchOption[1] - 1) * searchOption[2]);
-            if (pageNum == (searchOption[1] + pageStart)){
-                leng = list.length - (searchOption[2] * (searchOption[1] - 1));
+            min = ((searchOption[0] - 1) * (10 * searchOption[2])) + (searchOption[1] * searchOption[2]);
+            if (pageNum == ((searchOption[1] + 1) + pageStart)){
+                leng = list.length - (pageStart * 10) - (searchOption[2] * searchOption[1]);
             }
             else{
                 leng = searchOption[2];
@@ -143,18 +147,31 @@ function searchListReset(){
             $("#right_arrow").css("display", "none");
             $("#left_arrow").css("display", "block");
         }
-
+        else{
+            $("#right_arrow").css("display", "block");
+            $("#left_arrow").css("display", "block");
+            min = ((searchOption[0] - 1) * (10 * searchOption[2])) + (searchOption[1] * searchOption[2]);
+            leng = searchOption[2];
+            pageLeng = 10;
+        }
     }
     //검색 화면 바꾸기
-    for (var i = 0; i < leng; i++){
+    for (var i = 0; i < 10; i++){
         var dir = '.search_list_box:eq(' + i + ')';
         var rand = Math.floor(Math.random() * 10);
-        $(dir).css("display", "flex");
-        $(dir + ' img').attr("src", list[min + i]['img_link']);
-        $(dir + ' .search_list_name').text(list[min + i]['name']);
-        $(dir + ' .search_list_price').text(addComma(list[min + i]['price']));
-        $(dir + ' .search_list_count').text(randomString[rand]);
-        $('.search_list_line:eq(' + (i + 1) + ')').css("display", "block");
+        if (i < leng){
+            $(dir).css("display", "flex");
+            $(dir).attr('href', list[min + i]['link']);
+            $(dir + ' img').attr("src", list[min + i]['img_link']);
+            $(dir + ' .search_list_name').text(list[min + i]['name']);
+            $(dir + ' .search_list_price').text(addComma(list[min + i]['low']));
+            $(dir + ' .search_list_count').text(randomString[rand]);
+            $('.search_list_line:eq(' + (i + 1) + ')').css("display", "block");
+        }
+        else{
+            $(dir).css("display", "none");
+            $('.search_list_line:eq(' + (i + 1) + ')').css("display", "none");
+        }
     }
 
     //페이지 목록 바꾸기
@@ -162,26 +179,52 @@ function searchListReset(){
     var lineDir = '.search_list_page_line:eq(';
     var pageStart = (searchOption[0] - 1) * 10;
     $(".search_list_page_line:eq(0)").css("display", "block");
-    for (var i = 0; i < pageLeng; i++){
-        $(linkDir + i + ")").html(pageStart + i + 1);
-        $(linkDir + i + ')').css("display", "block");
-        $(linkDir + i + ')').attr("href", 'javascript:void(0);');
-        $(linkDir + i + ')').attr("onclick", 'pageChange(' + (pageStart + i + 1) + ')');
-        $(lineDir + (i + 1) + ')').css("display", "block");
+    for (var i = 0; i < 10; i++){
+        if (i < pageLeng){
+            $(linkDir + i + ")").html(pageStart + i + 1);
+            $(linkDir + i + ')').css("display", "block");
+            $(linkDir + i + ')').attr("href", 'javascript:void(0);');
+            $(linkDir + i + ')').attr("onclick", 'pageChange(' + i + ')');
+            $(lineDir + (i + 1) + ')').css("display", "block");
+        }
+        else{
+            $(linkDir + i + ')').css("display", "none");
+            $(lineDir + (i + 1) + ')').css("display", "none");
+        }
     }
     //현재 페이지 표시
     $('.search_now_page').removeClass("search_now_page");
-    $(linkDir + (searchOption[1] - 1) + ')').addClass("search_now_page");
+    $(linkDir + searchOption[1] + ')').addClass("search_now_page");
+    $(".search_now_page").removeAttr('href');
+    $(".search_now_page").removeAttr('onclick');
 };
 
 
 // 페이지값 변경하면
 function pageChange(i){
-    searchOption[1] = i % 10;
+    searchOption[1] = i;
     searchListReset();
     $('html, body').stop().animate({scrollTop: 0}, 300);
     $("#search_option").css('top', '0px');
 }
+
+// 페이지 레이어 변경
+function pageLayerChange(dir){
+    // 왼쪽 버튼, 마이너스
+    if (dir == 0){ 
+        searchOption[0] -= 1; 
+        searchOption[1] = 9;
+    }
+    // 오른쪽 버튼, 플러스
+    else{ 
+        searchOption[0] += 1;
+        searchOption[1] = 0; 
+    }
+    searchListReset()
+    $('html, body').stop().animate({scrollTop: 0}, 300);
+    $("#search_option").css('top', '0px');
+}
+
 
 // 옵션 따라다니기
 $(document).ready(function(){
@@ -202,7 +245,8 @@ $(function(){
     $('select').on("change", function(){
         searchOption[3] = $('#option_sort option:selected').val();
         searchOption[2] = $('#option_count option:selected').val();
-        searchOption[1] = 1;
+        searchOption[1] = 0;
+        searchOption[0] = 1;
         searchListReset();
     })
     $('input[name=option]').on("change", function(){

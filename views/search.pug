@@ -35,11 +35,11 @@ block content
                 +search_list()
             #search_list_page
                 #search_list_page_center
-                    a(href="#")
+                    a(href="javascript:void(0);" onclick="pageLayerChange(0);")
                         img(src="/images/arrow_left.png")#left_arrow
                     p.search_list_page_line= "|"
                     -for (var i = 1; i <= 10; i++)
                         a.search_list_page_link(href="#")= i
                         p.search_list_page_line= "|"
-                    a(href="#")
+                    a(href="javascript:void(0);" onclick="pageLayerChange(1);")
                         img(src="/images/arrow_right.png")#right_arrow

@@ -2,13 +2,8 @@
 //메인 카드 정보 불러오는 함수 작성
 //지금은 임시로 사용중
 
-var mainCard = {
-    name : "엑조디아",
-    idx : 100,
-    info : {},
-    price : {},
-    img : "#"
-};
+var idx = 0;
+var mainCard = {};
 
 var cardList = {
     name : new Array(),
@@ -18,9 +13,35 @@ var cardList = {
 };
 
 window.onload = function(){
+    initCategory();
+    idx = getPara();
+    mainCard = callIdx(idx);
+    setMainCard();
+    console.log(mainCard);
     temp_card(7);
     same_card();
 };
+
+
+// 파라미터 값 가져오기
+function getPara(){
+    const url = new URL(window.location.href);
+    const urlParams = url.searchParams;
+    value = urlParams.get('idx');
+    return value;
+}
+
+// 메인 카드 페이지 생성
+function setMainCard(){
+    $("#main_detail_image").attr("src", mainCard['img_link']);
+    $("#card_detail_name").html(mainCard['name']);
+    $("#card_detail_info").html(mainCard['info']);
+    $("#card_detail_price").html(mainCard['low']);
+    var text = '';
+    for (var i in mainCard.price){
+        text += `${i}`
+    }
+}
 
 //임시 카드 선언
 function temp_card(n){

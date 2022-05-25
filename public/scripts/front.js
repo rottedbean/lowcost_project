@@ -245,10 +245,16 @@ function callIdx(idx){
     if (idx == 123){
         const res = {
             name : "고추참치",
-            price : 2100,
+            price : {
+                '할머니닷컴' : 2800,
+                '엄마손쇼핑' : 4700,
+                '부전시장' : 2100,
+                '이마트' : 2400
+            },
+            low : 2100,
             idx : 123,
-            link : "#",
-            img_link : "",
+            link : "/detail?idx=123",
+            img_link : "/images/cards/123.png",
             pop : true,
             stock : false
         };
@@ -257,10 +263,16 @@ function callIdx(idx){
     else if (idx == 456){
         const res = {
             name : "참치마요",
-            price : 2700,
+            price : {
+                '할머니닷컴' : 2800,
+                '엄마손쇼핑' : 4700,
+                '부전시장' : 2700,
+                '이마트' : 2900
+            },
+            low : 2700,
             idx : 456,
-            link : "#",
-            img_link : "",
+            link : "/detail?idx=456",
+            img_link : "/images/cards/456.png",
             pop : true,
             stock : true
         };
@@ -269,10 +281,16 @@ function callIdx(idx){
     else if (idx == 789){
         const res = {
             name : "동원참치",
-            price : 800,
+            price : {
+                '할머니닷컴' : 800,
+                '엄마손쇼핑' : 1700,
+                '부전시장' : 2100,
+                '이마트' : 2000
+            },
+            low : 800,
             idx : 789,
-            link : "#",
-            img_link : "",
+            link : "/detail?idx=789",
+            img_link : "/images/cards/789.png",
             pop : true,
             stock : true
         };
@@ -281,10 +299,16 @@ function callIdx(idx){
     else if (idx == 1){
         const res = {
             name : "배추김치",
-            price : 6000,
+            price : {
+                '할머니닷컴' : 6800,
+                '엄마손쇼핑' : 6000,
+                '부전시장' : 6500,
+                '이마트' : 6600
+            },
+            low : 6000,
             idx : 1,
-            link : "#",
-            img_link : "",
+            link : "/detail?idx=1",
+            img_link : "/images/cards/1.png",
             pop : true,
             stock : true
         };
@@ -293,10 +317,16 @@ function callIdx(idx){
     else if (idx == 2){
         const res = {
             name : "파김치",
-            price : 21000,
+            price : {
+                '할머니닷컴' : 21800,
+                '엄마손쇼핑' : 24700,
+                '부전시장' : 21000,
+                '이마트' : 21400
+            },
+            low : 21000,
             idx : 2,
-            link : "#",
-            img_link : "",
+            link : "/detail?idx=2",
+            img_link : "/images/cards/2.png",
             pop : true,
             stock : true
         };
@@ -305,10 +335,16 @@ function callIdx(idx){
     else if (idx == 3){
         const res = {
             name : "총각김치",
-            price : 33000,
+            price : {
+                '할머니닷컴' : 33000,
+                '엄마손쇼핑' : 47000,
+                '부전시장' : 37000,
+                '이마트' : 34000
+            },
+            low : 33000,
             idx : 3,
-            link : "#",
-            img_link : "",
+            link : "/detail?idx=3",
+            img_link : "/images/cards/3.png",
             pop : true,
             stock : true
         };
@@ -317,10 +353,16 @@ function callIdx(idx){
     else if (idx == 4){
         const res = {
             name : "김치라면",
-            price : 5300,
+            price : {
+                '할머니닷컴' : 5300,
+                '엄마손쇼핑' : 5300,
+                '부전시장' : 5500,
+                '이마트' : 5400
+            },
+            low : 5300,
             idx : 4,
-            link : "#",
-            img_link : "",
+            link : "/detail?idx=4",
+            img_link : "/images/cards/4.png",
             pop : true,
             stock : true
         };
@@ -329,10 +371,16 @@ function callIdx(idx){
     else if (idx == 5){
         const res = {
             name : "김치김밥",
-            price : 2800,
+            price : {
+                '할머니닷컴' : 2800,
+                '엄마손쇼핑' : 4000,
+                '부전시장' : 3500,
+                '이마트' : 3800
+            },
+            low : 2800,
             idx : 5,
-            link : "#",
-            img_link : "",
+            link : "/detail?idx=5",
+            img_link : "/images/cards/5.png",
             pop : true,
             stock : true
         };
@@ -341,10 +389,16 @@ function callIdx(idx){
     else if (idx == 6){
         const res = {
             name : "핵김치",
-            price : 28000,
+            price : {
+                '할머니닷컴' : 28000,
+                '엄마손쇼핑' : 30000,
+                '부전시장' : 29000,
+                '이마트' : 29400
+            },
+            low : 28000,
             idx : 6,
-            link : "#",
-            img_link : "",
+            link : "/detail?idx=6",
+            img_link : "/images/cards/6.png",
             pop : true,
             stock : true
         };

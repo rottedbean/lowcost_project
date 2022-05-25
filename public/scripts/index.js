@@ -28,7 +28,7 @@ window.onload = function(){
             $(dir).attr("href", temp.link);
             $(dir + " > img").attr("src", temp.img_link);
             $(dir + " .card_name").html(temp.name);
-            $(dir + " .card_price").html(addComma(temp.price));
+            $(dir + " .card_price").html(addComma(temp.low));
             if (!temp.pop){
                 $(dir + " #img1").css("display", "none");
             }
@@ -47,7 +47,7 @@ window.onload = function(){
         $(dir).attr("href", temp.link);
         $(dir + " > img").attr("src", temp.img_link);
         $(dir + " .card_name").html(temp.name);
-        $(dir + " .card_price").html(addComma(temp.price));
+        $(dir + " .card_price").html(addComma(temp.low));
         if (!temp.pop){
             $(dir + " #img1").css("display", "none");
         }
