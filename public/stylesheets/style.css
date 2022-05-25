@@ -628,16 +628,21 @@ input {
   display:flex;
   justify-content: center;
   text-align: center;
-  
+}
+#search_list_page_center img{
+  margin:0px 10px;
+  display:none;
 }
 .search_list_page_link {
   margin:0px 5px;
   text-decoration: none;
   display:none;
 }
+
 .search_list_page_line {
   display:none;
 }
+
 .search_now_page{
   color:black;
   font-weight:700;

@@ -72,7 +72,6 @@ function setCategory(a, b){
     if (b != -1){
         for (var i = 0; i < 10; i++){
             var dir = "#category3 li:eq(" + i + ")";
-            console.log(category[2][page2][b].length);
             if (i < category[2][page2][b].length){
                 $(dir).html(category[2][page2][b][i]);
                 $(dir).css("display", "block");
@@ -130,6 +129,7 @@ function add_basket(link, img_link, name, price, idx){
     basket_num += 1;
     update_receipt_list();
 };
+
 //장바구니 제거
 function remove_basket(i){
     // 이름값 추출
@@ -237,4 +237,117 @@ function searchFunc(){
     var value = $("input[name=title]").val();
     var url = "/search?value=";
     location.href = url + encodeURI(value, "utf-8");
+}
+
+
+//임시 더미 함수들
+function callIdx(idx){
+    if (idx == 123){
+        const res = {
+            name : "고추참치",
+            price : 2100,
+            idx : 123,
+            link : "#",
+            img_link : "",
+            pop : true,
+            stock : false
+        };
+        return res
+    }
+    else if (idx == 456){
+        const res = {
+            name : "참치마요",
+            price : 2700,
+            idx : 456,
+            link : "#",
+            img_link : "",
+            pop : true,
+            stock : true
+        };
+        return res
+    }
+    else if (idx == 789){
+        const res = {
+            name : "동원참치",
+            price : 800,
+            idx : 789,
+            link : "#",
+            img_link : "",
+            pop : true,
+            stock : true
+        };
+        return res
+    }
+    else if (idx == 1){
+        const res = {
+            name : "배추김치",
+            price : 6000,
+            idx : 1,
+            link : "#",
+            img_link : "",
+            pop : true,
+            stock : true
+        };
+        return res
+    }
+    else if (idx == 2){
+        const res = {
+            name : "파김치",
+            price : 21000,
+            idx : 2,
+            link : "#",
+            img_link : "",
+            pop : true,
+            stock : true
+        };
+        return res
+    }
+    else if (idx == 3){
+        const res = {
+            name : "총각김치",
+            price : 33000,
+            idx : 3,
+            link : "#",
+            img_link : "",
+            pop : true,
+            stock : true
+        };
+        return res
+    }
+    else if (idx == 4){
+        const res = {
+            name : "김치라면",
+            price : 5300,
+            idx : 4,
+            link : "#",
+            img_link : "",
+            pop : true,
+            stock : true
+        };
+        return res
+    }
+    else if (idx == 5){
+        const res = {
+            name : "김치김밥",
+            price : 2800,
+            idx : 5,
+            link : "#",
+            img_link : "",
+            pop : true,
+            stock : true
+        };
+        return res
+    }
+    else if (idx == 6){
+        const res = {
+            name : "핵김치",
+            price : 28000,
+            idx : 6,
+            link : "#",
+            img_link : "",
+            pop : true,
+            stock : true
+        };
+        return res
+    }
 }
