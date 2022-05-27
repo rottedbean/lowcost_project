@@ -5,7 +5,9 @@ block content
     #content_box
         #main_content_box
             #main_detail_box
-                img(src="" width="300px" height="435px")#main_detail_image
+                a(href='javascript:void(0);' onclick="basket_add();")
+                    img(src="" width="300px" height="435px")#main_detail_image
+                img(src="images/basket_add.png")#basket_add_button
                 #main_detail_text
                     #main_detail_text_name.main_content_box
                         p.name_name="카드 이름"

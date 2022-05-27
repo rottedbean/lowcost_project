@@ -27,12 +27,19 @@ block content
                         p.option_text="중고 상품 포함"
         #search_line
         #search_result
+            #current_search
+                p#current_search_result=""
+                p#current_search_text="검색결과"
             .search_list_line
             - for (var i = 0; i <= 30; i++)
-                +search_list("김치", "#", "김치를 듬뿍 담아버린 김치", 2500, "#")
+                +search_list()
             #search_list_page
                 #search_list_page_center
+                    a(href="javascript:void(0);" onclick="pageLayerChange(0);")
+                        img(src="/images/arrow_left.png")#left_arrow
                     p.search_list_page_line= "|"
-                    -for (var i = 1; i <= 15; i++)
+                    -for (var i = 1; i <= 10; i++)
                         a.search_list_page_link(href="#")= i
                         p.search_list_page_line= "|"
+                    a(href="javascript:void(0);" onclick="pageLayerChange(1);")
+                        img(src="/images/arrow_right.png")#right_arrow

@@ -6,7 +6,7 @@ footer
     #basket_inner
         #basket_cards
             - for (var i = 0; i <= 100; i++)
-                +card_basket("#", "#", "과카몰리", i, i)
+                +card_basket(i)
                 //- 이미지 링크 복구하기
 
         #basket_recipt
@@ -15,7 +15,7 @@ footer
                 .basket_line
                 .receipt_list
                     - for (var i = 0; i <= 100; i++)
-                        +card_list("홀리몰리", 3, 1000)
+                        +card_list()
 
             #basket_total
                 p#receipt_total_title= "합계"

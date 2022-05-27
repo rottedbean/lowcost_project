@@ -3,12 +3,12 @@ include mixins
     #curtain(href='javascript:void(0);' onclick='basket();')
     #header
         #header_inner
-            a(href='javascript:void(0);' onclick='add_basket("#", "#", "홀리몰리", "10,000원", 1);')#logo
+            a(href='/')#logo
                 img(src="" width="160px" height="120px")
                 //- 이미지 링크 복구하기
             #search_bar
-                input(type="text" name="title" spellcheck="false")
-                a(href='javascript:void(0);' onclick="remove_basket();")#search_image
+                input(type="text" name="title" spellcheck="false" onKeypress="javascript:if(event.keyCode==13) {searchFunc();}")
+                a(href='javascript:void(0);' onclick="searchFunc();")#search_image
                     img(src="/images/search.png")
                     //- 이미지 링크 복구하기
                 ul#recent_search
@@ -22,33 +22,12 @@ include mixins
                 .nav_box
                     li= index
             #category
-                #fir_category.cate_box
-                    li.cate_box_li= "안녕"
-                    li.cate_box_li= "안녕"
-                    li.cate_box_li= "안녕"
-                    li.cate_box_li= "안녕"
-                    li.cate_box_li= "안녕"
-                    li.cate_box_li= "안녕"
-                    li.cate_box_li= "안녕"
-                    li.cate_box_li= "안녕"
-                    li.cate_box_li= "안녕"
-                #sec_category.cate_box
-                    li.cate_box_li= "안녕"
-                    li.cate_box_li= "안녕"
-                    li.cate_box_li= "안녕"
-                    li.cate_box_li= "안녕"
-                    li.cate_box_li= "안녕"
-                    li.cate_box_li= "안녕"
-                    li.cate_box_li= "안녕"
-                    li.cate_box_li= "안녕"
-                    li.cate_box_li= "안녕"
-                #thr_category.cate_box
-                    li.cate_box_li= "안녕"
-                    li.cate_box_li= "안녕"
-                    li.cate_box_li= "안녕"
-                    li.cate_box_li= "안녕"
-                    li.cate_box_li= "안녕"
-                    li.cate_box_li= "안녕"
-                    li.cate_box_li= "안녕"
-                    li.cate_box_li= "안녕"
-                    li.cate_box_li= "안녕"
+                #category1.cate_box
+                    - for (var i = 0; i < 10; i++)
+                        li.cate_box_li(onmouseenter="setCategory(" + i + ", -1)")= "list"
+                #category2.cate_box
+                    - for (var i = 0; i < 10; i++)
+                        li.cate_box_li(onmouseenter="setCategory(-1, " + i + ")")= "list"
+                #category3.cate_box
+                    - for (var i = 0; i < 10; i++)
+                        li.cate_box_li= "list"
