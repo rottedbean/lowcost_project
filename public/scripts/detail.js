@@ -15,9 +15,9 @@ var cardList = {
 window.onload = function(){
     initCategory();
     idx = getPara();
+    addLocalStorage(idx);
     mainCard = callIdx(idx);
     setMainCard();
-    console.log(mainCard);
     temp_card(7);
     same_card();
 };
@@ -29,6 +29,38 @@ function getPara(){
     const urlParams = url.searchParams;
     value = urlParams.get('idx');
     return value;
+}
+
+// 로컬에 저장 
+function addLocalStorage(idx){
+    // localStorage.setItem("name", null);
+    var local = JSON.parse(localStorage.getItem('name'));
+    if (local == null){ // 로컬 스토리지 비어있음
+        localStorage.setItem("name", JSON.stringify([idx]));
+    }
+    else{
+        if (local.includes(idx)){ //해당 요소가 배열 안에 있으면?
+            if (local.indexOf(idx) != 0){
+                local.splice(local.indexOf(idx));
+                local.unshift(idx);
+                localStorage.setItem("name", JSON.stringify(local));
+            }
+        }
+        else{ //해당 요소가 배열안에 없으면?
+            if (local.length < 6){ //로컬 스토리지 0 < 로컬 < 6
+                local.unshift(idx);
+                localStorage.setItem("name", JSON.stringify(local));
+            }
+            else { //로컬 스토리지 6 이상
+                local.unshift(idx);
+                local.pop();
+                localStorage.setItem("name", JSON.stringify(local));
+            }
+        }
+        
+    }
+    
+    console.log(JSON.parse(localStorage.getItem('name')));
 }
 
 // 메인 카드 페이지 생성

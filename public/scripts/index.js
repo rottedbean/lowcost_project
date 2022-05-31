@@ -13,7 +13,6 @@ window.onload = function(){
     if(localStorage.getItem('name') == null){
         $("#main_cont_1").css("display", "block");
         $("#main_cont_2").css("display", "none");
-        console.log("!");
     }
     // 로컬 스토리지 'name'가 있을 경우
     else{

@@ -31,6 +31,7 @@ window.onload = function(){
     idxConv(idxList);
     $('#current_search_text').html(`${addComma(list.length)}개의 검색결과`);
     searchListReset();
+    console.log(localStorage.getItem("recSer"));
 };
 
 // 파라미터 값 가져오기

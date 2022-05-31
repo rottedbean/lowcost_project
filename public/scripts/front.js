@@ -234,9 +234,27 @@ function callCategory(){
 
 // 서치 함수
 function searchFunc(){
+    //localStorage.clear("recSer");
     var value = $("input[name=title]").val();
     var url = "/search?value=";
-    location.href = url + encodeURI(value, "utf-8");
+    var temp = localStorage.getItem("recSer");
+    if(temp == null){
+        localStorage.setItem("recSer", value);
+    }
+    else{
+        if (typeof temp == typeof ""){
+            temp = [value, temp];
+        }
+        else{
+            if (temp.length > 4){
+                temp.pop()
+            }
+            temp.unshift(value);
+        }
+        localStorage.setItem("recSer", temp);
+    }
+    console.log(localStorage.getItem("recSer"));
+    //location.href = url + encodeURI(value, "utf-8");
 }
 
 
