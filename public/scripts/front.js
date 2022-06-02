@@ -98,18 +98,48 @@ function basket(){
         is_basket = true;
     }
 };
-function basket_add(){
-    console.log("!");
-};
-//장바구니 추가
-var basket_num = 0;
+
+//장바구니
+function resetBasket(){
+    var idxList = JSON.parse(localStorage.getItem("basket"));
+    for (var i = 0; i < 100; i++){
+        var dir = ".basket_card_slot:eq(" + i + ")";
+        if (i < idxList){ // 장바구니 안
+            var obj = callIdx(idxList[i]);
+            $(dir).css("display", "block");
+            $(dir + ' .card_name').html(obj.name);
+            $(dir + ' .card_price').html(addComma(obj.low));
+            $(dir).attr("href", "/detail?idx=" + obj.idx);
+        }
+        else {
+            $(dir).css("display", "none");
+        }
+    }
+}
+
+function addBasket(idx){
+    var idxList = JSON.parse(localStorage.getItem("basket"));
+    idxList.unshift(idx);
+    localStorage.setItem("basket", JSON.stringify(idxList));
+    resetBasket();
+}
+
+function removeBasket(i){ //인자는 index가 아니라 몇번째인지
+    var idxList = JSON.parse(localStorage.getItem("basket"));
+    idxList.splice(i, 1);
+    localStorage.setItem("basket", JSON.stringify(idxList));
+    resetBasket();
+}
+
+
 function add_basket(link, img_link, name, price, idx){
+    var dir = ".basket_card_slot:eq(";
     //장바구니
-    $(".basket_card_slot:eq(" + basket_num + ")").css("display", "block");
-    $(".basket_card_slot:eq(" + basket_num + ")").attr("href", link);
-    $(".basket_card_slot:eq(" + basket_num + ") img").attr("src", img_link);
-    $(".basket_card_slot:eq(" + basket_num + ") .basket_card_name").html(name);
-    $(".basket_card_slot:eq(" + basket_num + ") .basket_card_price").html(addComma(price));
+    $(dir + basket_num + ")").css("display", "block");
+    $(dir + basket_num + ")").attr("href", link);
+    $(dir + basket_num + ") img").attr("src", img_link);
+    $(dir + basket_num + ") .basket_card_name").html(name);
+    $(dir + basket_num + ") .basket_card_price").html(addComma(price));
     //영수증
     $(".receipt_list_one:eq(" + basket_num + ")").css("display", "flex");
     //idx가 리스트 안에 있을 때
@@ -135,10 +165,11 @@ function remove_basket(i){
     // 이름값 추출
     var temp = $(".basket_card_slot:eq(" + i + ") .basket_card_name").text();
     for (var x = i; x <= basket_num - 1; x++){
-        $(".basket_card_slot:eq(" + x + ") a").attr("href", $(".basket_card_slot:eq(" + (x + 1) + ")").attr("href"));
-        $(".basket_card_slot:eq(" + x + ") img").attr("src", $(".basket_card_slot:eq(" + (x + 1) + ") img").attr("src"));
-        $(".basket_card_slot:eq(" + x + ") .basket_card_name").html($(".basket_card_slot:eq(" + (x + 1) + ") .basket_card_name").html());
-        $(".basket_card_slot:eq(" + x + ") .basket_card_price").html($(".basket_card_slot:eq(" + (x + 1) + ") .basket_card_price").html());
+        var dir = ".basket_card_slot:eq(" + x + ")"
+        $(dir + " a").attr("href", $(".basket_card_slot:eq(" + (x + 1) + ")").attr("href"));
+        $(dir + " img").attr("src", $(".basket_card_slot:eq(" + (x + 1) + ") img").attr("src"));
+        $(dir + " .basket_card_name").html($(".basket_card_slot:eq(" + (x + 1) + ") .basket_card_name").html());
+        $(dir + " .basket_card_price").html($(".basket_card_slot:eq(" + (x + 1) + ") .basket_card_price").html());
     }
     $(".basket_card_slot:eq(" + (basket_num - 1) + ")").css("display", "none");
     basket_num -= 1;
@@ -232,29 +263,54 @@ function callCategory(){
     }
 }
 
+// 임시 로컬 스토리지 비우는 함수
+function tempFunc(){
+    localStorage.clear("recSer");
+}
+
 // 서치 함수
 function searchFunc(){
-    //localStorage.clear("recSer");
     var value = $("input[name=title]").val();
     var url = "/search?value=";
-    var temp = localStorage.getItem("recSer");
-    if(temp == null){
+    var recSer = callRecSer();
+    if (recSer == null){
         localStorage.setItem("recSer", value);
     }
-    else{
-        if (typeof temp == typeof ""){
-            temp = [value, temp];
+    else {
+        if (recSer.includes(value)){
+            recSer.splice(recSer.indexOf(value), 1);
+            recSer.unshift(value);
         }
         else{
-            if (temp.length > 4){
-                temp.pop()
+            recSer.unshift(value);
+            if (recSer.length > 4){
+                recSer.pop();
             }
-            temp.unshift(value);
         }
-        localStorage.setItem("recSer", temp);
+        localStorage.setItem("recSer", recSer);
     }
-    console.log(localStorage.getItem("recSer"));
-    //location.href = url + encodeURI(value, "utf-8");
+    location.href = url + encodeURI(value, "utf-8");
+}
+
+// recSer 로컬 스토리지 부르기
+function callRecSer(){
+    try {
+        var temp = localStorage.getItem("recSer").split(',');
+    }
+    catch {
+        return null;
+    }
+    return temp;
+}
+
+function recentSearch(){
+    var recSer = callRecSer();
+    for (var i = 0; i < recSer.length; i++){
+        dir = ".recent_history ~ a:eq(" + i + ")";
+        $(dir).css("display", "inline-block");
+        $(dir).html(recSer[i]);
+        $(dir).attr("href", "/search?value=" + encodeURI(recSer[i], "utf-8"))
+    }
 }
 
 

@@ -17,6 +17,7 @@ window.onload = function(){
     idx = getPara();
     addLocalStorage(idx);
     mainCard = callIdx(idx);
+    recentSearch();
     setMainCard();
     temp_card(7);
     same_card();
@@ -59,8 +60,6 @@ function addLocalStorage(idx){
         }
         
     }
-    
-    console.log(JSON.parse(localStorage.getItem('name')));
 }
 
 // 메인 카드 페이지 생성
@@ -69,6 +68,7 @@ function setMainCard(){
     $("#card_detail_name").html(mainCard['name']);
     $("#card_detail_info").html(mainCard['info']);
     $("#card_detail_price").html(mainCard['low']);
+    $("#addBasket_img").attr("onclick", "addBasket(" + mainCard.idx + ");")
     var text = '';
     for (var i in mainCard.price){
         text += `${i}`

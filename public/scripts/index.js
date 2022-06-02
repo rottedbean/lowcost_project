@@ -6,7 +6,6 @@
 
 
 window.onload = function(){
-    //localStorage.setItem("name", JSON.stringify([123, 456, 789]));
     initCategory();
     // 로컬 스토리지 로드를 통한 최근 검색 목록
     // 로컬스토리지 'name'가 비어있을 경우
@@ -54,6 +53,9 @@ window.onload = function(){
             $(dir + " #img2").css("display", "none");
         }
     }
+
+    // 로컬 스토리지 통해 최근 검색 목록 불러오기
+    recentSearch();
 };
 
 

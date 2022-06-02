@@ -272,6 +272,9 @@ body {
   height:20px;
   margin:20px 0px 0px 50px;
 }
+#recent_search a{
+  display:none;
+}
 
 .recent_history { /*검색 목록에 추가할 클래스*/
   width:auto;
@@ -616,6 +619,12 @@ input {
   height:0px;
   width:100%;
   border:1px solid black;
+  display:none;
+}
+#empty_search_page {
+  font-size: 25pt;
+  font-weight: 700;
+  margin:50px;
   display:none;
 }
 #search_list_page {
