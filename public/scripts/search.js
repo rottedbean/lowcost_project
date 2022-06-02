@@ -31,6 +31,7 @@ window.onload = function(){
     idxConv(idxList);
     $('#current_search_text').html(`${addComma(list.length)}개의 검색결과`);
     searchListReset();
+    recentSearch();
 };
 
 // 파라미터 값 가져오기
@@ -95,108 +96,111 @@ function callSearchResult(value){
 function searchListReset(){
     if (list.length != 0){
         $(".search_list_line:eq(0)").css("display", "block");
-    }
-    else{
-        $(".search_list_line:eq(0)").css("display", "none");
-    }
-    // 페이지 개수 계산
-    var pageNum = Math.floor((list.length - 1) / searchOption[2]) + 1;
-    var pageLeng = 0;
-    var pageStart = (searchOption[0] - 1) * 10;
-    var min = 0;
-    var leng = 0;
-    // 한 페이지 안에 쌉가능
-    if (pageNum == 1){
-        min = 0;
-        leng = list.length;
-        pageLeng = 1;
-    }
-    // 한 페이지 안에는 안되는데 10페이지 안에는 쌉가능
-    else if(pageNum <= 10){
-        min = (searchOption[1] * searchOption[2]);
-        if (pageNum == (searchOption[1] + 1)){
-            leng = list.length - (searchOption[2] * searchOption[1]);
+        // 페이지 개수 계산
+        var pageNum = Math.floor((list.length - 1) / searchOption[2]) + 1;
+        var pageLeng = 0;
+        var pageStart = (searchOption[0] - 1) * 10;
+        var min = 0;
+        var leng = 0;
+        // 한 페이지 안에 쌉가능
+        if (pageNum == 1){
+            min = 0;
+            leng = list.length;
+            pageLeng = 1;
         }
-        else{
-            leng = searchOption[2];
-        }
-        pageLeng = pageNum;
-    }
-    // 검색 결과가 10페이지가 넘음;
-    else {
-        // 페이지 개수 셀라기
-        var pageLayerNum = Math.floor(pageNum / 10) + 1;
-        // 페이지 레이어가 1이면? 왼쪽 못감 ㅎㅎ
-        if (searchOption[0] == 1){
+        // 한 페이지 안에는 안되는데 10페이지 안에는 쌉가능
+        else if(pageNum <= 10){
             min = (searchOption[1] * searchOption[2]);
-            leng = searchOption[2];
-            pageLeng = 10;
-            $("#right_arrow").css("display", "block");
-            $("#left_arrow").css("display", "none");
-        }
-        // 페이지 레이어가 마지막이면? 오른쪽 못감 ㅎㅎ
-        else if(searchOption[0] == pageLayerNum){
-            min = ((searchOption[0] - 1) * (10 * searchOption[2])) + (searchOption[1] * searchOption[2]);
-            if (pageNum == ((searchOption[1] + 1) + pageStart)){
-                leng = list.length - (pageStart * 10) - (searchOption[2] * searchOption[1]);
+            if (pageNum == (searchOption[1] + 1)){
+                leng = list.length - (searchOption[2] * searchOption[1]);
             }
             else{
                 leng = searchOption[2];
             }
-            pageLeng = pageNum - pageStart;
-            $("#right_arrow").css("display", "none");
-            $("#left_arrow").css("display", "block");
+            pageLeng = pageNum;
         }
-        else{
-            $("#right_arrow").css("display", "block");
-            $("#left_arrow").css("display", "block");
-            min = ((searchOption[0] - 1) * (10 * searchOption[2])) + (searchOption[1] * searchOption[2]);
-            leng = searchOption[2];
-            pageLeng = 10;
+        // 검색 결과가 10페이지가 넘음;
+        else {
+            // 페이지 개수 셀라기
+            var pageLayerNum = Math.floor(pageNum / 10) + 1;
+            // 페이지 레이어가 1이면? 왼쪽 못감 ㅎㅎ
+            if (searchOption[0] == 1){
+                min = (searchOption[1] * searchOption[2]);
+                leng = searchOption[2];
+                pageLeng = 10;
+                $("#right_arrow").css("display", "block");
+                $("#left_arrow").css("display", "none");
+            }
+            // 페이지 레이어가 마지막이면? 오른쪽 못감 ㅎㅎ
+            else if(searchOption[0] == pageLayerNum){
+                min = ((searchOption[0] - 1) * (10 * searchOption[2])) + (searchOption[1] * searchOption[2]);
+                if (pageNum == ((searchOption[1] + 1) + pageStart)){
+                    leng = list.length - (pageStart * 10) - (searchOption[2] * searchOption[1]);
+                }
+                else{
+                    leng = searchOption[2];
+                }
+                pageLeng = pageNum - pageStart;
+                $("#right_arrow").css("display", "none");
+                $("#left_arrow").css("display", "block");
+            }
+            else{
+                $("#right_arrow").css("display", "block");
+                $("#left_arrow").css("display", "block");
+                min = ((searchOption[0] - 1) * (10 * searchOption[2])) + (searchOption[1] * searchOption[2]);
+                leng = searchOption[2];
+                pageLeng = 10;
+            }
         }
-    }
-    //검색 화면 바꾸기
-    for (var i = 0; i < 10; i++){
-        var dir = '.search_list_box:eq(' + i + ')';
-        var rand = Math.floor(Math.random() * 10);
-        if (i < leng){
-            $(dir).css("display", "flex");
-            $(dir).attr('href', list[min + i]['link']);
-            $(dir + ' img').attr("src", list[min + i]['img_link']);
-            $(dir + ' .search_list_name').text(list[min + i]['name']);
-            $(dir + ' .search_list_price').text(addComma(list[min + i]['low']));
-            $(dir + ' .search_list_count').text(randomString[rand]);
-            $('.search_list_line:eq(' + (i + 1) + ')').css("display", "block");
+        //검색 화면 바꾸기
+        for (var i = 0; i < 10; i++){
+            var dir = '.search_list_box:eq(' + i + ')';
+            var rand = Math.floor(Math.random() * 10);
+            if (i < leng){
+                $(dir).css("display", "flex");
+                $(dir).attr('href', list[min + i]['link']);
+                $(dir + ' img').attr("src", list[min + i]['img_link']);
+                $(dir + ' .search_list_name').text(list[min + i]['name']);
+                $(dir + ' .search_list_price').text(addComma(list[min + i]['low']));
+                $(dir + ' .search_list_count').text(randomString[rand]);
+                $('.search_list_line:eq(' + (i + 1) + ')').css("display", "block");
+            }
+            else{
+                $(dir).css("display", "none");
+                $('.search_list_line:eq(' + (i + 1) + ')').css("display", "none");
+            }
         }
-        else{
-            $(dir).css("display", "none");
-            $('.search_list_line:eq(' + (i + 1) + ')').css("display", "none");
+
+        //페이지 목록 바꾸기
+        var linkDir = '.search_list_page_link:eq(';
+        var lineDir = '.search_list_page_line:eq(';
+        var pageStart = (searchOption[0] - 1) * 10;
+        $(".search_list_page_line:eq(0)").css("display", "block");
+        for (var i = 0; i < 10; i++){
+            if (i < pageLeng){
+                $(linkDir + i + ")").html(pageStart + i + 1);
+                $(linkDir + i + ')').css("display", "block");
+                $(linkDir + i + ')').attr("href", 'javascript:void(0);');
+                $(linkDir + i + ')').attr("onclick", 'pageChange(' + i + ')');
+                $(lineDir + (i + 1) + ')').css("display", "block");
+            }
+            else{
+                $(linkDir + i + ')').css("display", "none");
+                $(lineDir + (i + 1) + ')').css("display", "none");
+            }
         }
+        //현재 페이지 표시
+        $('.search_now_page').removeClass("search_now_page");
+        $(linkDir + searchOption[1] + ')').addClass("search_now_page");
+        $(".search_now_page").removeAttr('href');
+        $(".search_now_page").removeAttr('onclick');
     }
 
-    //페이지 목록 바꾸기
-    var linkDir = '.search_list_page_link:eq(';
-    var lineDir = '.search_list_page_line:eq(';
-    var pageStart = (searchOption[0] - 1) * 10;
-    $(".search_list_page_line:eq(0)").css("display", "block");
-    for (var i = 0; i < 10; i++){
-        if (i < pageLeng){
-            $(linkDir + i + ")").html(pageStart + i + 1);
-            $(linkDir + i + ')').css("display", "block");
-            $(linkDir + i + ')').attr("href", 'javascript:void(0);');
-            $(linkDir + i + ')').attr("onclick", 'pageChange(' + i + ')');
-            $(lineDir + (i + 1) + ')').css("display", "block");
-        }
-        else{
-            $(linkDir + i + ')').css("display", "none");
-            $(lineDir + (i + 1) + ')').css("display", "none");
-        }
+    else{
+        $(".search_list_line:eq(0)").css("display", "none");
+        $("#empty_search_page").css("display", "block");
+        $(".search_list_box").css("display", "none");
     }
-    //현재 페이지 표시
-    $('.search_now_page').removeClass("search_now_page");
-    $(linkDir + searchOption[1] + ')').addClass("search_now_page");
-    $(".search_now_page").removeAttr('href');
-    $(".search_now_page").removeAttr('onclick');
 };
 
 

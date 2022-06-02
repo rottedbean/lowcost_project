@@ -31,6 +31,7 @@ block content
                 p#current_search_result=""
                 p#current_search_text="검색결과"
             .search_list_line
+            p#empty_search_page="검색 결과가 없습니다."
             - for (var i = 0; i <= 30; i++)
                 +search_list()
             #search_list_page
