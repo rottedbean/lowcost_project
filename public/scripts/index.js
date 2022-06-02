@@ -56,6 +56,7 @@ window.onload = function(){
 
     // 로컬 스토리지 통해 최근 검색 목록 불러오기
     recentSearch();
+    resetBasket();
 };
 
 

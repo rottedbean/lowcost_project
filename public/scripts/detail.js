@@ -2,6 +2,9 @@
 //메인 카드 정보 불러오는 함수 작성
 //지금은 임시로 사용중
 
+//220602
+//저거 상세 페이지 가격 부분 링크 위해서 사이트랑 링크 걸 방법 연구
+
 var idx = 0;
 var mainCard = {};
 
@@ -42,7 +45,7 @@ function addLocalStorage(idx){
     else{
         if (local.includes(idx)){ //해당 요소가 배열 안에 있으면?
             if (local.indexOf(idx) != 0){
-                local.splice(local.indexOf(idx));
+                local.splice(local.indexOf(idx), 1);
                 local.unshift(idx);
                 localStorage.setItem("name", JSON.stringify(local));
             }
@@ -60,14 +63,28 @@ function addLocalStorage(idx){
         }
         
     }
+    resetBasket();
 }
 
 // 메인 카드 페이지 생성
 function setMainCard(){
     $("#main_detail_image").attr("src", mainCard['img_link']);
     $("#card_detail_name").html(mainCard['name']);
-    $("#card_detail_info").html(mainCard['info']);
-    $("#card_detail_price").html(mainCard['low']);
+    var temp = '';
+    for (var key in mainCard.info){
+        temp += key + " : " + mainCard.info[key] + "<br>";
+    }
+    $("#card_detail_info").html(temp);
+    $("#low_price").html(`₩ ${addComma(mainCard.low)}`);
+    var count = 0;
+    for (var key in mainCard.price){
+        var dir = ".detail_price:eq(";
+        $(dir + count + ")").css("display","block");
+        $(dir + count + ")").html(key);
+        $(dir + (count + 10) + ")").css("display","block");
+        $(dir + (count + 10) + ")").html(`₩ ${addComma(mainCard.price[key])}`);
+        count += 1;
+    }
     $("#addBasket_img").attr("onclick", "addBasket(" + mainCard.idx + ");")
     var text = '';
     for (var i in mainCard.price){

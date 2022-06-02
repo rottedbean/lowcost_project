@@ -1,13 +1,5 @@
 // 장바구니용 글로벌 변수
 var is_basket = false;
-var receipt = {
-    index_list : new Array(),
-    name_list : new Array(),
-    price_list : new Array(),
-    count : new Array(),
-    total : 0,
-    sum : 0
-};
 var page2 = 0;
 var category = [];
 
@@ -101,24 +93,55 @@ function basket(){
 
 //장바구니
 function resetBasket(){
+    // 장바구니 리셋
     var idxList = JSON.parse(localStorage.getItem("basket"));
+    var idx = new Array();
+    var count = new Array();
     for (var i = 0; i < 100; i++){
         var dir = ".basket_card_slot:eq(" + i + ")";
-        if (i < idxList){ // 장바구니 안
+        if (i < idxList.length){ // 장바구니 안
             var obj = callIdx(idxList[i]);
             $(dir).css("display", "block");
-            $(dir + ' .card_name').html(obj.name);
-            $(dir + ' .card_price').html(addComma(obj.low));
-            $(dir).attr("href", "/detail?idx=" + obj.idx);
+            $(dir + ' img').attr('src', obj.img_link);
+            $(dir + ' .basket_card_name').html(obj.name);
+            $(dir + ' .basket_card_price').html(addComma(obj.low));
+            $(dir + ' .basket_card_box').attr("href", "/detail?idx=" + obj.idx);
+
+            if (idx.includes(obj.idx)){
+                count[idx.indexOf(obj.idx)] += 1;
+            }
+            else{
+                idx.push(obj.idx);
+                count.push(1);
+            }
         }
         else {
             $(dir).css("display", "none");
         }
     }
+    // 영수증 리셋
+    var sum = 0;
+    var csum = 0;
+    for (var i = 0; i < idx.length; i++){
+        var obj = callIdx(idx[i]);
+        var dir = ".receipt_list_one:eq(" + i + ")";
+        $(dir).css("display", "flex");
+        $(dir + " .receipt_list_name").text(obj.name);
+        $(dir + " .receipt_list_price").text(`₩ ${addComma(obj.low)}`);
+        $(dir + " .receipt_list_calc").text(`${addComma(obj.low)} x ${count[i]} ea`);
+        $(dir + " .receipt_list_total").text(`₩ ${addComma(obj.low * count[i])}`);
+        sum += obj.low * count[i];
+        csum += count[i];
+    }
+    $("#receipt_total_count").text(`총 ${csum}개`);
+    $("#receipt_total_sum").text(`₩ ${addComma(sum)}`);
 }
 
 function addBasket(idx){
     var idxList = JSON.parse(localStorage.getItem("basket"));
+    if (idxList == null){
+        idxList = [];
+    }
     idxList.unshift(idx);
     localStorage.setItem("basket", JSON.stringify(idxList));
     resetBasket();
@@ -130,78 +153,6 @@ function removeBasket(i){ //인자는 index가 아니라 몇번째인지
     localStorage.setItem("basket", JSON.stringify(idxList));
     resetBasket();
 }
-
-
-function add_basket(link, img_link, name, price, idx){
-    var dir = ".basket_card_slot:eq(";
-    //장바구니
-    $(dir + basket_num + ")").css("display", "block");
-    $(dir + basket_num + ")").attr("href", link);
-    $(dir + basket_num + ") img").attr("src", img_link);
-    $(dir + basket_num + ") .basket_card_name").html(name);
-    $(dir + basket_num + ") .basket_card_price").html(addComma(price));
-    //영수증
-    $(".receipt_list_one:eq(" + basket_num + ")").css("display", "flex");
-    //idx가 리스트 안에 있을 때
-    if (receipt.index_list.includes(idx)){
-        var temp = receipt.index_list.indexOf(idx);
-        receipt.count[temp] += 1;
-    }
-    //idx가 리스트 안에 없을 때
-    else {
-        receipt.index_list.push(idx);
-        receipt.name_list.push(name);
-        receipt.price_list.push(price);
-        receipt.count.push(1);
-    }
-    receipt.sum += 1;
-    receipt.total += Number(price);
-    basket_num += 1;
-    update_receipt_list();
-};
-
-//장바구니 제거
-function remove_basket(i){
-    // 이름값 추출
-    var temp = $(".basket_card_slot:eq(" + i + ") .basket_card_name").text();
-    for (var x = i; x <= basket_num - 1; x++){
-        var dir = ".basket_card_slot:eq(" + x + ")"
-        $(dir + " a").attr("href", $(".basket_card_slot:eq(" + (x + 1) + ")").attr("href"));
-        $(dir + " img").attr("src", $(".basket_card_slot:eq(" + (x + 1) + ") img").attr("src"));
-        $(dir + " .basket_card_name").html($(".basket_card_slot:eq(" + (x + 1) + ") .basket_card_name").html());
-        $(dir + " .basket_card_price").html($(".basket_card_slot:eq(" + (x + 1) + ") .basket_card_price").html());
-    }
-    $(".basket_card_slot:eq(" + (basket_num - 1) + ")").css("display", "none");
-    basket_num -= 1;
-    //이름값으로 인덱스 찾기
-    var temp_num = receipt.name_list.indexOf(temp);
-    receipt.sum -= 1;
-    receipt.total -= receipt.price_list[temp_num];
-    if (receipt.count[temp_num] != 1){
-        receipt.count[temp_num] -= 1;
-    }
-    else {
-        receipt.index_list.splice(temp_num, 1);
-        receipt.name_list.splice(temp_num, 1);
-        receipt.price_list.splice(temp_num, 1);
-        receipt.count.splice(temp_num, 1);
-    }
-    update_receipt_list();
-};
-
-// 영수증 업데이트 해버리기
-function update_receipt_list(){
-    $(".receipt_list_one").css("display","none");
-    for (var i = 0; i < receipt.index_list.length; i++){
-        $(".receipt_list_one:eq(" + i + ")").css("display", "flex");
-        $(".receipt_list_one:eq(" + i + ") .receipt_list_name").text(receipt.name_list[i]);
-        $(".receipt_list_one:eq(" + i + ") .receipt_list_price").text(`₩ ${addComma(receipt.price_list[i])}`);
-        $(".receipt_list_one:eq(" + i + ") .receipt_list_calc").text(`${addComma(receipt.price_list[i])} x ${receipt.count[i]} ea`);
-        $(".receipt_list_one:eq(" + i + ") .receipt_list_total").text(`₩ ${addComma(receipt.price_list[i] * receipt.count[i])}`);
-    };
-    $("#receipt_total_count").text(`총 ${receipt.sum}개`);
-    $("#receipt_total_sum").text(`₩ ${addComma(receipt.total)}`);
-};
 
 //테스트 페이지용
 function test(){
@@ -305,11 +256,13 @@ function callRecSer(){
 
 function recentSearch(){
     var recSer = callRecSer();
-    for (var i = 0; i < recSer.length; i++){
-        dir = ".recent_history ~ a:eq(" + i + ")";
-        $(dir).css("display", "inline-block");
-        $(dir).html(recSer[i]);
-        $(dir).attr("href", "/search?value=" + encodeURI(recSer[i], "utf-8"))
+    if (recSer != null){
+        for (var i = 0; i < recSer.length; i++){
+            dir = ".recent_history ~ a:eq(" + i + ")";
+            $(dir).css("display", "inline-block");
+            $(dir).html(recSer[i]);
+            $(dir).attr("href", "/search?value=" + encodeURI(recSer[i], "utf-8"))
+        }
     }
 }
 
@@ -324,6 +277,12 @@ function callIdx(idx){
                 '엄마손쇼핑' : 4700,
                 '부전시장' : 2100,
                 '이마트' : 2400
+            },
+            info : {
+                "맵기" : "6단계",
+                "짠 정도" : "3단계",
+                "양" : "200g",
+                "유통기한" : "20220623"
             },
             low : 2100,
             idx : 123,

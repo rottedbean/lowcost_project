@@ -17,7 +17,20 @@ block content
                         p#card_detail_info.card_detail_box_text="card info"
                     #main_detail_text_price.main_content_box
                         p.name_name="카드 가격"
-                        p#card_detail_price.card_detail_box_text="card price"
+                        #detail_line
+                        #in_detail_box
+                            #detail_box1 
+                                p#low_text="최저가"
+                                - for (var i = 0; i < 10; i++)
+                                    a.detail_price(href='#')='linkList'
+                            #detail_box2
+                                p#low_price="₩ 0"
+                                - for (var i = 0; i < 10; i++)
+                                    p.detail_price='priceList'
+                        
+                        //- p#low_text="최저가"
+                        //- p#card_detail_low.card_detail_box_text="card low"
+                        //- p#card_detail_price.card_detail_box_text="card price"
             #main_same_name
                 p#main_same_name_title="같은 이름 카드"
                 #same_name_box

@@ -6,15 +6,14 @@ mixin card_main()
         .icon_slot
             img(src="images/icon_pop.png" width="50" height="25")#img1
             img(src="images/icon_no_stock.png" width="50" height="25" )#img2
-    //- 추후 스크립트 짤때 구조체로 변경
 
 mixin card_basket(i)
-    a.basket_card_slot(href='#')
-        img(src="" width="80px" height="116px").card_img 
-        //- 이미지 링크 복구하기
-        .basket_card_name
-        .basket_card_price
-        .basket_remove_button(href='javascript:void(0);' onclick='removeBasket('+i+')')
+    .basket_card_slot
+        a.basket_card_box(href='#')
+            img(src="" width="80px" height="116px").card_img 
+            .basket_card_name= 'name'
+            .basket_card_price= 'price'
+        .basket_remove_button(href='javascript:void(0);' onclick="removeBasket(" + i + ");")
         
 mixin card_list()
     .receipt_list_one
