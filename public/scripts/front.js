@@ -24,6 +24,9 @@ $(function(){
     });
 });
 
+// ========================================================
+// ======================= 카테고리 =======================
+// 카테고리 초기화
 function initCategory(){
     category = callCategory()
     for (var i = 0; i < 10; i++){
@@ -75,113 +78,6 @@ function setCategory(a, b){
     }
 }
 
-//장바구니 열고 닫기
-function basket(){
-    if (is_basket){
-        $('#basket').css('top', '820px');
-        $('#curtain').css('background-color', 'rgba(255,255,255,0)');
-        $('#basket_button_img').attr("src","images/option_up.png")
-        is_basket = false;
-    }
-    else {
-        $('#basket').css('top', '350px');
-        $('#curtain').css('background-color', 'rgba(100,100,100,0.5)');
-        $('#basket_button_img').attr("src","images/option_down.png")
-        is_basket = true;
-    }
-};
-
-//장바구니
-function resetBasket(){
-    // 장바구니 리셋
-    var idxList = JSON.parse(localStorage.getItem("basket"));
-    var idx = new Array();
-    var count = new Array();
-    for (var i = 0; i < 100; i++){
-        var dir = ".basket_card_slot:eq(" + i + ")";
-        if (i < idxList.length){ // 장바구니 안
-            var obj = callIdx(idxList[i]);
-            $(dir).css("display", "block");
-            $(dir + ' img').attr('src', obj.img_link);
-            $(dir + ' .basket_card_name').html(obj.name);
-            $(dir + ' .basket_card_price').html(addComma(obj.low));
-            $(dir + ' .basket_card_box').attr("href", "/detail?idx=" + obj.idx);
-
-            if (idx.includes(obj.idx)){
-                count[idx.indexOf(obj.idx)] += 1;
-            }
-            else{
-                idx.push(obj.idx);
-                count.push(1);
-            }
-        }
-        else {
-            $(dir).css("display", "none");
-        }
-    }
-    // 영수증 리셋
-    var sum = 0;
-    var csum = 0;
-    for (var i = 0; i < idx.length; i++){
-        var obj = callIdx(idx[i]);
-        var dir = ".receipt_list_one:eq(" + i + ")";
-        $(dir).css("display", "flex");
-        $(dir + " .receipt_list_name").text(obj.name);
-        $(dir + " .receipt_list_price").text(`₩ ${addComma(obj.low)}`);
-        $(dir + " .receipt_list_calc").text(`${addComma(obj.low)} x ${count[i]} ea`);
-        $(dir + " .receipt_list_total").text(`₩ ${addComma(obj.low * count[i])}`);
-        sum += obj.low * count[i];
-        csum += count[i];
-    }
-    $("#receipt_total_count").text(`총 ${csum}개`);
-    $("#receipt_total_sum").text(`₩ ${addComma(sum)}`);
-}
-
-function addBasket(idx){
-    var idxList = JSON.parse(localStorage.getItem("basket"));
-    if (idxList == null){
-        idxList = [];
-    }
-    idxList.unshift(idx);
-    localStorage.setItem("basket", JSON.stringify(idxList));
-    resetBasket();
-}
-
-function removeBasket(i){ //인자는 index가 아니라 몇번째인지
-    var idxList = JSON.parse(localStorage.getItem("basket"));
-    idxList.splice(i, 1);
-    localStorage.setItem("basket", JSON.stringify(idxList));
-    resetBasket();
-}
-
-//테스트 페이지용
-function test(){
-    var name = $("#name").val()
-    var link = $("#link").val()
-    var price = $("#price").val()
-    var idx = $("#index").val()
-    add_basket(link, "#", name, price, idx)
-}
-
-function reset(){
-    $(".basket_card_slot").css("display", "none");
-    basket_num = 0;
-    receipt.index_list = [];
-    receipt.name_list = [];
-    receipt.price_list = [];
-    receipt.count = [];
-    receipt.total = 0;
-    receipt.sum = 0;
-    update_receipt_list();
-}
-
-//1000단위 콤마찍기
-function addComma(value){
-    temp = String(value)
-    temp = temp.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    return temp; 
-}
-
 // 카테고리 임시 배정
 function callCategory(){
     return {
@@ -214,48 +110,96 @@ function callCategory(){
     }
 }
 
-// 임시 로컬 스토리지 비우는 함수
-function tempFunc(){
-    localStorage.clear("recSer");
-}
 
-// 서치 함수
-function searchFunc(){
-    var value = $("input[name=title]").val();
-    var url = "/search?value=";
-    var recSer = callRecSer();
-    if (recSer == null){
-        localStorage.setItem("recSer", value);
+// ========================================================
+// ======================= 장바구니 =======================
+// 장바구니 열고닫기
+function basket(){
+    if (is_basket){
+        $('#basket').css('top', '820px');
+        $('#curtain').css('background-color', 'rgba(255,255,255,0)');
+        $('#basket_button_img').attr("src","images/option_up.png")
+        is_basket = false;
     }
     else {
-        if (recSer.includes(value)){
-            recSer.splice(recSer.indexOf(value), 1);
-            recSer.unshift(value);
-        }
-        else{
-            recSer.unshift(value);
-            if (recSer.length > 4){
-                recSer.pop();
+        $('#basket').css('top', '350px');
+        $('#curtain').css('background-color', 'rgba(100,100,100,0.5)');
+        $('#basket_button_img').attr("src","images/option_down.png")
+        is_basket = true;
+    }
+};
+
+// 장바구니 리셋
+function resetBasket(){
+    var nameList = callLocStg("basket");
+    console.log(nameList);
+    var objName = [];
+    var objRec = [];
+    var obj = callMain(nameList);
+    console.log(obj);
+    for (var i = 0; i < 100; i++){
+        var dir = ".basket_card_slot:eq(" + i + ")";
+        if (i < obj.length){ 
+            $(dir).css("display", "block");
+            $(dir + ' img').attr('src', obj[i].img);
+            $(dir + ' .basket_card_name').html(obj[i].name);
+            $(dir + ' .basket_card_price').html(addComma(obj[i].low));
+            $(dir + ' .basket_card_box').attr("href", "/detail?value=" + encodeURI(obj[i].name, "utf-8"));
+
+            if (objName.includes(obj[i].name)){
+                objRec[objName.indexOf(obj[i].name)].count += 1;
+            }
+            else{
+                objName.push(obj[i].name);
+                objRec.push({
+                    count : 1,
+                    low : obj[i].low
+                });
             }
         }
-        localStorage.setItem("recSer", recSer);
+        else {
+            $(dir).css("display", "none");
+        }
     }
-    location.href = url + encodeURI(value, "utf-8");
+    // 영수증 리셋
+    var sum = 0;
+    var csum = 0;
+    $(".receipt_list_one").css("display", "none");
+    for (var i = 0; i < objName.length; i++){
+        var dir = ".receipt_list_one:eq(" + i + ")";
+        $(dir).css("display", "flex");
+        $(dir + " .receipt_list_name").text(objName[i]);
+        $(dir + " .receipt_list_price").text(`₩ ${addComma(objRec[i].low)}`);
+        $(dir + " .receipt_list_calc").text(`${addComma(objRec[i].low)} x ${objRec[i].count} ea`);
+        $(dir + " .receipt_list_total").text(`₩ ${addComma(objRec[i].low * objRec[i].count)}`);
+        sum += objRec[i].low * objRec[i].count
+        csum += objRec[i].count;
+    }
+    $("#receipt_total_count").text(`총 ${csum}개`);
+    $("#receipt_total_sum").text(`₩ ${addComma(sum)}`);
 }
 
-// recSer 로컬 스토리지 부르기
-function callRecSer(){
-    try {
-        var temp = localStorage.getItem("recSer").split(',');
-    }
-    catch {
-        return null;
-    }
-    return temp;
+// 장바구니 추가
+function addBasket(name){
+    var nameList = callLocStg("basket");
+    nameList.unshift(name);
+    localStorage.setItem("basket", arrToStr(nameList));
+    resetBasket();
 }
 
+// 장바구니 삭제
+function removeBasket(i){ //인자는 index가 아니라 몇번째인지
+    var nameList = callLocStg("basket");
+    nameList.splice(i, 1);
+    localStorage.setItem("basket", arrToStr(nameList));
+    resetBasket();
+}
+
+// ========================================================
+// ========================= 헤더 =========================
+// 최근 검색 목록
 function recentSearch(){
-    var recSer = callRecSer();
+    var recSer = callLocStg('recSer');
     if (recSer != null){
         for (var i = 0; i < recSer.length; i++){
             dir = ".recent_history ~ a:eq(" + i + ")";
@@ -266,10 +210,80 @@ function recentSearch(){
     }
 }
 
+// 서치 함수
+function searchFunc(){
+    var value = $("input[name=title]").val();
+    var url = "/search?value=";
+    var recSer = callLocStg('recSer');
+    if (recSer == null){
+        localStorage.setItem("recSer", value);
+    }
+    else {
+        recSer = recSer.split(',');
+        if (recSer.includes(value)){
+            recSer.splice(recSer.indexOf(value), 1);
+            recSer.unshift(value);
+        }
+        else{
+            recSer.unshift(value);
+            if (recSer.length > 4){
+                recSer.pop();
+            }
+        }
+        localStorage.setItem("recSer", arrToStr(recSer));
+    }
+    location.href = url + encodeURI(value, "utf-8");
+}
+
+
+// ========================================================
+// ====================== 로컬 저장소 ======================
+
+// 로컬 스토리지 부르기
+function callLocStg(str) {
+    var temp = localStorage.getItem(str);
+    if (temp == null){
+        return [];
+    }
+    else {
+        return temp.split(',');
+    }
+}
+
+// 로컬 스토리지 초기화
+function reset(){
+    localStorage.clear();
+    location.reload();
+}
+
+// ========================================================
+// ======================= 기능 함수 =======================
+
+// 배열 => 문자열
+function arrToStr(arr){
+    console.log(arr);
+    if (arr.length == 0){
+        return null;
+    }
+    else{
+        var result = arr[0];
+        for (var i = 1; i < arr.length; i++){
+            result += ',' + arr[i];
+        }
+        return result;
+    }
+}
+
+//1000단위 콤마찍기
+function addComma(value){
+    temp = String(value)
+    temp = temp.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return temp; 
+}
 
 //임시 더미 함수들
-function callIdx(idx){
-    if (idx == 123){
+function callIdx(value){
+    if (value == "고추참치"){
         const res = {
             name : "고추참치",
             price : {
@@ -287,13 +301,13 @@ function callIdx(idx){
             low : 2100,
             idx : 123,
             link : "/detail?idx=123",
-            img_link : "/images/cards/123.png",
+            img : "/images/cards/123.png",
             pop : true,
             stock : false
         };
         return res
     }
-    else if (idx == 456){
+    else if (value == "참치마요"){
         const res = {
             name : "참치마요",
             price : {
@@ -305,13 +319,13 @@ function callIdx(idx){
             low : 2700,
             idx : 456,
             link : "/detail?idx=456",
-            img_link : "/images/cards/456.png",
+            img : "/images/cards/456.png",
             pop : true,
             stock : true
         };
         return res
     }
-    else if (idx == 789){
+    else if (value == "동원참치"){
         const res = {
             name : "동원참치",
             price : {
@@ -323,13 +337,13 @@ function callIdx(idx){
             low : 800,
             idx : 789,
             link : "/detail?idx=789",
-            img_link : "/images/cards/789.png",
+            img : "/images/cards/789.png",
             pop : true,
             stock : true
         };
         return res
     }
-    else if (idx == 1){
+    else if (value == "배추김치"){
         const res = {
             name : "배추김치",
             price : {
@@ -341,13 +355,13 @@ function callIdx(idx){
             low : 6000,
             idx : 1,
             link : "/detail?idx=1",
-            img_link : "/images/cards/1.png",
+            img : "/images/cards/1.png",
             pop : true,
             stock : true
         };
         return res
     }
-    else if (idx == 2){
+    else if (value == "파김치"){
         const res = {
             name : "파김치",
             price : {
@@ -359,13 +373,13 @@ function callIdx(idx){
             low : 21000,
             idx : 2,
             link : "/detail?idx=2",
-            img_link : "/images/cards/2.png",
+            img : "/images/cards/2.png",
             pop : true,
             stock : true
         };
         return res
     }
-    else if (idx == 3){
+    else if (value == "총각김치"){
         const res = {
             name : "총각김치",
             price : {
@@ -377,13 +391,13 @@ function callIdx(idx){
             low : 33000,
             idx : 3,
             link : "/detail?idx=3",
-            img_link : "/images/cards/3.png",
+            img : "/images/cards/3.png",
             pop : true,
             stock : true
         };
         return res
     }
-    else if (idx == 4){
+    else if (value == "김치라면"){
         const res = {
             name : "김치라면",
             price : {
@@ -395,13 +409,13 @@ function callIdx(idx){
             low : 5300,
             idx : 4,
             link : "/detail?idx=4",
-            img_link : "/images/cards/4.png",
+            img : "/images/cards/4.png",
             pop : true,
             stock : true
         };
         return res
     }
-    else if (idx == 5){
+    else if (value == "김치김밥"){
         const res = {
             name : "김치김밥",
             price : {
@@ -413,13 +427,13 @@ function callIdx(idx){
             low : 2800,
             idx : 5,
             link : "/detail?idx=5",
-            img_link : "/images/cards/5.png",
+            img : "/images/cards/5.png",
             pop : true,
             stock : true
         };
         return res
     }
-    else if (idx == 6){
+    else if (value == "핵김치"){
         const res = {
             name : "핵김치",
             price : {
@@ -431,10 +445,19 @@ function callIdx(idx){
             low : 28000,
             idx : 6,
             link : "/detail?idx=6",
-            img_link : "/images/cards/6.png",
+            img : "/images/cards/6.png",
             pop : true,
             stock : true
         };
         return res
     }
+}
+
+// 임시 더미 불러오기 함수
+function callMain(lis){
+    var result = [];
+    for (var i = 0; i < lis.length; i++){
+        result.push(callIdx(lis[i]));
+    }
+    return result;
 }

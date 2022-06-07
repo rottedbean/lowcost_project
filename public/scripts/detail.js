@@ -5,7 +5,7 @@
 //220602
 //저거 상세 페이지 가격 부분 링크 위해서 사이트랑 링크 걸 방법 연구
 
-var idx = 0;
+var value = '';
 var mainCard = {};
 
 var cardList = {
@@ -17,9 +17,9 @@ var cardList = {
 
 window.onload = function(){
     initCategory();
-    idx = getPara();
-    addLocalStorage(idx);
-    mainCard = callIdx(idx);
+    value = getPara();
+    addLocalStorage(value);
+    mainCard = callIdx(value);
     recentSearch();
     setMainCard();
     temp_card(7);
@@ -31,34 +31,31 @@ window.onload = function(){
 function getPara(){
     const url = new URL(window.location.href);
     const urlParams = url.searchParams;
-    value = urlParams.get('idx');
+    value = urlParams.get('value');
     return value;
 }
 
 // 로컬에 저장 
-function addLocalStorage(idx){
-    // localStorage.setItem("name", null);
-    var local = JSON.parse(localStorage.getItem('name'));
+function addLocalStorage(){
+    var local = callLocStg('name');
     if (local == null){ // 로컬 스토리지 비어있음
-        localStorage.setItem("name", JSON.stringify([idx]));
+        localStorage.setItem("name", value);
     }
     else{
-        if (local.includes(idx)){ //해당 요소가 배열 안에 있으면?
-            if (local.indexOf(idx) != 0){
-                local.splice(local.indexOf(idx), 1);
-                local.unshift(idx);
-                localStorage.setItem("name", JSON.stringify(local));
-            }
+        if (local.includes(value)){ //해당 요소가 배열 안에 있으면?
+            local.splice(local.indexOf(value), 1);
+            local.unshift(value);
+            localStorage.setItem("name", arrToStr(local));
         }
         else{ //해당 요소가 배열안에 없으면?
             if (local.length < 6){ //로컬 스토리지 0 < 로컬 < 6
-                local.unshift(idx);
-                localStorage.setItem("name", JSON.stringify(local));
+                local.unshift(value);
+                localStorage.setItem("name", arrToStr(local));
             }
             else { //로컬 스토리지 6 이상
-                local.unshift(idx);
+                local.unshift(value);
                 local.pop();
-                localStorage.setItem("name", JSON.stringify(local));
+                localStorage.setItem("name", arrToStr(local));
             }
         }
         
@@ -68,8 +65,8 @@ function addLocalStorage(idx){
 
 // 메인 카드 페이지 생성
 function setMainCard(){
-    $("#main_detail_image").attr("src", mainCard['img_link']);
-    $("#card_detail_name").html(mainCard['name']);
+    $("#main_detail_image").attr("src", mainCard.img);
+    $("#card_detail_name").html(mainCard.name);
     var temp = '';
     for (var key in mainCard.info){
         temp += key + " : " + mainCard.info[key] + "<br>";
@@ -85,7 +82,7 @@ function setMainCard(){
         $(dir + (count + 10) + ")").html(`₩ ${addComma(mainCard.price[key])}`);
         count += 1;
     }
-    $("#addBasket_img").attr("onclick", "addBasket(" + mainCard.idx + ");")
+    $("#addBasket_img").attr("onclick", "addBasket('" + mainCard.name + "');")
     var text = '';
     for (var i in mainCard.price){
         text += `${i}`
