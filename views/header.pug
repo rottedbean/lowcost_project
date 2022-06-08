@@ -12,7 +12,7 @@ include mixins
                     img(src="/images/search.png")
                     //- 이미지 링크 복구하기
                 ul#recent_search
-                    li.recent_history= "최근 검색 목록    |    "
+                    li(onclick="reset();").recent_history= "최근 검색 목록    |    "
                     a.recent_history= "!"
                     a.recent_history= "!"
                     a.recent_history= "!"

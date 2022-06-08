@@ -32,6 +32,7 @@ window.onload = function(){
     $('#current_search_text').html(`${addComma(list.length)}개의 검색결과`);
     searchListReset();
     recentSearch();
+    resetBasket();
 };
 
 // 파라미터 값 가져오기
@@ -153,7 +154,7 @@ function searchListReset(){
             }
         }
         //검색 화면 바꾸기
-        for (var i = 0; i < 10; i++){
+        for (var i = 0; i < searchOption[2]; i++){
             var dir = '.search_list_box:eq(' + i + ')';
             var rand = Math.floor(Math.random() * 10);
             if (i < leng){

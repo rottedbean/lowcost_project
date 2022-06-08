@@ -74,13 +74,17 @@ body {
   display:none;
   float:left;
   width:120px;
-  height:200px;
+  height:220px;
   margin-left:10px;
   text-align: center;
+}
+.basket_card_box {
+  display:block;
+  padding-bottom:10px;
   text-decoration: none;
   color:black;
 }
-.basket_card_slot:hover {
+.basket_card_slot:hover .basket_card_box{
   background-color: #999999;
 }
 .basket_card_slot:active {
@@ -115,12 +119,10 @@ body {
   display:block;
 }
 .basket_remove_button {
-  position:relative;
+  background-color: red;
   display:none;
-  bottom:170px;
-  left:99px;
-  width:18px;
-  height:18px;
+  width:120px;
+  height:20px;
 }
 .basket_remove_button:after{
   content:"\00d7";
@@ -709,16 +711,15 @@ footer {
 #main_detail_text{
   width:500px;
   height:auto;
-  background-color: lightgray;
   display: flex;
   flex-flow: column;
 }
-#main_detail_text div{
+#main_detail_text > div{
   width:450px;
   margin:25px;
   border:1px solid black;
 }
-#main_detail_text div:nth-child(-n+2){
+#main_detail_text > div:nth-child(-n+2){
   margin-top:25px;
 }
 
@@ -734,7 +735,7 @@ footer {
 .name_name{
   width:150px;
   font-weight: 700;
-  background-color: lightgray;
+  background-color: white;
   font-size:18pt;
   display:inline-block;
   position:relative;
@@ -770,6 +771,47 @@ footer {
   position:relative;
   bottom:14px;
   left:14px;
+}
+#detail_line{
+  border:1px solid black;
+  width:380px;
+  margin-left:35px;
+  height:0px;
+  position:relative;
+  top:40px;
+}
+#low_text {
+  color:orange;
+  font-size: 18pt;
+  font-weight: 700;
+}
+#low_price {
+  font-size:18pt;
+}
+.detail_price{
+  margin-top:20px;
+  display:block;
+  text-decoration: none;
+  color:black;
+  font-size:15pt;
+  display:none;
+}
+#in_detail_box {
+  width:100%;
+  height:100%;
+  display:flex;
+  border:none;
+}
+#in_detail_box > div{
+  padding-left:35px;
+}
+#detail_box1{
+  height:100%;
+  width:50%;
+}
+#detail_box2{
+  height: 100%;
+  width:50%;
 }
 
 /*같은 이름 카드*/
