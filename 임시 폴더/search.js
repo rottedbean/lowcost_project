@@ -142,7 +142,7 @@ function searchListReset(){
                 $('.search_list_line:eq(' + (i + 1) + ')').css("display", "none");
             }
         }
-
+asdf
         //페이지 목록 바꾸기
         var linkDir = '.search_list_page_link:eq(';
         var lineDir = '.search_list_page_line:eq(';
