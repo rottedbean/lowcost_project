@@ -1,5 +1,5 @@
+// 나중에 할 일 '차후' 라고 검색
 var is_basket = false;
-
 
 // ========================================================
 // ======================= 카테고리 =======================
@@ -179,11 +179,86 @@ function basket(){
     }
 };
 
+// 장바구니 초기화
 function resetBasket(){
     var nameList = callLS('basket');
-    var objName = [];
-    var obj = callCardsMain(nameList);
+    var cnt = {
+        name : [],
+        sum : []
+    };
+    var obj = callCardsBasket(nameList);
+    $(".basket_card_slot").css("display", "none");
+    $(".receipt_list_one").css("display", "none");
+    // 카드 파트 세팅
+    for (var i = 0; i < obj.length; i++){
+        var dir = ".basket_card_slot:eq(" + i + ")";
+        $(dir).css("display", "block");
+        $(dir + ' img').attr('src', obj[i].img);
+        $(dir + ' .basket_card_name').html(obj[i].name);
+        $(dir + ' .basket_card_price').html(addComma(obj[i].low));
+        $(dir + ' .basket_card_box').attr("href", "/detail?value=" + encodeURI(obj[i].name, "utf-8"));
 
+        if (cnt.name.includes(obj[i].name)){
+            cnt.sum[objCnt.name.indexOf(obj[i].name)][0] += 1;
+        }
+        else {
+            cnt.name.push(obj[i].name);
+            cnt.sum.push([1, obj[i].low]);
+        }
+    }
+    //영수증 파트 세팅
+    var sum = [0, 0];
+    for (var i = 0; i < cnt.name.length; i++){
+        var dir = ".receipt_list_one:eq(" + i + ")";
+        $(dir).css("display", "flex");
+        $(dir + " .receipt_list_name").text(cnt.name[i]);
+        $(dir + " .receipt_list_price").text(`₩ ${addComma(cnt.sum[i][1])}`);
+        $(dir + " .receipt_list_calc").text(`${addComma(cnt.sum[i][1])} x ${cnt.sum[i][0]} ea`);
+        $(dir + " .receipt_list_total").text(`₩ ${addComma(cnt.sum[i][1] * cnt.sum[i][0])}`);
+        sum[0] += cnt.sum[i][1];
+        sum[1] += cnt.sum[i][0] * cnt.sum[i][0];
+    }
+    $("#receipt_total_count").text(`총 ${sum[0]}개`);
+    $("#receipt_total_sum").text(`₩ ${addComma(sum[1])}`);
+}
+
+// 장바구니 추가
+function addBasket(name){
+    var nameList = callLocStg("basket");
+    nameList.unshift(name);
+    localStorage.setItem("basket", arrToStr(nameList));
+    resetBasket();
+}
+
+// 장바구니 삭제
+function removeBasket(i){ //인자는 index가 아니라 몇번째인지
+    var nameList = callLocStg("basket");
+    nameList.splice(i, 1);
+    localStorage.setItem("basket", arrToStr(nameList));
+    resetBasket();
+}
+
+// ========================================================
+// ========================= 검색 =========================
+
+// 최근 검색 목록
+function recentSearch(){
+    var recSer = callLS('recSer');
+    $(".recent_history ~ a").css("display", "none");
+    for (var i = 0; i < recSer.length; i++){
+        dir = ".recent_history ~ a:eq(" + i + ")";
+        $(dir).css("display", "inline-block");
+        $(dir).html(recSer[i]);
+        $(dir).attr("href", "/search?value=" + encodeURI(recSer[i], "utf-8"))
+    }
+}
+
+// 검색
+function searchFunc(){
+    var value = $("input[name=title]").val();
+    var url = "/search?value=";
+    addLS('recSer', value, 1);
+    location.href = url + encodeURI(value, "utf-8");
 }
 
 // ========================================================
@@ -212,7 +287,42 @@ function addComma(value){
 
 // 임시 더미 불러오기
 // 차후에는 이 시점에서 DB가 알아서 해줄 예정
-function callCardsMain(list){
+// 장바구니
+function callCardsBasket(list){
+    var result = [];
+    for (var i = 0; i < list.length; i++){
+        result.push(callCard(list[i]));
+    }
+    return result;
+}
+
+// 최근 방문 목록
+function callCardsRecent(list){
+    var result = [];
+    for (var i = 0; i < list.length; i++){
+        result.push(callCard(list[i]));
+    }
+    return result;
+}
+
+// 인덱스 페이지
+function callCardsIndex(){
+    var result = [];
+    var temp1 = [["핵김치", "고추참치", "총각김치", "김치라면", "참치마요", "배추김치"],
+            ["파김치", "김치김밥", "동원참치", "총각김치", "핵김치", "배추김치"]];
+    var temp = [];
+    for (var i = 0; i < 2; i++){
+        for (var j = 0; j < 6; j++){
+            temp.push(callCard(temp1[i][j]));
+        }
+        result.push(temp);
+        temp = [];
+    }
+    return result;
+}
+
+// 검색 페이지
+function callCardsSearch(){
     var result = [];
     for (var i = 0; i < list.length; i++){
         result.push(callCard(list[i]));
@@ -391,3 +501,4 @@ function callCard(value){
         return res
     }
 }
+
