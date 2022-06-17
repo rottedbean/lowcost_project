@@ -8,21 +8,18 @@
 var value = '';
 var mainCard = {};
 
-var cardList = {
-    name : new Array(),
-    imgLink : new Array(),
-    code : new Array(),
-    stock : new Array()
-};
+var cardList = [];
 
 window.onload = function(){
     initCategory();
     value = getPara();
-    addLocalStorage(value);
+    addLocalStorage();
     mainCard = callIdx(value);
     recentSearch();
     setMainCard();
-    temp_card(7);
+
+    //임시 파트
+    temp_card();
     same_card();
 };
 
@@ -60,7 +57,7 @@ function addLocalStorage(){
         }
         
     }
-    resetBasket();
+    //resetBasket();
 }
 
 // 메인 카드 페이지 생성
@@ -90,30 +87,58 @@ function setMainCard(){
 }
 
 //임시 카드 선언
-function temp_card(n){
-    var temp = ['참치', '꽁치', '김치', '멸치', '삼치', '한치', '명치', '국치', '그치', '아치',
-                '홍일동', '홍이동', '홍삼동', '홍사동', '홍오동', '홍육동', '홍칠동', '홍팔동', '홍구동', '홍영동',
-                '박지성', '손흥민', '류현진', '사사키 로키', '오타니 쇼헤이', '임요환', '페이커', '이천수', '강백호', '끝나간다', '마지막'];
-    for (var i = 0; i < n; i++){
-        cardList.name.push(temp[i]);
-        cardList.code.push(i);
-        cardList.imgLink.push("");
-        if (i % 2 == 0){
-            cardList.stock.push(true)
-        }
-        else{
-            cardList.stock.push(false)
-        }
-    }
+function temp_card(){
+    cardList.push({
+        name : "핵김치",
+        code : "1541-124",
+        img : "/images/cards/6.png",
+        stock : true
+    });
+    cardList.push({
+        name : "핵김치",
+        code : "1541-125",
+        img : "/images/cards/6.png",
+        stock : true
+    });
+    cardList.push({
+        name : "핵김치",
+        code : "1541-126",
+        img : "/images/cards/6.png",
+        stock : true
+    });
+    cardList.push({
+        name : "핵김치",
+        code : "1541-127",
+        img : "/images/cards/6.png",
+        stock : true
+    });
+    cardList.push({
+        name : "핵김치",
+        code : "1541-128",
+        img : "/images/cards/6.png",
+        stock : true
+    });
+    cardList.push({
+        name : "핵김치",
+        code : "1541-129",
+        img : "/images/cards/6.png",
+        stock : true
+    });
+    cardList.push({
+        name : "핵김치",
+        code : "1541-123",
+        img : "/images/cards/6.png",
+        stock : true
+    });
 }
 
 function same_card(){
-    for (var i = 0; i < cardList.name.length; i++){
+    for (var i = 0; i < cardList.length; i++){
         $(".same_name_card:eq(" + i + ")").css("display", "block");
-        $(".same_name_card:eq(" + i + ") img").attr("src", cardList.imgLink[i]);
-        $(".same_name_card:eq(" + i + ") #same_name_card_name").text(cardList.name[i]);
-        $(".same_name_card:eq(" + i + ") #same_name_card_code").text(cardList.code[i]);
-        $(".same_name_card:eq(" + i + ") #same_name_card_stock").text(cardList.stock[i]);
+        $(".same_name_card:eq(" + i + ") img").attr("src", cardList[i].img);
+        $(".same_name_card:eq(" + i + ") #same_name_card_name").text(cardList[i].name);
+        $(".same_name_card:eq(" + i + ") #same_name_card_code").text(cardList[i].code);
+        $(".same_name_card:eq(" + i + ") #same_name_card_stock").text(cardList[i].stock);
     }
 }
 
