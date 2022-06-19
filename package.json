@@ -25,6 +25,7 @@
     "puppeteer": "^14.4.1",
     "puppeteer-core": "^14.4.0",
     "request": "^2.88.2",
+    "request-promise-native": "^1.0.9",
     "sanitize-html": "^2.7.0"
   },
   "devDependencies": {
