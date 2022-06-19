@@ -666,13 +666,32 @@ footer {
   display:block;
   height:270px;
   background-color: gray;
+  padding:20px;
 }
 
 .footer_text {
   color:black;
-  font-family:'Pretendard-Regular';
   text-align: center;
   font-size:18pt;
+}
+
+.developer_intro {
+  display:flex;
+  height:160px;
+  justify-content: center;
+}
+
+.developer_intro > div{
+  display:block;
+  text-align: left;
+  padding : 15px;
+  width:200px;
+  height:100%;
+  line-height: 25pt;
+}
+
+.footer_small_text{
+  font-size:14pt;
 }
 
 /*상세 페이지*/
@@ -780,7 +799,7 @@ footer {
   position:relative;
   top:40px;
 }
-#low_text {
+.low_text {
   color:orange;
   font-size: 18pt;
   font-weight: 700;

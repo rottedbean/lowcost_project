@@ -5,7 +5,7 @@ block content
     #content_box
         #main_content_box
             #main_detail_box
-                a(href='javascript:void(0);' onclick="addBasket();")#addBasket_img
+                a(href='javascript:void(0);')#addBasket_img
                     img(src="" width="300px" height="435px")#main_detail_image
                 img(src="images/basket_add.png")#basket_add_button
                 #main_detail_text
@@ -20,7 +20,7 @@ block content
                         #detail_line
                         #in_detail_box
                             #detail_box1 
-                                p#low_text="최저가"
+                                p.low_text="최저가"
                                 - for (var i = 0; i < 10; i++)
                                     a.detail_price(href='#')='linkList'
                             #detail_box2

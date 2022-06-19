@@ -115,14 +115,16 @@ function callCategory(){
 // 로컬 스토리지 불러오기
 function callLS(stgName){
     var localValue = localStorage.getItem(stgName);
-    if (localValue == null){ return []; }
+    if (localValue == ''){ return []; }
     else { return localValue.split(','); }
 }
 
 // 로컬 스토리지 값 추가
-function addLS(stgName, value, num){
-    // 최근 검색 목록, 최근 방문 목록, 장바구니 순
-    var stgLong = [4, 6, 100];
+function addLS(stgName, value){
+    // 최근 검색 목록, 최근 방문 목록
+    var stgLong = 0;
+    if (stgName == 'recSer') { stgLong = 4; }
+    else { stgLong = 6; }
     var localValue = localStorage.getItem(stgName);
     if (localValue == null) {localStorage.setItem(stgName, value); }
     else{
@@ -133,7 +135,7 @@ function addLS(stgName, value, num){
         }
         else{
             localValue.unshift(value);
-            if(localValue.length > stgLong[num]){
+            if(localValue.length > stgLong){
                 localValue.pop();
             }
         }
@@ -199,7 +201,7 @@ function resetBasket(){
         $(dir + ' .basket_card_box').attr("href", "/detail?value=" + encodeURI(obj[i].name, "utf-8"));
 
         if (cnt.name.includes(obj[i].name)){
-            cnt.sum[objCnt.name.indexOf(obj[i].name)][0] += 1;
+            cnt.sum[obj[i].name.indexOf(obj[i].name)][0] += 1;
         }
         else {
             cnt.name.push(obj[i].name);
@@ -215,16 +217,16 @@ function resetBasket(){
         $(dir + " .receipt_list_price").text(`₩ ${addComma(cnt.sum[i][1])}`);
         $(dir + " .receipt_list_calc").text(`${addComma(cnt.sum[i][1])} x ${cnt.sum[i][0]} ea`);
         $(dir + " .receipt_list_total").text(`₩ ${addComma(cnt.sum[i][1] * cnt.sum[i][0])}`);
-        sum[0] += cnt.sum[i][1];
-        sum[1] += cnt.sum[i][0] * cnt.sum[i][0];
+        sum[0] += cnt.sum[i][1] * cnt.sum[i][0];
+        sum[1] += cnt.sum[i][0];
     }
-    $("#receipt_total_count").text(`총 ${sum[0]}개`);
-    $("#receipt_total_sum").text(`₩ ${addComma(sum[1])}`);
+    $("#receipt_total_count").text(`총 ${sum[1]}개`);
+    $("#receipt_total_sum").text(`₩ ${addComma(sum[0])}`);
 }
 
 // 장바구니 추가
 function addBasket(name){
-    var nameList = callLocStg("basket");
+    var nameList = callLS("basket");
     nameList.unshift(name);
     localStorage.setItem("basket", arrToStr(nameList));
     resetBasket();
@@ -232,7 +234,7 @@ function addBasket(name){
 
 // 장바구니 삭제
 function removeBasket(i){ //인자는 index가 아니라 몇번째인지
-    var nameList = callLocStg("basket");
+    var nameList = callLS("basket");
     nameList.splice(i, 1);
     localStorage.setItem("basket", arrToStr(nameList));
     resetBasket();
@@ -257,7 +259,7 @@ function recentSearch(){
 function searchFunc(){
     var value = $("input[name=title]").val();
     var url = "/search?value=";
-    addLS('recSer', value, 1);
+    addLS('recSer', value);
     location.href = url + encodeURI(value, "utf-8");
 }
 
@@ -283,6 +285,14 @@ function addComma(value){
     temp = String(value)
     temp = temp.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     return temp; 
+}
+
+// 파라미터 값 가져오기
+function getPara(){
+    const url = new URL(window.location.href);
+    const urlParams = url.searchParams;
+    value = urlParams.get('value');
+    return value;
 }
 
 // 임시 더미 불러오기
@@ -322,12 +332,17 @@ function callCardsIndex(){
 }
 
 // 검색 페이지
-function callCardsSearch(){
+function callCardsSearch(list){
     var result = [];
     for (var i = 0; i < list.length; i++){
         result.push(callCard(list[i]));
     }
     return result;
+}
+
+// 상세 페이지
+function callCardsDetail(value){
+    return callCard(value);
 }
 
 // 임시 더미들
@@ -349,9 +364,7 @@ function callCard(value){
             },
             low : 2100,
             idx : 123,
-            link : "/detail?idx=123",
             img : "/images/cards/123.png",
-            pop : true,
             stock : false
         };
         return res
@@ -367,7 +380,6 @@ function callCard(value){
             },
             low : 2700,
             idx : 456,
-            link : "/detail?idx=456",
             img : "/images/cards/456.png",
             pop : true,
             stock : true
@@ -385,7 +397,6 @@ function callCard(value){
             },
             low : 800,
             idx : 789,
-            link : "/detail?idx=789",
             img : "/images/cards/789.png",
             pop : true,
             stock : true
@@ -403,7 +414,6 @@ function callCard(value){
             },
             low : 6000,
             idx : 1,
-            link : "/detail?idx=1",
             img : "/images/cards/1.png",
             pop : true,
             stock : true
@@ -421,7 +431,6 @@ function callCard(value){
             },
             low : 21000,
             idx : 2,
-            link : "/detail?idx=2",
             img : "/images/cards/2.png",
             pop : true,
             stock : true
@@ -439,7 +448,6 @@ function callCard(value){
             },
             low : 33000,
             idx : 3,
-            link : "/detail?idx=3",
             img : "/images/cards/3.png",
             pop : true,
             stock : true
@@ -457,7 +465,6 @@ function callCard(value){
             },
             low : 5300,
             idx : 4,
-            link : "/detail?idx=4",
             img : "/images/cards/4.png",
             pop : true,
             stock : true
@@ -475,7 +482,6 @@ function callCard(value){
             },
             low : 2800,
             idx : 5,
-            link : "/detail?idx=5",
             img : "/images/cards/5.png",
             pop : true,
             stock : true
@@ -493,7 +499,6 @@ function callCard(value){
             },
             low : 28000,
             idx : 6,
-            link : "/detail?value=핵김치",
             img : "/images/cards/6.png",
             pop : true,
             stock : true
@@ -501,4 +506,3 @@ function callCard(value){
         return res
     }
 }
-

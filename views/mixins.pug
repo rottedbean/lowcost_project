@@ -37,8 +37,8 @@ mixin search_list()
     .search_list_line
 
 mixin same_name()
-    a.same_name_card(href='#')
+    a.same_name_card(href='javascript:void(0);')
         img(src='' width="90px" height="120px")#same_name_card_img
-        p#same_name_card_name
-        p#same_name_card_code
-        p#same_name_card_stock= "true"
+        p#same_name_card_name= "name"
+        p#same_name_card_code= "packCode"
+        p#same_name_card_stock= "재고 있음"
