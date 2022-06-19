@@ -791,6 +791,13 @@ footer {
   bottom:14px;
   left:14px;
 }
+#card_exp {
+  text-align: left;
+  margin-left:40px;
+}
+#same_name_card_price{
+  font-weight:700;
+}
 #detail_line{
   border:1px solid black;
   width:380px;

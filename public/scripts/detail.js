@@ -47,6 +47,7 @@ function setMainCard(){
     $("#addBasket_img").attr("onclick", "addBasket('" + mainCard.name + "');")
 }
 
+// 같은 이름 카드 설정
 function setSameNameCards(){
     var dir = ".same_name_card:eq(";
     for(var i = 0; i < cardList.length; i++){
@@ -55,6 +56,7 @@ function setSameNameCards(){
         $(dir + i + ") img").attr("src", cardList[i].img);
         $(dir + i + ") #same_name_card_name").text(cardList[i].name);
         $(dir + i + ") #same_name_card_code").text(cardList[i].code);
+        $(dir + i + ") #same_name_card_price").text(`₩ ` + addComma(cardList[i].price));
         if (cardList[i].stock) {
             $(dir + i + ") #same_name_card_stock").text("재고 있음");
         }
@@ -64,6 +66,7 @@ function setSameNameCards(){
     }
 }
 
+// 임시로 같은 이름 카드 띄움
 function callSameCards(v){
     var temp = [];
     temp.push({
@@ -71,49 +74,66 @@ function callSameCards(v){
         code : "1541-124",
         img : "/images/cards/6.png",
         stock : true,
-        url : "https://naver.com"
+        url : "https://naver.com",
+        price : 28000
     });
     temp.push({
         name : "핵김치",
         code : "1541-125",
         img : "/images/cards/6.png",
         stock : true,
-        url : "https://naver.com"
+        url : "https://naver.com",
+        price : 28000
     });
     temp.push({
         name : "핵김치",
         code : "1541-126",
         img : "/images/cards/6.png",
         stock : true,
-        url : "https://naver.com"
+        url : "https://naver.com",
+        price : 28000
     });
     temp.push({
         name : "핵김치",
         code : "1541-127",
         img : "/images/cards/6.png",
         stock : true,
-        url : "https://naver.com"
+        url : "https://naver.com",
+        price : 28000
     });
     temp.push({
         name : "핵김치",
         code : "1541-128",
         img : "/images/cards/6.png",
         stock : true,
-        url : "https://naver.com"
+        url : "https://naver.com",
+        price : 28000
     });
     temp.push({
         name : "핵김치",
         code : "1541-129",
         img : "/images/cards/6.png",
         stock : true,
-        url : "https://naver.com"
+        url : "https://naver.com",
+        price : 28000
     });
     temp.push({
         name : "핵김치",
         code : "1541-123",
         img : "/images/cards/6.png",
         stock : false,
-        url : "https://naver.com"
+        url : "https://naver.com",
+        price : 28000
     });
     return temp;
 }
+
+// 장바구니 추가 버튼 띄우기
+$(function(){
+    $("#main_detail_image").mouseover(function(){
+        $("#basket_add_button").css("display", "block");
+    });
+    $("#main_detail_image").mouseleave(function(){
+        $("#basket_add_button").css("display", "none");
+    });
+});
