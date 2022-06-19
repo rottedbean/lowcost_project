@@ -45,10 +45,11 @@ function searchPageReset(){
                 var obj = list[page];
                 var dir = '.search_list_box:eq(' + i + ')';
                 $(dir).css("display", "flex");
-                $(dir).attr('href', '/detail?value=' + obj.name);
+                $(dir).attr('href', '/detail?value=' + obj.cardname);
                 $(dir + ' img').attr("src", obj.img);
-                $(dir + ' .search_list_name').text(obj.name);
+                $(dir + ' .search_list_name').text(obj.cardname);
                 $(dir + ' .search_list_price').text(addComma(obj.low));
+                $(dir + ' .search_list_count').text(obj.stat);
                 $('.search_list_line:eq(' + (i + 1) + ')').css("display", "block");
             }
         }
