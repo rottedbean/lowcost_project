@@ -62,8 +62,6 @@ function callSearchResult(value){
     }
 }
 
-
-
 //검색 페이지 리셋
 function searchListReset(){
     if (list.length != 0){

@@ -24,6 +24,12 @@ $(function(){
     });
 });
 
+// 리셋 버튼 만들기
+function resetButton(){
+    $('.nav_box:eq(4)').attr('href', 'javascript:void(0);')
+    $('.nav_box:eq(4)').attr('onclick', 'reset("all");')
+}
+
 // 카테고리 초기화
 function initCategory(){
     category = callCategory()
@@ -80,30 +86,30 @@ function setCategory(a, b){
 // 차후 이 함수로 카테고리 값 가져오기
 function callCategory(){
     return {
-        0 : ["ㄱ", "ㄴ", "ㄷ"],
+        0 : ["할머니닷컴", "엄마손쇼핑", "부전시장"],
         1 : {
-            0 : ["가", "갸", "거", "겨"],
-            1 : ["나", "냐", "너"],
-            2 : ["다", "댜", "더", "뎌", "도"]
+            0 : ["원할머니", "욕쟁이할머니", "할매식당", "역전할머니"],
+            1 : ["엄마밥상", "어머니손길", "맘스터치"],
+            2 : ["김씨방앗간", "엔젤제과점", "힘찬정육점", "부산 약재", "옛날 책방"]
         },
         2 : {
             0 : {
-                0 : ["각", "간", "갇", "갈", "감"],
-                1 : ["갹", "갼", "갿", "걀"],
-                2 : ["걱", "건", "걷", "걸", "검", "겁"],
-                3 : ["격", "견", "겯", "결", "겸"]
+                0 : ["원할머니 보쌈", "원할머니 족발", "원할머니 도시락", "원할머니 김치", "원할머니 삼겹살"],
+                1 : ["욕쟁이할머니 라면", "욕쟁이할머니 정식", "욕쟁이할머니 백반", "욕쟁이할머니 국밥"],
+                2 : ["할매식당 돈가스", "할매식당 생선백반", "할매식당 깍두기", "할매식당 갈치조림", "할매식당 냉면", "할매식당 옛날통닭"],
+                3 : ["역전할머니 맥주", "역전할머니 소주", "역전할머니 막걸리", "역전할머니 안주", "역전할머니 과일"]
             },
             1 : {
-                0 : ["낙", "난", "낟", "날"],
-                1 : ["냑", "냔"],
-                2 : ["넉", "넌", "넏", "널", "넘"]
+                0 : ["엄마밥상 찌개정식", "엄마밥상 두루치기", "엄마밥상 불고기", "엄마밥상 참치마요"],
+                1 : ["어머니손길 파스타", "어머니손길 리조또"],
+                2 : ["맘스터치 싸이버거", "맘스터치 갈릭버거", "맘스터치 매운치킨", "맘스터치 오리지날", "맘스터치 갈릭치킨"]
             },
             2 : {
-                0 : ["다1"],
-                1 : ["다2"],
-                2 : ["다3"],
-                3 : ["다4"],
-                4 : ["다5"]
+                0 : ["인절미", "절편", "꿀떡", "가래떡", "무지개떡", "백설기", "비지떡", "떡볶이", "찹쌀떡"],
+                1 : ["소보루빵", "모닝빵", "바게트", "우유식빵", "상투과자"],
+                2 : ["삼겹살", "뒷다리살", "돼지갈비", "안창살", "업진살"],
+                3 : ["홍삼", "인삼", "감초"],
+                4 : ["새 책", "헌 책"]
             }
         } 
     }
@@ -115,7 +121,7 @@ function callCategory(){
 // 로컬 스토리지 불러오기
 function callLS(stgName){
     var localValue = localStorage.getItem(stgName);
-    if (localValue == ''){ return []; }
+    if (localValue == '' || localValue == null){ return []; }
     else { return localValue.split(','); }
 }
 
@@ -197,11 +203,11 @@ function resetBasket(){
         $(dir).css("display", "block");
         $(dir + ' img').attr('src', obj[i].img);
         $(dir + ' .basket_card_name').html(obj[i].name);
-        $(dir + ' .basket_card_price').html(addComma(obj[i].low));
+        $(dir + ' .basket_card_price').html(`₩ ${addComma(obj[i].low)}`);
         $(dir + ' .basket_card_box').attr("href", "/detail?value=" + encodeURI(obj[i].name, "utf-8"));
 
         if (cnt.name.includes(obj[i].name)){
-            cnt.sum[obj[i].name.indexOf(obj[i].name)][0] += 1;
+            cnt.sum[cnt.name.indexOf(obj[i].name)][0] += 1;
         }
         else {
             cnt.name.push(obj[i].name);
@@ -222,6 +228,7 @@ function resetBasket(){
     }
     $("#receipt_total_count").text(`총 ${sum[1]}개`);
     $("#receipt_total_sum").text(`₩ ${addComma(sum[0])}`);
+    console.log(cnt);
 }
 
 // 장바구니 추가
@@ -365,6 +372,7 @@ function callCard(value){
             low : 2100,
             idx : 123,
             img : "/images/cards/123.png",
+            pop : true,
             stock : false
         };
         return res
@@ -378,11 +386,17 @@ function callCard(value){
                 '부전시장' : 2700,
                 '이마트' : 2900
             },
+            info : {
+                "맵기" : "1단계",
+                "짠 정도" : "2단계",
+                "양" : "400g",
+                "유통기한" : "1달"
+            },
             low : 2700,
             idx : 456,
             img : "/images/cards/456.png",
             pop : true,
-            stock : true
+            stock : false
         };
         return res
     }
@@ -395,11 +409,17 @@ function callCard(value){
                 '부전시장' : 2100,
                 '이마트' : 2000
             },
+            info : {
+                "맵기" : "1단계",
+                "짠 정도" : "4단계",
+                "양" : "400g",
+                "유통기한" : "3년"
+            },
             low : 800,
             idx : 789,
             img : "/images/cards/789.png",
             pop : true,
-            stock : true
+            stock : false
         };
         return res
     }
@@ -412,11 +432,17 @@ function callCard(value){
                 '부전시장' : 6500,
                 '이마트' : 6600
             },
+            info : {
+                "맵기" : "3단계",
+                "짠 정도" : "2단계",
+                "양" : "3kg",
+                "유통기한" : "2년"
+            },
             low : 6000,
             idx : 1,
             img : "/images/cards/1.png",
             pop : true,
-            stock : true
+            stock : false
         };
         return res
     }
@@ -429,10 +455,16 @@ function callCard(value){
                 '부전시장' : 21000,
                 '이마트' : 21400
             },
+            info : {
+                "맵기" : "3단계",
+                "짠 정도" : "4단계",
+                "양" : "200g",
+                "유통기한" : "1년"
+            },
             low : 21000,
             idx : 2,
             img : "/images/cards/2.png",
-            pop : true,
+            pop : false,
             stock : true
         };
         return res
@@ -445,6 +477,12 @@ function callCard(value){
                 '엄마손쇼핑' : 47000,
                 '부전시장' : 37000,
                 '이마트' : 34000
+            },
+            info : {
+                "맵기" : "2단계",
+                "짠 정도" : "3단계",
+                "양" : "1kg",
+                "유통기한" : "1년"
             },
             low : 33000,
             idx : 3,
@@ -463,6 +501,12 @@ function callCard(value){
                 '부전시장' : 5500,
                 '이마트' : 5400
             },
+            info : {
+                "맵기" : "5단계",
+                "짠 정도" : "7단계",
+                "양" : "500g",
+                "유통기한" : "6개월"
+            },
             low : 5300,
             idx : 4,
             img : "/images/cards/4.png",
@@ -480,10 +524,16 @@ function callCard(value){
                 '부전시장' : 3500,
                 '이마트' : 3800
             },
+            info : {
+                "맵기" : "3단계",
+                "짠 정도" : "3단계",
+                "양" : "300g",
+                "유통기한" : "2주"
+            },
             low : 2800,
             idx : 5,
             img : "/images/cards/5.png",
-            pop : true,
+            pop : false,
             stock : true
         };
         return res
@@ -496,6 +546,12 @@ function callCard(value){
                 '엄마손쇼핑' : 30000,
                 '부전시장' : 29000,
                 '이마트' : 29400
+            },
+            info : {
+                "맵기" : "10단계",
+                "짠 정도" : "5단계",
+                "양" : "1kg",
+                "유통기한" : "2년"
             },
             low : 28000,
             idx : 6,

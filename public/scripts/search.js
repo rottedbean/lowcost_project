@@ -8,6 +8,8 @@ var list = []; // 검색 결과 값을 모두 저장
 window.onload = function(){
     // 카테고리 초기화
     initCategory();
+    // 초기화 버튼 만들기
+    resetButton();
     // 로컬 스토리지 통해 최근 검색 목록 불러오기
     recentSearch();
     // 파라미터값 가져오기
@@ -19,7 +21,7 @@ window.onload = function(){
     searchPageReset();
     // 장바구니 리셋
     resetBasket();
-}
+};
 
 // 검색 페이지 초기화
 function searchPageReset(){
@@ -45,11 +47,17 @@ function searchPageReset(){
                 var obj = list[page];
                 var dir = '.search_list_box:eq(' + i + ')';
                 $(dir).css("display", "flex");
-                $(dir).attr('href', '/detail?value=' + obj.cardname);
+                $(dir).attr('href', '/detail?value=' + obj.name);
                 $(dir + ' img').attr("src", obj.img);
-                $(dir + ' .search_list_name').text(obj.cardname);
+                $(dir + ' .search_list_name').text(obj.name);
                 $(dir + ' .search_list_price').text(addComma(obj.low));
-                $(dir + ' .search_list_count').text(obj.stat);
+                var info = '';
+                for (var key in obj.info){
+                    info += key + ":" + obj.info[key] + ", ";
+                }
+                info = info.slice(0, -2);
+                $(dir + ' .search_list_count').text(info);
+                
                 $('.search_list_line:eq(' + (i + 1) + ')').css("display", "block");
             }
         }
@@ -94,7 +102,7 @@ function pageChange(i){
     searchPageReset();
     $('html, body').stop().animate({scrollTop: 0}, 300);
     $("#search_option").css('top', '0px');
-}
+};
 
 // 페이지 화살표
 function pageLayerChange(dir){
@@ -111,7 +119,7 @@ function pageLayerChange(dir){
     searchPageReset()
     $('html, body').stop().animate({scrollTop: 0}, 300);
     $("#search_option").css('top', '0px');
-}
+};
 
 
 // 인덱스 반환용 임시 검색
@@ -149,12 +157,21 @@ function tempSearch(){
                 "배추김치", "파김치", "총각김치", "김치라면", "김치김밥", "핵김치",
                 "배추김치", "파김치", "총각김치", "김치라면", "김치김밥", "핵김치",
                 "배추김치", "파김치", "총각김치", "김치라면", "김치김밥", "핵김치",
+                "배추김치", "파김치", "총각김치", "김치라면", "김치김밥", "핵김치",
+                "배추김치", "파김치", "총각김치", "김치라면", "김치김밥", "핵김치",
+                "배추김치", "파김치", "총각김치", "김치라면", "김치김밥", "핵김치",
+                "배추김치", "파김치", "총각김치", "김치라면", "김치김밥", "핵김치",
+                "배추김치", "파김치", "총각김치", "김치라면", "김치김밥", "핵김치",
+                "배추김치", "파김치", "총각김치", "김치라면", "김치김밥", "핵김치",
+                "배추김치", "파김치", "총각김치", "김치라면", "김치김밥", "핵김치",
+                "배추김치", "파김치", "총각김치", "김치라면", "김치김밥", "핵김치",
+                "배추김치", "파김치", "총각김치", "김치라면", "김치김밥", "핵김치",
                 "배추김치", "파김치", "총각김치", "김치라면", "김치김밥", "핵김치"];
     }
     else{
         return [];
     }
-}
+};
 
 // 옵션 따라다니기
 $(document).ready(function(){
@@ -168,4 +185,15 @@ $(document).ready(function(){
             $("#search_option").stop().animate({"top":0+"px"},1000); 
         }
     }); 
+});
+
+//옵션값 변경
+$(function(){
+    $('select').on("change", function(){
+        searchOption = $('#option_count option:selected').val();
+        pageStatus = [0, 1]
+        searchPageReset();
+        $('html, body').stop().animate({scrollTop: 0}, 300);
+        $("#search_option").css('top', '0px');
+    });
 });

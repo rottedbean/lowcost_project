@@ -5,6 +5,8 @@ var cardList = [];
 window.onload = function(){
     // 카테고리 초기화
     initCategory();
+    // 초기화 버튼 만들기
+    resetButton();
     // 로컬 스토리지 통해 최근 검색 목록 불러오기
     recentSearch();
     // 파라미터값 가져오기

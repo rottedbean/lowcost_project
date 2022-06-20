@@ -4,6 +4,8 @@
 window.onload = function(){
     // 카테고리 초기화
     initCategory();
+    // 초기화 버튼 만들기
+    resetButton();
     // 최근 방문 목록
     recentCards();
     // 로컬 스토리지 통해 최근 검색 목록 불러오기
@@ -13,6 +15,7 @@ window.onload = function(){
     // 장바구니 리셋
     resetBasket();
 }
+
 
 // 최근 방문 카드 불러오기
 function recentCards(){
