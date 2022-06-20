@@ -1,4 +1,4 @@
-var mysql = require("mysql");
+import * as mysql from "mysql";
 var connection = mysql.createConnection({
   host: "localhost",
   user: "root",
@@ -6,4 +6,5 @@ var connection = mysql.createConnection({
   database: "card_data",
 });
 connection.connect();
-module.exports = connection;
+
+export { connection };

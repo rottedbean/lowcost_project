@@ -1,4 +1,10 @@
-DBtoFront = require("../../lib/db/DBtoFront");
+import {
+  getDataFromDB,
+  getEachcardFromDB,
+  searchProcess,
+  getPopcardname,
+  getRestockcard,
+} from "./DBtoFront.js";
 // 나중에 할 일 '차후' 라고 검색
 var is_basket = false;
 
@@ -333,7 +339,7 @@ function callCardsIndex() {
     result.push(popcardlist);
   }
 
-  restocklist = DBtoFront.getRestockcard();
+  restocklist = getRestockcard();
   result.push(restocklist);
 
   return result;
@@ -341,18 +347,18 @@ function callCardsIndex() {
 
 // 검색 페이지
 function callCardsSearch(keyword) {
-  var result = DBtoFront.searchProcess(keyword);
+  var result = searchProcess(keyword);
   return result;
 }
 
 // 상세 페이지
 function callCardsDetail(cardname) {
-  const res = DBtoFront.getEachcardFromDB(cardname);
+  const res = getEachcardFromDB(cardname);
   return res;
 }
 
 // 임시 더미들
 function callCard(cardname) {
-  const res = DBtoFront.getDataFromDB(cardname);
+  const res = getDataFromDB(cardname);
   return res;
 }

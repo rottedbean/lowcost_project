@@ -1,9 +1,9 @@
 //img 관련 함수 제작후 일괄변경 필요
-const cheerio = require("cheerio");
-const fs = require("fs");
-const db = require("./dbconnection");
-const { default: axios } = require("axios");
-const dbmodule = require("./dbprocess");
+import * as cheerio from "cheerio";
+import * as fs from "fs";
+import * as db from "./dbconnection.js";
+import * as axios from "axios";
+import * as dbmodule from "./dbprocess.js";
 
 async function getYUDBlastpage() {
   html = await axios.get(
@@ -174,5 +174,4 @@ async function indexaddtolist(card) {
     }
   }
 }
-exports.indextableinitiate = indextableinitiate;
-exports.indexaddtolist = indexaddtolist;
+export { indexaddtolist, indextableinitiate };

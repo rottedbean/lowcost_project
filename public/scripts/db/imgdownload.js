@@ -1,5 +1,5 @@
-const fs = require("fs");
-const request = require("request");
+import * as fs from "fs";
+import * as request from "request";
 
 var imgdownload = function (url) {
   filename = Math.random().toString(36).substring(11, 2);
@@ -11,4 +11,4 @@ var imgdownload = function (url) {
   return filename;
 };
 
-exports.imgdownload = imgdownload;
+export { imgdownload };

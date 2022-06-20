@@ -1,7 +1,7 @@
-const db = require("./dbconnection");
-const fs = require("fs");
-const idxmodule = require("./processidxtable");
-const imgdown = require("./imgdownload");
+import * as db from "./dbconnection.js";
+import * as fs from "fs";
+import * as idxmodule from "./processidxtable.js";
+import * as imgdown from "./imgdownload.js";
 
 const getDBResult = (queryStr) => {
   return new Promise((resolve, reject) => {
@@ -180,5 +180,4 @@ async function dbProcess(datalist) {
   return 0;
 }
 
-exports.getDBResult = getDBResult;
-exports.dbProcess = dbProcess;
+export { getDBResult, dbProcess, getidxlistbyname };

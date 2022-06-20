@@ -2,7 +2,7 @@ dbmodule = require("../db/dbprocess");
 idxdbmodule = require("../db/processidxtable");
 crawlmodule = require("./Crawling");
 urlmodule = require("./urlDeliver");
-frontmodule = require("../db/DBtoFront");
+frontmodule = require("../DBtoFront");
 const fs = require("fs");
 const puppeteer = require("puppeteer");
 const request_client = require("request-promise-native");
@@ -23,20 +23,17 @@ async function testFunc() {
   //crawlmodule.crawlpacknamelist();
   //frontmodule.searchProcess("인페");
   //idxdbmodule.indextableinitiate();
-  var testurl =
-    "https://www.db.yugioh-card.com/yugiohdb/card_search.action?ope=2&cid=17362&request_locale=ko";
-  const browser = await puppeteer.launch();
+  var testurl = "https://www.naver.com/";
+  const browser = await puppeteer.launch({ headless: false });
   const [page] = await browser.pages();
 
   page.on("response", async (response) => {
-    if (
-      response.url() ==
-      "https://www.db.yugioh-card.com/yugiohdb/get_image.action?type=1&cid=17362&ciid=1&enc=hvqVJXOpeV7ghL2Kw9Wy1g"
-    ) {
-      const decoder = new TextDecoder("utf-8");
+    console.log(response.url());
+    if (response.url() == "https://www.naver.com/") {
+      const decoder = new TextDecoder("iso-8859-1");
       buf = await response.buffer();
       const text = decoder.decode(buf);
-      console.log(text);
+      console.log(await response.text());
 
       response.buffer().then((data) => {
         //console.log(data.toString());
@@ -45,7 +42,8 @@ async function testFunc() {
     }
   });
 
-  await page.goto(testurl, { waitUntil: "networkidle0" });
+  await page.goto(testurl, { waitUntil: "networkidle2" });
+  await page.waitForResponse((response) => response.status() === 200);
 
   await browser.close();
 }

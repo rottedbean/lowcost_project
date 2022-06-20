@@ -1,5 +1,4 @@
-const db = require("./dbconnection");
-const dbmodule = require("./dbprocess");
+import { getidxlistbyname, getDBResult } from "./db/dbprocess.js";
 
 async function countstock(result) {
   idx_array = result.idx_list;
@@ -8,7 +7,7 @@ async function countstock(result) {
 
   for (const idx in list) {
     var is_stock = false;
-    var result = await dbmodule.getDBResult(
+    var result = await getDBResult(
       `SELECT is_soldout FROM card_data WHERE idx = '${idx}'`
     );
     if (result[0].is_soldout === true) {
@@ -18,7 +17,7 @@ async function countstock(result) {
   return is_stock;
 }
 async function getDataFromDB(cardname) {
-  var result = await dbmodule.getDBResult(
+  var result = await getDBResult(
     `SELECT * FROM idxtable WHERE name = '${cardname}'`
   );
 
@@ -36,9 +35,9 @@ async function getDataFromDB(cardname) {
 
 async function getEachcardFromDB(cardname) {
   var resultarray = [];
-  var idxlist = dbmodule.getidxlistbyname(cardname);
+  var idxlist = getidxlistbyname(cardname);
   for (let idx of idxlist) {
-    var result = await dbmodule.getDBResult(
+    var result = await getDBResult(
       `SELECT * FROM card_data WHERE idx = '${idx}'`
     );
     res = {
@@ -60,7 +59,7 @@ async function getsearchresult(keyword) {
   var return_value;
 
   let queryStr = `SELECT * FROM idxtable WHERE name LIKE '%${keyword}%'`;
-  var result = await dbmodule.getDBResult(queryStr);
+  var result = await getDBResult(queryStr);
   if (!result.length) {
     return_value = "none";
   } else {
@@ -100,7 +99,7 @@ async function searchProcess(str) {
 async function getPopcardname() {
   var namearray = [];
   let queryStr = `SELECT * FROM pop ORDER BY count LIMIT 6`;
-  var result = await dbmodule.getDBResult(queryStr);
+  var result = await getDBResult(queryStr);
   for (let i = 0; i < result.length; i++) {
     namearray.push(result[i].name);
   }
@@ -111,10 +110,10 @@ async function getRestockcard() {
   var resultarray = [];
 
   let queryStr = `SELECT * FROM restock_list ORDER BY restocked_date LIMIT 6`;
-  var result1 = await dbmodule.getDBResult(queryStr);
+  var result1 = await getDBResult(queryStr);
 
   for (let i = 0; i < result1.length; i++) {
-    var result = await dbmodule.getDBResult(
+    var result = await getDBResult(
       `SELECT * FROM card_data WHERE idx = '${result1[i].idx}'`
     );
     res = {
@@ -132,8 +131,10 @@ async function getRestockcard() {
   return resultarray;
 }
 
-exports.getDataFromDB = getDataFromDB;
-exports.getEachcardFromDB = getEachcardFromDB;
-exports.searchProcess = searchProcess;
-exports.getPopcardname = getPopcardname;
-exports.getRestockcard = getRestockcard;
+export {
+  getDataFromDB,
+  getEachcardFromDB,
+  searchProcess,
+  getPopcardname,
+  getRestockcard,
+};
