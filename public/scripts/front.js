@@ -362,3 +362,17 @@ function callCard(cardname) {
   const res = getDataFromDB(cardname);
   return res;
 }
+
+export {
+  initCategory,
+  recentSearch,
+  resetBasket,
+  callCardsDetail,
+  getPara,
+  addLS,
+  callLS,
+  callCardsRecent,
+  callCardsIndex,
+  addComma,
+  callCardsSearch,
+};

@@ -1,11 +1,10 @@
-dbmodule = require("../db/dbprocess");
-idxdbmodule = require("../db/processidxtable");
-crawlmodule = require("./Crawling");
-urlmodule = require("./urlDeliver");
-frontmodule = require("../DBtoFront");
-const fs = require("fs");
-const puppeteer = require("puppeteer");
-const request_client = require("request-promise-native");
+import * as dbmodule from "../db/dbprocess.js";
+import * as idxdbmodule from "../db/processidxtable.js";
+import * as crawlmodule from "../crawl/Crawling.js";
+import * as urlmodule from "../crawl/urlDeliver.js";
+import * as frontmodule from "../DBtoFront.js";
+import * as fs from "fs";
+import * as puppeteer from "puppeteer";
 
 async function testFunc() {
   /* if (fs.existsSync("errorcase.txt")) {
@@ -23,17 +22,21 @@ async function testFunc() {
   //crawlmodule.crawlpacknamelist();
   //frontmodule.searchProcess("인페");
   //idxdbmodule.indextableinitiate();
-  var testurl = "https://www.naver.com/";
+  var testurl =
+    "https://www.db.yugioh-card.com/yugiohdb/card_search.action?ope=2&cid=17362&request_locale=ko";
   const browser = await puppeteer.launch({ headless: false });
   const [page] = await browser.pages();
 
   page.on("response", async (response) => {
     console.log(response.url());
-    if (response.url() == "https://www.naver.com/") {
+    if (
+      response.url() ==
+      "	https://www.db.yugioh-card.com/yugiohdb/get_image.action?type=2&cid=17362&ciid=1&enc=hvqVJXOpeV7ghL2Kw9Wy1g"
+    ) {
       const decoder = new TextDecoder("iso-8859-1");
-      buf = await response.buffer();
+      let buf = await response.buffer();
       const text = decoder.decode(buf);
-      console.log(await response.text());
+      console.log(await response.json());
 
       response.buffer().then((data) => {
         //console.log(data.toString());
