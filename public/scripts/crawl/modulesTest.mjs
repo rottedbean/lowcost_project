@@ -1,8 +1,8 @@
-import * as dbmodule from "../db/dbprocess.js";
-import * as idxdbmodule from "../db/processidxtable.js";
-import * as crawlmodule from "../crawl/Crawling.js";
-import * as urlmodule from "../crawl/urlDeliver.js";
-import * as frontmodule from "../DBtoFront.js";
+import * as dbmodule from "../db/dbprocess.mjs";
+import * as idxdbmodule from "../db/processidxtable.mjs";
+import * as crawlmodule from "./Crawling.mjs";
+import * as urlmodule from "./urlDeliver.mjs";
+import * as frontmodule from "../DBtoFront.mjs";
 import * as fs from "fs";
 import * as puppeteer from "puppeteer";
 

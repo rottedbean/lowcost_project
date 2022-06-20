@@ -1,6 +1,6 @@
 //카드디씨의 경우 간혹 접속오류가 생기는 중
 import * as cheerio from "cheerio";
-import { GetHtml } from "../crawl/Crawling.js";
+import { GetHtml } from "./Crawling.mjs";
 
 async function urlDeliver() {
   var list = [];

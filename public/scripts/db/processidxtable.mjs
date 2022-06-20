@@ -1,9 +1,9 @@
 //img 관련 함수 제작후 일괄변경 필요
 import * as cheerio from "cheerio";
 import * as fs from "fs";
-import * as db from "./dbconnection.js";
+import * as db from "./dbconnection.mjs";
 import axios from "axios";
-import * as dbmodule from "./dbprocess.js";
+import * as dbmodule from "./dbprocess.mjs";
 
 async function getYUDBlastpage() {
   html = await axios.get(

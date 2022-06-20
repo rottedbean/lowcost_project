@@ -1,4 +1,4 @@
-import { getidxlistbyname, getDBResult } from "./db/dbprocess.js";
+import { getidxlistbyname, getDBResult } from "./db/dbprocess.mjs";
 
 async function countstock(result) {
   idx_array = result.idx_list;

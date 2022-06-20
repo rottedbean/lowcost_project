@@ -1,7 +1,7 @@
-import * as db from "./dbconnection.js";
+import * as db from "./dbconnection.mjs";
 import * as fs from "fs";
-import * as idxmodule from "./processidxtable.js";
-import * as imgdown from "./imgdownload.js";
+import * as idxmodule from "./processidxtable.mjs";
+import * as imgdown from "./imgdownload.mjs";
 
 const getDBResult = (queryStr) => {
   return new Promise((resolve, reject) => {
