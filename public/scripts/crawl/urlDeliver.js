@@ -1,6 +1,6 @@
 //카드디씨의 경우 간혹 접속오류가 생기는 중
-const cheerio = require("cheerio");
-const crawlmodule = require("./Crawling");
+import * as cheerio from "cheerio";
+import { GetHtml } from "../crawl/Crawling.js";
 
 async function urlDeliver() {
   var list = [];
@@ -20,9 +20,9 @@ async function urlDeliver() {
 }
 async function getUrlList_tcgshop() {
   const urlList = [];
-  html = await crawlmodule.GetHtml("http://www.tcgshop.co.kr/");
+  var html = await GetHtml("http://www.tcgshop.co.kr/");
   const $ = cheerio.load(html.data);
-  $bodylist = $("td#nom_s table tbody tr").children("td.nom_s");
+  var $bodylist = $("td#nom_s table tbody tr").children("td.nom_s");
   $bodylist.each(function (i, element) {
     if (
       !$(element)
@@ -31,7 +31,7 @@ async function getUrlList_tcgshop() {
     ) {
       //러시혹은 jp,en의 경우
     } else {
-      not_replaced = $(element)
+      var not_replaced = $(element)
         .attr("onclick")
         .match(
           /'(http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?'/gi
@@ -94,13 +94,13 @@ async function getUrlList_cardkingdom() {
   return urlList;
 }
 async function countNshoplastpage(url) {
-  html = await crawlmodule.GetHtml(url);
+  html = await GetHtml(url);
   const pagenummatch = html.request.path.match(/page=[0-9]*/gi);
   lastpagenum = pagenummatch[0].replace(/[^0-9]/g, "");
   return lastpagenum;
 }
 async function countCarddclastpage(url) {
-  html = await crawlmodule.GetHtml(url);
+  html = await GetHtml(url);
   $ = cheerio.load(html.data);
   $bodylist = $("div#page_no ul li a");
   pagenummatch = $bodylist.attr("href").match(/page=[0-9]*/gi);
@@ -126,5 +126,7 @@ async function processEachURLcase(url) {
   }
   return urlList;
 }
-exports.urlDeliver = urlDeliver;
+
 getUrlList_tcgshop();
+
+export { urlDeliver };

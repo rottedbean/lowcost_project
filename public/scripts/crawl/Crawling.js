@@ -1,9 +1,9 @@
 //각카드가 아니라 카드 종류하나당 하나의 이미지만 있어야 하지 않을까...
-const axios = require("axios");
-const axiosRetry = require("axios-retry");
-const cheerio = require("cheerio");
-const iconv = require("iconv-lite");
-const fs = require("fs");
+import axios from "axios";
+import axiosRetry from "axios-retry";
+import * as cheerio from "cheerio";
+import * as iconv from "iconv-lite";
+import * as fs from "fs";
 
 axiosRetry(axios, {
   retries: 3, // number of retries
@@ -315,6 +315,4 @@ async function Case_tcgmart($) {
   return await list;
 }
 
-exports.GetHtml = GetHtml;
-exports.CrawlingHtml = CrawlingHtml;
-exports.crawlpacknamelist = crawlpacknamelist;
+export { GetHtml, CrawlingHtml, crawlpacknamelist };

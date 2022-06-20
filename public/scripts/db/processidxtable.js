@@ -2,7 +2,7 @@
 import * as cheerio from "cheerio";
 import * as fs from "fs";
 import * as db from "./dbconnection.js";
-import * as axios from "axios";
+import axios from "axios";
 import * as dbmodule from "./dbprocess.js";
 
 async function getYUDBlastpage() {

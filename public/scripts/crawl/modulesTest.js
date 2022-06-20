@@ -1,11 +1,10 @@
-dbmodule = require("../db/dbprocess");
-idxdbmodule = require("../db/processidxtable");
-crawlmodule = require("./Crawling");
-urlmodule = require("./urlDeliver");
-frontmodule = require("../DBtoFront");
-const fs = require("fs");
-const puppeteer = require("puppeteer");
-const request_client = require("request-promise-native");
+import { dbProcess } from "../db/dbprocess.js";
+import { indextableinitiate } from "../db/processidxtable.js";
+import { CrawlingHtml, crawlpacknamelist } from "../crawl/Crawling.js";
+import { urlDeliver } from "../crawl/urlDeliver.js";
+import { searchProcess } from "../DBtoFront.js";
+import * as fs from "fs";
+import * as puppeteer from "puppeteer";
 
 async function testFunc() {
   /* if (fs.existsSync("errorcase.txt")) {
@@ -15,23 +14,27 @@ async function testFunc() {
     fs.unlinkSync("dblog.txt");
   }
 
-  urlList = await urlmodule.urlDeliver();
+  urlList = urlDeliver();
   for (url of urlList) {
-    data = await crawlmodule.CrawlingHtml(url);
-    dbmodule.dbProcess(data);
+    data = await CrawlingHtml(url);
+    .dbProcess(data);
   } */
-  //crawlmodule.crawlpacknamelist();
-  //frontmodule.searchProcess("인페");
-  //idxdbmodule.indextableinitiate();
-  var testurl = "https://www.naver.com/";
+  //crawlpacknamelist();
+  //searchProcess("인페");
+  //indextableinitiate();
+  var testurl =
+    "https://www.db.yugioh-card.com/yugiohdb/card_search.action?ope=2&cid=17362&request_locale=ko";
   const browser = await puppeteer.launch({ headless: false });
   const [page] = await browser.pages();
 
   page.on("response", async (response) => {
     console.log(response.url());
-    if (response.url() == "https://www.naver.com/") {
+    if (
+      response.url() ==
+      "	https://www.db.yugioh-card.com/yugiohdb/get_image.action?type=2&cid=17362&ciid=1&enc=hvqVJXOpeV7ghL2Kw9Wy1g"
+    ) {
       const decoder = new TextDecoder("iso-8859-1");
-      buf = await response.buffer();
+      let buf = await response.buffer();
       const text = decoder.decode(buf);
       console.log(await response.text());
 
