@@ -1,3 +1,4 @@
 node_modules/
 node_modules
 *.txt
+/public/card_images
