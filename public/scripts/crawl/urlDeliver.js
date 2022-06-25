@@ -1,22 +1,22 @@
-//카드디씨의 경우 간혹 접속오류가 생기는 중
-import * as cheerio from "cheerio";
-import { GetHtml } from "../crawl/Crawling.js";
+//카드디씨의 경우 일정 요청이상 보내면 ip밴을 때려버리는 모양
+const cheerio = require("cheerio");
+const crawlmodule = require("./Crawling");
 
 async function urlDeliver() {
   var list = [];
   tcgshoplist = await getUrlList_tcgshop();
-  carddclist = getUrlList_carddc();
+  //carddclist = getUrlList_carddc();
   cardkingdomlist = await getUrlList_cardkingdom();
   tcgmartlist = await getUrlList_tcgmart();
   let urlList = list.concat(
     tcgshoplist,
     cardkingdomlist,
-    tcgmartlist,
-    carddclist
+    tcgmartlist
+    //carddclist
   );
   /*cardkingdomlist, tcgmartlist, carddclist, tcgshoplist*/
 
-  return urlList;
+  return urlList.filter(Boolean);
 }
 async function getUrlList_tcgshop() {
   const urlList = [];

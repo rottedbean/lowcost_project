@@ -1,9 +1,10 @@
 //img 관련 함수 제작후 일괄변경 필요
-import * as cheerio from "cheerio";
-import * as fs from "fs";
-import * as db from "./dbconnection.js";
-import axios from "axios";
-import * as dbmodule from "./dbprocess.js";
+const cheerio = require("cheerio");
+const fs = require("fs");
+const db = require("./dbconnection");
+const { default: axios } = require("axios");
+const dbmodule = require("./dbprocess");
+const sanitize = require("sanitize-html");
 
 async function getYUDBlastpage() {
   html = await axios.get(
@@ -133,45 +134,60 @@ async function insertspecificidxlist(card) {
   );
 }
 
-async function indexaddtolist(card) {
-  queryStr1 = `SELECT * FROM idxtable WHERE code_list LIKE '%${card.pack_code}%'`;
-  var result1 = await dbmodule.getDBResult(queryStr1);
-  if (result1.length === 0) {
-    await insertspecificidxlist(card);
-    await indexaddtolist(card);
+async function addProcess(result, card) {
+  let dbData = result[0];
+  let queryStr = `SELECT * FROM card_data WHERE name = '${card.name}' AND pack_code = '${card.pack_code}' AND rare = '${card.rare}' AND shop = '${card.shop}'`;
+  let insertedData = await dbmodule.getDBResult(queryStr);
+  if (!dbData.idx_list) {
+    //.idx_list undefined 반환중 해결필요
+    //is null
+    newidxlist = insertedData[0].idx + ",";
+    db.query(
+      `UPDATE idxtable SET idx_list=? WHERE code_list LIKE '%${card.pack_code}%'`,
+      [newidxlist]
+    );
+    fs.appendFile(
+      "indexdblog.txt",
+      `${card.name}, null -> ${newidxlist}\n`,
+      "utf8",
+      function (err) {}
+    );
   } else {
-    let dbData = result1[0];
-    let queryStr = `SELECT * FROM card_data WHERE name = '${card.name}' AND pack_code = '${card.pack_code}' AND rare = '${card.rare}' AND shop = '${card.shop}'`;
-    let insertedData = await dbmodule.getDBResult(queryStr);
-    if (!dbData.idx_list) {
-      //is null
-      newidxlist = insertedData[0].idx + ",";
+    if (!dbData.idx_list.includes(insertedData[0].idx)) {
+      newidxlist = dbData.idx_list + insertedData[0].idx + ",";
       db.query(
         `UPDATE idxtable SET idx_list=? WHERE code_list LIKE '%${card.pack_code}%'`,
         [newidxlist]
       );
+      console.log("인덱스테이블 항목업데이트");
       fs.appendFile(
         "indexdblog.txt",
-        `${card.name}, null -> ${newidxlist}\n`,
+        `${card.name}, ${dbData.idx_list} => ${newidxlist}\n`,
         "utf8",
         function (err) {}
       );
-    } else {
-      if (!dbData.idx_list.includes(insertedData[0].idx)) {
-        newidxlist = dbData.idx_list + insertedData[0].idx + ",";
-        db.query(
-          `UPDATE idxtable SET idx_list=? WHERE code_list LIKE '%${card.pack_code}%'`,
-          [newidxlist]
-        );
-        console.log("인덱스테이블 항목업데이트");
-        fs.appendFile(
-          "indexdblog.txt",
-          `${card.name}, ${dbData.idx_list} => ${newidxlist}\n`,
-          "utf8",
-          function (err) {}
-        );
-      }
     }
+  }
+}
+async function indexaddtolist(card) {
+  //먼저 그런 이름의 카드가 있는지 먼저 확인
+  repname = card.name.replace(/\([ㄱ-ㅎ가-힣0-9a-z.]*\)/gi, "");
+  queryString = `SELECT * FROM idxtable where name = '${repname}'`;
+  var samenameexist = await dbmodule.getDBResult(queryString);
+  console.log(samenameexist);
+
+  if (!samenameexist) {
+    queryStr1 = `SELECT * FROM idxtable WHERE code_list LIKE '%${card.pack_code}%'`;
+    var result1 = await dbmodule.getDBResult(queryStr1);
+    if (result1.length === 0) {
+      await insertspecificidxlist(card);
+      await indexaddtolist(card);
+    } else {
+      await addProcess(result1, card);
+    }
+  } else {
+    console.log(samenameexist.idx_list);
+    await addProcess(samenameexist, card);
   }
 }
 export { indexaddtolist, indextableinitiate };

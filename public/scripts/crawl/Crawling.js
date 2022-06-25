@@ -26,7 +26,7 @@ async function GetHtml(url) {
     });
     return html;
   } catch (error) {
-    console.error("GetHtml errored");
+    console.error(`GetHtml errored ${url}`);
   }
 }
 
